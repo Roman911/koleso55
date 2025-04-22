@@ -31,7 +31,6 @@ interface ILinkComponent extends LinkProps {
 	iconStyles?: string
 	iconStylesActive?: string
 	vehicleType: string[]
-	onClick?: () => void
 }
 
 const LinkComponent: FC<ILinkComponent> = (
@@ -40,7 +39,6 @@ const LinkComponent: FC<ILinkComponent> = (
 		href,
 		icon,
 		label,
-		onClick,
 		iconStyles,
 		iconStylesActive,
 		vehicleType
@@ -52,33 +50,35 @@ const LinkComponent: FC<ILinkComponent> = (
 	const dispatch = useAppDispatch();
 
 	const handleClick = () => {
-		if(onClick) onClick();
 		dispatch(resetFilter());
 		dispatch(setParams({ 'vehicle_type': null }));
 	}
 
+	console.log(icon)
+
 	return <Link
 		href={ href }
 		onClick={ handleClick }
-		className={ twMerge('flex items-center group',
+		className={ twMerge('flex items-center group/item',
 			section === 'catalog' && 'flex-col', section === 'header' && 'mt-3 gap-2.5'
 		) }
 	>
 		<IconComponent className={
 			twMerge(
-				'transition group-hover:fill-primary fill-gray-500',
+				'transition group-hover/item:fill-gray-900 fill-gray-400',
 				!active && iconStyles,
 				active && iconStylesActive,
-				active && 'fill-primary',
-				active && value === '2' && 'stroke-primary',
+				active && 'fill-gray-900',
+				icon === 'suv' && 'stroke-gray-400',
+				active && value === '2' && 'stroke-gray-900',
 			)
 		}/>
 		<span className={
 			twMerge(
-				'transition group-hover:text-primary text-sm md:text-medium',
-				section === 'catalog' && 'text-sm font-bold text-gray-500',
-				section === 'header' && 'group-hover:underline',
-				active && 'text-primary',
+				'transition',
+				section === 'catalog' && 'text-sm font-bold',
+				section === 'header' && 'group-hover/item:underline',
+				active && '',
 			)
 		}>
 			{ label }

@@ -19,16 +19,16 @@ const Logo: FC = () => {
 				src='/logo_light.svg'
 				className='dark:hidden'
 				alt="logo"
-				width={ 192 }
-				height={ 45 }
+				width={ 200 }
+				height={ 40 }
 				priority
 			/>
 			<Image
 				src='/logo_dark.svg'
 				className='hidden dark:block'
 				alt="logo"
-				width={ 192 }
-				height={ 45 }
+				width={ 200 }
+				height={ 40 }
 				priority
 			/>
 		</Link>

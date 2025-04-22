@@ -16,8 +16,8 @@ const LinkComponent: FC<Props> = ({ href, img, label, mt, border }) => {
 		href={ href }
 		className={ twMerge('flex items-center gap-2.5 group/item', mt,
 			border &&
-			'w-12 lg:w-14 h-10 text-sm lg:text-base justify-center font-medium border border-gray-700 rounded-sm '
-			+ 'transition hover:text-primary hover:border-primary hover:bg-blue-100'
+			'w-12 lg:w-14 h-10 text-sm lg:text-base justify-center font-medium border border-gray-700 rounded-sm bg-white '
+			+ 'transition hover:text-primary hover:border-primary'
 		)}
 	>
 		{ img && <Image
@@ -27,7 +27,7 @@ const LinkComponent: FC<Props> = ({ href, img, label, mt, border }) => {
 			height={ 24 }
 			priority
 		/> }
-		<span className={ twMerge(!border && 'transition group-hover/item:text-primary group-hover/item:underline') }>
+		<span className={ twMerge(!border && 'transition group-hover/item:underline') }>
 			{ label }
 		</span>
 	</Link>

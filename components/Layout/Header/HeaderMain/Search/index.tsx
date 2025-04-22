@@ -44,7 +44,7 @@ const Search = () => {
 	}
 
 	return (
-		<div className={ twMerge('relative w-full mx-auto lg:max-w-[600px]', styles.search) }>
+		<div className={ twMerge('relative w-full mx-auto lg:max-w-[450px]', styles.search) }>
 			<form className='w-full' onSubmit={ onSubmit }>
 				<Input
 					onChange={ onChange }
@@ -52,15 +52,16 @@ const Search = () => {
 						base: 'max-w-full sm:max-w-full h-11',
 						mainWrapper: 'h-full',
 						input: 'text-[15px]',
-						inputWrapper: 'h-full font-normal text-default-500 w-full pl-4 pr-0 border-gray-200 bg-white focus:border-gray-200',
+						inputWrapper: 'h-full font-normal text-default-500 w-full pl-4 pr-0 border-gray-200 dark:border-gray-500 focus:border-gray-200',
 					} }
 					value={ value }
 					placeholder={ t('search') }
 					size="sm"
 					radius='sm'
 					variant='bordered'
-					endContent={ <Button type='submit' isIconOnly aria-label='Search' radius='sm' className='w-16 h-11 -mr-1 bg-gray-900'>
-						<Icons.SearchIcon className='fill-white'/>
+					endContent={ <Button type='submit' isIconOnly aria-label='Search' radius='sm'
+															 className='w-16 h-11 -mr-1 bg-gray-900 dark:bg-gray-50'>
+						<Icons.SearchIcon className='fill-white dark:fill-gray-900'/>
 					</Button> }
 					type='search'
 				/>
@@ -92,12 +93,6 @@ const Search = () => {
 						{ t('all search result') + ' ' }
 						({ data?.data.total_count })
 					</Button> }
-				{/*{ data?.result && <Link className='mx-auto' onClick={ handleClickAllProduct } href='/search'>*/}
-				{/*	<Button  radius='full'>*/}
-				{/*		{ t('all search result') + ' ' }*/}
-				{/*		({ data?.data.total_count })*/}
-				{/*	</Button>*/}
-				{/*</Link> }*/}
 			</div>
 		</div>
 	)

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { SVGProps } from 'react';
 import { useTheme } from 'next-themes';
 import { Switch } from '@heroui/react';

@@ -40,7 +40,7 @@ const CarTireFilter = () => {
 			</div>
 			<Link
 				href='/catalog/tires'
-				className='text-primary font-bold uppercase hover:underline'
+				className='text-gray-400 font-bold uppercase underline hover:text-primary'
 			>
 				{ t('all brands') }
 			</Link>

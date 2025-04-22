@@ -42,7 +42,7 @@ const HeaderMain: FC<Props> = ({ settings }) => {
 			maxWidth='2xl'
 			isMenuOpen={ isMenuOpen }
 			onMenuOpenChange={ setIsMenuOpen }
-			className={ twMerge('bg-white border-b relative', styles['header-center']) }
+			className={ twMerge('bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 relative', styles['header-center']) }
 			classNames={ { wrapper: twMerge('grid h-40 md:h-16 items-center justify-normal py-3 px-4 grid-cols-2 lg:grid-cols-[220px_320px_auto_150px]', styles['container']) } }
 		>
 			<NavbarContent className={ styles.logo }>

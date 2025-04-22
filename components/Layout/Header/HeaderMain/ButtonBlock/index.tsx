@@ -38,9 +38,9 @@ const ButtonBlock = () => {
 					color='primary'
 					content={ comparisonItems.length }
 					isInvisible={ comparisonItems.length === 0 }
-					className='border-white'
+					className='border-white dark:border-gray-800'
 				>
-					<Icons.LibraIcon className='fill-black'/>
+					<Icons.LibraIcon className='fill-gray-900 dark:fill-gray-50'/>
 				</Badge>
 			</Link>
 			<Link href='/bookmarks' className='relative'>
@@ -48,9 +48,9 @@ const ButtonBlock = () => {
 					color='primary'
 					content={ bookmarksItems.length }
 					isInvisible={ bookmarksItems.length === 0 }
-					className='border-white'
+					className='border-white dark:border-gray-800'
 				>
-					<Icons.HeartIcon className='stroke-black'/>
+					<Icons.HeartIcon className='stroke-gray-900 dark:stroke-gray-50'/>
 				</Badge>
 			</Link>
 			<Link href='/cart' className='relative'>
@@ -58,9 +58,9 @@ const ButtonBlock = () => {
 					color='primary'
 					content={ cartItems.length }
 					isInvisible={ cartItems.length === 0 }
-					className='border-white'
+					className='border-white dark:border-gray-800'
 				>
-					<Icons.CartIcon className='stroke-black'/>
+					<Icons.CartIcon className='stroke-gray-900 dark:stroke-gray-50'/>
 				</Badge>
 			</Link>
 		</>

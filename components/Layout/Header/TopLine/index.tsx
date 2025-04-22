@@ -10,9 +10,9 @@ interface Props {
 
 const TopLine: FC<Props> = ({ alias }) => {
 	return (
-		<section className='top-line w-full bg-gray-900 dark:bg-gray-900'>
-			<div className='container mx-auto py-1 md:px-4'>
-				<nav className='gap-2 2xl:gap-6 flex items-center justify-between mx-4'>
+		<section className='top-line w-full bg-gray-900'>
+			<div className='container mx-auto max-w-[1536px] py-1 md:px-4'>
+				<nav className='gap-2 2xl:gap-6 flex items-center justify-between'>
 					<LanguageChanger />
 					<Menu alias={ alias } />
 					<ThemeToggle />
