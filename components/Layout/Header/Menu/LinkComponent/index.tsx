@@ -16,7 +16,7 @@ const LinkComponent: FC<Props> = ({ href, img, label, mt, border }) => {
 		href={ href }
 		className={ twMerge('flex items-center gap-2.5 group/item', mt,
 			border &&
-			'w-12 lg:w-14 h-10 text-sm lg:text-base justify-center font-medium border border-gray-700 rounded-sm bg-white '
+			'w-12 lg:w-14 h-10 text-sm lg:text-base justify-center font-medium border border-gray-700 rounded-sm bg-white dark:bg-gray-800 '
 			+ 'transition hover:text-primary hover:border-primary'
 		)}
 	>

@@ -65,7 +65,7 @@ const LinkComponent: FC<ILinkComponent> = (
 	>
 		<IconComponent className={
 			twMerge(
-				'transition group-hover/item:fill-gray-900 fill-gray-400',
+				'transition group-hover/item:fill-gray-900 dark:group-hover/item:fill-white fill-gray-400',
 				!active && iconStyles,
 				active && iconStylesActive,
 				active && 'fill-gray-900',

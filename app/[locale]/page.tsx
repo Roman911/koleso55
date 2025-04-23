@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Language, LanguageCode } from '@/models/language';
 import LayoutWrapper from '@/components/Layout/LayoutWrapper';
-// import Filter from '@/components/Home/Filter';
+import Filter from '@/components/Home/Filter';
 // import Title from '@/components/UI/Title';
 // import NoResult from '@/components/UI/NoResult';
 // import ProductList from '@/components/ProductList';
@@ -65,12 +65,9 @@ export default async function Home({ params }: { params: Promise<{ locale: Langu
 
 	return (
 		<>
-			<div>page</div>
-			{/*<Filter />*/}
+			<Filter />
 			<LayoutWrapper>
-				123
-			{/*	<Banners />*/}
-			{/*	<div className='max-w-7xl mx-auto'>*/}
+				<div className='max-w-7xl mx-auto'>
 			{/*		<Title title={ response[lang].h2_top } className='mt-12 mb-5 text-2xl md:text-4xl font-bold px-3 md:px-0' />*/}
 			{/*		{ products.result ? <ProductList*/}
 			{/*			classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4'*/}
@@ -78,7 +75,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Langu
 			{/*		/> : <NoResult noResultText='no result'/> }*/}
 			{/*		<Title title='popular brands' translations={ true } className='mt-24 mb-5 text-2xl md:text-4xl font-bold px-3 md:px-0' />*/}
 			{/*		<TopBrands />*/}
-			{/*	</div>*/}
+				</div>
 			{/*	<Carousel sliderData={ sliderData } />*/}
 			{/*	<div className='max-w-7xl mx-auto'>*/}
 			{/*		<TextSeo description={ response[lang].description }/>*/}
