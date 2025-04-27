@@ -15,7 +15,7 @@ const Header: FC<Props> = ({ alias, settings }) => {
 	return (
 		<div className='header'>
 			<Progress />
-			<TopLine alias={ alias } />
+			<TopLine alias={ alias } settings={ settings } />
 			<HeaderMain settings={ settings } />
 			<Menu />
 		</div>

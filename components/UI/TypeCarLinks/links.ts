@@ -9,8 +9,6 @@ export const typeCatLinks = [
 		label: 'suvs',
 		href: '/catalog/tires/vt-2',
 		icon: 'suv',
-		iconStyles: 'stroke-gray-500 group-hover:stroke-blue-200',
-		iconStylesActive: 'stroke-blue-500',
 		vehicleType: ['2'],
 	},
 	{
@@ -18,6 +16,18 @@ export const typeCatLinks = [
 		href: '/catalog/tires/vt-8',
 		icon: 'bus',
 		vehicleType: ['8'],
+	},
+	{
+		label: 'cargo',
+		href: '/catalog/tires/vt-3', // vehicle_type=3,4,5,6
+		icon: 'cargo',
+		vehicleType: ['3','4','5','6'],
+	},
+	{
+		label: 'special equipment',
+		href: '/catalog/tires/vt-9', //vehicle_type=9,10,11
+		icon: 'special',
+		vehicleType: ['9','10','11'],
 	},
 	{
 		label: 'motorcycles',

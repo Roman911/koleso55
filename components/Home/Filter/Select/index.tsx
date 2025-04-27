@@ -32,17 +32,17 @@ const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisabled = fal
 	};
 
 	return <Autocomplete
-
-		variant='bordered'
+		variant='flat'
 		size='sm'
-		className={ twMerge('max-w-full md:max-w-xs bg-white dark:bg-gray-800 dark:text-white placeholder:text-white', hidden ) }
-		classNames={{
-			popoverContent: 'rounded-none'
-		}}
+		color='default'
+		className={ twMerge('max-w-full md:max-w-xs', hidden ) }
+		// classNames={{
+		// 	popoverContent: 'rounded-none'
+		// }}
 		label={ <span className='text-black dark:text-white'>{ label }</span> }
 		isDisabled={ isDisabled }
 		onSelectionChange={onSelectionChange}
-		radius='none'
+		radius='sm'
 		listboxProps={{
 			emptyContent: t('no options message'),
 		}}

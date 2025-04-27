@@ -1,12 +1,18 @@
 'use client'
 import { FC } from 'react';
 import Image from 'next/image';
+import { useTheme } from 'next-themes';
 import { Link, usePathname } from '@/i18n/routing';
 import { useAppDispatch } from '@/hooks/redux';
 import { setProgress } from '@/store/slices/progressSlice';
 
-const Logo: FC = () => {
+interface Props {
+	isFooter?: boolean
+}
+
+const Logo: FC<Props> = ({ isFooter }) => {
 	const pathname = usePathname();
+	const { theme } = useTheme();
 	const dispatch = useAppDispatch();
 
 	const handleClick = () => {
@@ -15,22 +21,19 @@ const Logo: FC = () => {
 
 	return (
 		<Link href='/' onClick={ handleClick } className='logo'>
-			<Image
-				src='/logo_light.svg'
-				className='dark:hidden'
-				alt="logo"
-				width={ 200 }
-				height={ 40 }
-				priority
-			/>
-			<Image
+			{ isFooter || theme === 'dark' ? <Image
 				src='/logo_dark.svg'
-				className='hidden dark:block'
 				alt="logo"
 				width={ 200 }
 				height={ 40 }
 				priority
-			/>
+			/> : <Image
+				src='/logo_light.svg'
+				alt="logo"
+				width={ 200 }
+				height={ 40 }
+				priority
+			/> }
 		</Link>
 	)
 };

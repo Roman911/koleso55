@@ -1,5 +1,5 @@
 'use client';
-import { SVGProps } from 'react';
+import { SVGProps, useEffect, useState } from 'react';
 import { useTheme } from 'next-themes';
 import { Switch } from '@heroui/react';
 
@@ -42,26 +42,39 @@ export const SunIcon = (props: SVGProps<SVGSVGElement>) => {
 };
 
 const ThemeToggle = () => {
+	const [mounted, setMounted] = useState(false);
 	const { setTheme, theme } = useTheme();
+
+	useEffect(() => {
+		setMounted(true);
+	}, []);
+
+	if (!mounted) {
+		return null;
+	}
 
 	return (
 		<Switch
-			isSelected={ theme === 'light' }
-			endContent={ <SunIcon/> }
-			size='lg'
-			onChange={ () => setTheme(theme === 'light' ? 'dark' : 'light') }
-			startContent={ <MoonIcon/> }
-			thumbIcon={ ({ isSelected, className }) =>
-				isSelected ? <SunIcon className={ className }/> : <MoonIcon className={ className }/>
+			isSelected={theme === 'light'}
+			endContent={<SunIcon />}
+			size="lg"
+			onChange={() => setTheme(theme === 'light' ? 'dark' : 'light')}
+			startContent={<MoonIcon />}
+			thumbIcon={({ isSelected, className }) =>
+				isSelected ? (
+					<SunIcon className={className} />
+				) : (
+					<MoonIcon className={className} />
+				)
 			}
 			classNames={{
 				wrapper: 'rounded-md bg-gray-800 group-data-[selected=true]:bg-gray-800',
 				thumb: 'rounded-sm',
 				startContent: 'text-gray-300',
-				endContent: 'text-gray-300'
+				endContent: 'text-gray-300',
 			}}
 		/>
-	)
+	);
 };
 
 export default ThemeToggle;

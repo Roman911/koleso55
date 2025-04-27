@@ -28,8 +28,6 @@ interface ILinkComponent extends LinkProps {
 	label: string
 	section: 'header' | 'catalog'
 	icon: keyof typeof Icons
-	iconStyles?: string
-	iconStylesActive?: string
 	vehicleType: string[]
 }
 
@@ -39,8 +37,6 @@ const LinkComponent: FC<ILinkComponent> = (
 		href,
 		icon,
 		label,
-		iconStyles,
-		iconStylesActive,
 		vehicleType
 	}) => {
 	const pathname = usePathname();
@@ -54,8 +50,6 @@ const LinkComponent: FC<ILinkComponent> = (
 		dispatch(setParams({ 'vehicle_type': null }));
 	}
 
-	console.log(icon)
-
 	return <Link
 		href={ href }
 		onClick={ handleClick }
@@ -65,12 +59,7 @@ const LinkComponent: FC<ILinkComponent> = (
 	>
 		<IconComponent className={
 			twMerge(
-				'transition group-hover/item:fill-gray-900 dark:group-hover/item:fill-white fill-gray-400',
-				!active && iconStyles,
-				active && iconStylesActive,
-				active && 'fill-gray-900',
-				icon === 'suv' && 'stroke-gray-400',
-				active && value === '2' && 'stroke-gray-900',
+				'transition group-hover/item:text-gray-900 dark:group-hover/item:text-white text-gray-400',
 			)
 		}/>
 		<span className={
@@ -78,7 +67,6 @@ const LinkComponent: FC<ILinkComponent> = (
 				'transition',
 				section === 'catalog' && 'text-sm font-bold',
 				section === 'header' && 'group-hover/item:underline',
-				active && '',
 			)
 		}>
 			{ label }
@@ -102,8 +90,6 @@ const TypeCarLinks: FC<TypeCarLinksProps> = ({ setOpen, section }) => {
 				icon={ item.icon as keyof typeof Icons }
 				label={ t(item.label) }
 				onClick={ handleClick }
-				iconStyles={ item.iconStyles }
-				iconStylesActive={ item.iconStylesActive }
 				vehicleType={ item.vehicleType }
 			/>
 		}) }

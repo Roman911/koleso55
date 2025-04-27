@@ -60,7 +60,7 @@ const HeaderMain: FC<Props> = ({ settings }) => {
 				<ButtonBlock />
 				<NavbarMenuToggle className="sm:hidden" aria-label={ isMenuOpen ? "Close menu" : "Open menu" }/>
 			</NavbarContent>
-			<NavbarMenu className={ twMerge('mt-36 bg-white pt-16', styles.menu) }>
+			<NavbarMenu className={ twMerge('mt-36 bg-white dark:bg-gray-800 pt-6', styles.menu) }>
 				<NavbarMenuItem>
 					<button
 						onClick={ () => handleClick('tires') }
@@ -69,8 +69,7 @@ const HeaderMain: FC<Props> = ({ settings }) => {
 					>
 						<span>{ t('cartires') }</span>
 						<span className={ twMerge('transition', filterIsOpen === 'tires' && 'rotate-180') }>
-						<Icons.ChevronDownIcon
-							className={ twMerge('stroke-black transition group-hover:stroke-primary', filterIsOpen === 'tires' && 'stroke-primary') }/>
+						<Icons.ChevronDownIcon className='transition'/>
 					</span>
 					</button>
 					{ filterIsOpen === 'tires' &&
@@ -87,8 +86,7 @@ const HeaderMain: FC<Props> = ({ settings }) => {
 						) }>
 						<span>{ t('cardiscs') }</span>
 						<span className={ twMerge('transition', filterIsOpen === 'disks' && 'rotate-180') }>
-						<Icons.ChevronDownIcon
-							className={ twMerge('stroke-black transition group-hover:stroke-primary', filterIsOpen === 'disks' && 'stroke-primary') }/>
+						<Icons.ChevronDownIcon className='transition'/>
 					</span>
 					</button>
 					{ filterIsOpen === 'disks' &&

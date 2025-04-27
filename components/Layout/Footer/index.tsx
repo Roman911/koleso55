@@ -50,9 +50,9 @@ const Footer: FC<Props> = ({ alias, settings }) => {
 	};
 
 	const icons: Record<IconType, JSX.Element> = {
-		telegram: <Icons.TelegramIcon className='fill-white'/>,
-		facebook: <Icons.FacebookIcon className='fill-white'/>,
-		viber: <Icons.ViberIcon className='fill-white'/>,
+		telegram: <Icons.TelegramIcon />,
+		facebook: <Icons.FacebookIcon />,
+		viber: <Icons.ViberIcon />,
 	};
 
 	const handleClick = (href: string) => {
@@ -70,55 +70,51 @@ const Footer: FC<Props> = ({ alias, settings }) => {
 		</Link>
 	}
 
-	return <footer className='bg-white dark:bg-gray-900 border-t-1 border-black'>
-		<div className='container mx-auto py-12 px-4 flex flex-col md:flex-row'>
+	return <footer className='bg-gray-800'>
+		<div className='container mx-auto py-12 px-4 flex flex-col md:flex-row text-white'>
 			<div className='md:w-1/4'>
-				<Logo />
+				<Logo isFooter={ true } />
 				<div className='flex mt-8 gap-x-5'>
 					{ social.links.map((item, index) => {
 						return <a
 							key={ index }
 							target='_blank'
 							href={ item.link }
-							className='w-9 h-9 rounded-full cursor-pointer bg-black dark:bg-gray-500 flex items-center justify-center transition group hover:bg-primary dark:hover:bg-primary'
+							className='w-9 h-9 rounded-full cursor-pointer bg-white flex items-center justify-center transition text-gray-800 hover:bg-gray-200'
 						>
 							{ icons[item.logo as IconType] }
 						</a>
 					}) }
 				</div>
-				<p className='mt-7 mb-7 leading-6 text-sm'>
+				<p className='mt-7 mb-7 leading-6 text-sm text-gray-600'>
 					© { settings && settings[lang].config_name } { new Date().getFullYear() }. { t('all rights reserved') }.
 				</p>
 			</div>
-			<div className='md:w-1/4 mt-6 md:mt-0 md:pl-12 md:border-l-1 border-black dark:border-gray-500 font-medium'>
-				<h6 className='text-lg font-bold mb-6'>
+			<div className='md:w-1/4 mt-6 md:mt-0 md:pl-12 font-medium'>
+				<h6 className='text-lg font-bold mb-6 text-gray-600'>
 					{ t('contacts') }
 				</h6>
+				<Phones settings={ settings } isInfo={ false } className='flex-col items-start gap-4 font-medium mb-5' />
 				<p className='block whitespace-pre-wrap mb-5'>
 					{ settings[lang].config_address }
 				</p>
-				<Phones settings={ settings } isInfo={ false } className='flex-col items-start gap-4 font-medium mb-5' />
-				<HtmlContent htmlString={ settings[lang].config_open || '' } />
-				<div className='flex gap-4 items-center'>
-					<Image src='/images/visa.png' width={ 60 } height={ 20 } alt='visa' />
-					<Image src='/images/mastercard.png' width={ 34 } height={ 26 } alt='mastercard' />
-				</div>
 			</div>
-			<div className='md:w-1/4 mt-6 md:mt-0 md:pl-12 md:border-l-1 border-black dark:border-gray-500'>
-				<h6 className='text-lg font-bold mb-6'>
+			<div className='md:w-1/4 mt-6 md:mt-0 md:pl-12'>
+				<h6 className='text-lg font-bold mb-6 text-gray-600'>
 					{ t('goods') }
 				</h6>
 				{ linksCatalog.map((item, index) => {
 					return link(item.link, t(item.title), index)
 				}) }
 			</div>
-			<div className='md:w-1/4 mt-6 md:mt-0 md:pl-12 md:border-l-1 border-black dark:border-gray-500'>
-				<h6 className='text-lg font-bold mb-6'>
+			<div className='md:w-1/4 mt-6 md:mt-0 md:pl-12'>
+				<h6 className='text-lg font-bold mb-6 text-gray-600'>
 					{ t('information') }
 				</h6>
 				{ alias.footer.map((item: AliasItem, index: number) => {
 					return link(`/page/${ item.slug }`, item.descriptions[lang].title, index)
 				}) }
+				<HtmlContent htmlString={ settings[lang].config_open || '' } />
 			</div>
 		</div>
 	</footer>

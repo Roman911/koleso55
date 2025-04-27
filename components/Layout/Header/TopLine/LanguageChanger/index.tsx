@@ -14,7 +14,7 @@ const LanguageChanger = () => {
 	const locale = useLocale();
 
 	return (
-		<div className='divide-x divide-gray-500 font-semibold text-sm 2xl:text-base'>
+		<div className='divide-x divide-gray-500 font-semibold text-sm 2xl:text-base ml-auto md:ml-0 mr-2'>
 			{ params.map((item, index) => {
 				return <Link
 					locale={ item.language }

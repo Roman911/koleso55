@@ -12,7 +12,7 @@ const ChevronDownIcon = (props: SVGProps<SVGSVGElement>) => (
 		viewBox="0 0 24 24"
 		{ ...props }
 	>
-		<path xmlns="http://www.w3.org/2000/svg" d="M2.3999 6.59998L11.9999 16.2L21.5999 6.59998" />
+		<path xmlns="http://www.w3.org/2000/svg" d="M2.3999 6.59998L11.9999 16.2L21.5999 6.59998" stroke="currentColor" />
 	</svg>
 );
 
