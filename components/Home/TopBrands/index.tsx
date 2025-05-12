@@ -68,7 +68,7 @@ const TopBrands = () => {
 	}
 
 	return (
-		<div className='border border-gray-400 mt-10'>
+		<div className='mt-10'>
 			<div className="relative overflow-hidden rounded-sm p-2 sm:p-4">
 				<Button onPress={ prevSlide } isIconOnly variant='light'
 								className='hidden md:flex absolute left-5 top-1/2 z-10 -translate-y-1/2'>

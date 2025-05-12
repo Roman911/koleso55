@@ -12,6 +12,7 @@ import {
 import { SettingsProps } from '@/models/settings';
 import { ProductsProps } from '@/models/products';
 import { BaseDataProps } from '@/models/baseData';
+import { ProductProps } from '@/models/product';
 
 export const baseDataAPI = createApi({
 	reducerPath: 'baseDataAPI',
@@ -34,6 +35,12 @@ export const baseDataAPI = createApi({
 				method: API_CONSTANTS.METHODS.POST,
 				body: { start, length }
 			}),
+		}),
+		fetchProduct: build.query<ProductProps, string>({
+			query: (section) => ({
+				url: productEndpoints.product(section),
+			}),
+			providesTags: () => ['Product']
 		}),
 		createOrder: build.mutation({
 			query: (data) => ({

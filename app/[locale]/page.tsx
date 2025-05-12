@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Language, LanguageCode } from '@/models/language';
+import { Link } from '@/i18n/routing';
 import LayoutWrapper from '@/components/Layout/LayoutWrapper';
 import Filter from '@/components/Home/Filter';
 import Title from '@/components/UI/Title';
@@ -10,6 +11,7 @@ import TopBrands from '@/components/Home/TopBrands';
 import PopularSizes from '@/components/Home/PopularSizes';
 import Reviews from '@/components/Home/Reviews';
 import PopularCarBrands from '@/components/Home/PopularCarBrands';
+import ShowAll from '@/components/Home/ShowAll';
 
 async function getSettings() {
 	const res = await fetch(`${ process.env.SERVER_URL }/baseData/settings`, {
@@ -78,15 +80,16 @@ export default async function Home({ params }: { params: Promise<{ locale: Langu
 			<Filter />
 			<LayoutWrapper>
 				<div className='max-w-7xl mx-auto'>
-					<Title title={ response[lang].h2_top } className='mt-12 mb-5 text-2xl md:text-4xl font-bold px-3 md:px-0' />
+					<Title title={ response[lang].h2_top } className='mt-12 mb-5 text-3xl font-bold px-3 md:px-0' />
 					{ products.result ? <ProductList
 						classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
 						data={ products.data }
 					/> : <NoResult noResultText='no result'/> }
-					<Title title='popular brands' translations={ true } className='mt-24 mb-5 text-2xl md:text-4xl font-bold px-3 md:px-0' />
+					{ products.result && <ShowAll />}
+					{ featureParams.ProductTiporazmer && <PopularSizes locale={ locale } settings={ response } popularSizes={ featureParams.ProductTiporazmer } /> }
+					<Title title='popular brands' translations={ true } className='mt-24 mb-5 text-3xl font-bold px-3 md:px-0' />
 					<TopBrands />
 				</div>
-				{ featureParams.ProductTiporazmer && <PopularSizes locale={ locale } settings={ response } popularSizes={ featureParams.ProductTiporazmer } /> }
 				{ reviews && <Reviews reviews={ reviews } /> }
 				{ featureParams.Car2Brand && <PopularCarBrands locale={ locale } settings={ response } popularCarBrands={ featureParams.Car2Brand } /> }
 				<TextSeo description={ response[lang].description }/>
