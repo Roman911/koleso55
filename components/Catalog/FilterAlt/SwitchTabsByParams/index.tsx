@@ -28,7 +28,7 @@ const SwitchTabsByParams = ({ subsection }: { subsection: Subsection }) => {
 					size='lg'
 					onPress={ () => handleClick(item.section) }
 					className={ twMerge(
-						'font-bold uppercase lg:normal-case text-gray-400 p-0 hover:bg-transparent hover:text-black dark:text-[#949699]',
+						'font-bold md:uppercase lg:normal-case text-gray-400 p-0 hover:bg-transparent hover:text-black dark:text-[#949699]',
 						subsection === item.section && 'text-black dark:text-white underline')
 				}>
 					{ t(item.title) }

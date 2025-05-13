@@ -56,16 +56,13 @@ const FilterAlt: FC<Props> = ({ filterData, section }) => {
 												title={ `${ t('price range') } (грн)` } btnTitle={ t('to apply') }/>
 				</div>
 			</div>
-			<Drawer isOpen={ isOpen } placement='left' onOpenChange={ onOpenChange }>
+			<Drawer isOpen={ isOpen } radius='none' placement='left' onOpenChange={ onOpenChange }>
 				<DrawerContent>
 					{ () => (
 						<>
+							<SwitchTabs section={ section }/>
 							<div
-								className='filter lg:h-auto w-[calc(100%-70px)] lg:w-64 mr-6 pt-4 lg:pt-0 bg-white lg:bg-transparent'>
-								<SwitchTabs section={ section }/>
-							</div>
-							<div
-								className='relative pb-32 lg:pb-4 px-4 pt-4 bg-white border border-gray-200 z-10 overflow-y-auto lg:overflow-y-visible'>
+								className='relative pb-32 lg:pb-4 px-4 pt-4 z-10 overflow-y-auto lg:overflow-y-visible dark:bg-[#333333]'>
 								<SwitchTabsByParams subsection={ subsection }/>
 								{ subsection === 'byCars' && <ByCar data={ data }/> }
 								{ section === Section.Tires && <SectionTires onChange={ onChange } filterData={ filterData } /> }

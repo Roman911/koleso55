@@ -18,13 +18,13 @@ const Contacts: FC<Props> = ({ isTopLine, settings, isInfo }) => {
 	const lang = locale === Language.UK ? LanguageCode.UA : Language.RU;
 
 	const telephones: { phone: string; url: string; logo: "vodafone" | "kievstar" | "lifecell" | undefined }[] = [
+		{ phone: settings[lang].config_telephone_life, url: settings[lang].config_telephone_life_url, logo: 'lifecell' },
 		{ phone: settings[lang].config_telephone_vodafone, url: settings[lang].config_telephone_vodafone_url, logo: 'vodafone' },
 		{ phone: settings[lang].config_telephone_kievstar, url: settings[lang].config_telephone_kievstar_url, logo: 'kievstar' },
-		{ phone: settings[lang].config_telephone_life, url: settings[lang].config_telephone_life_url, logo: 'lifecell' },
 	];
 
 	return (
-		<div className={ twMerge('flex items-center gap-2', isTopLine && 'md:hidden') }>
+		<div className={ twMerge('flex items-center gap-2', isTopLine && 'md:hidden', isInfo && 'flex-col items-start gap-2') }>
 			{ telephones.filter(item => item.phone).map((item, index) => {
 				return (
 					<div key={ index } className='flex items-center'>
