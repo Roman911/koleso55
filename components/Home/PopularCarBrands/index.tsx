@@ -10,7 +10,6 @@ import { changeSubsection } from '@/store/slices/filterSlice';
 import { Language, LanguageCode } from '@/models/language';
 import { Car2BrandProps } from '@/models/featureParams';
 import { Subsection } from '@/models/filter';
-import { setProgress } from '@/store/slices/progressSlice';
 
 interface Props {
 	locale: Language
@@ -37,7 +36,7 @@ const PopularCarBrands: FC<Props> = ({ locale, settings, popularCarBrands }) => 
 						as={ Link }
 						key={ index }
 						href='/catalog/tires'
-						onPress={() => handleClick(item.id)}
+						onPress={ () => handleClick(item.id) }
 						color='default'
 						radius='full'
 						variant='bordered'

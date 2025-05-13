@@ -3,9 +3,8 @@ import { Section } from '@/models/filter';
 import { ProductProps } from '@/models/product';
 import Breadcrumbs from '@/components/UI/Breadcrumbs';
 import ProductComponent from '@/components/Product';
-import { Language, LanguageCode } from '@/models/language';
+import { Language } from '@/models/language';
 import LayoutWrapper from '@/components/Layout/LayoutWrapper';
-import TextSeo from '@/components/UI/TextSeo';
 import type { Metadata } from 'next';
 import SimilarProducts from '@/components/SimilarProducts';
 
@@ -27,7 +26,7 @@ async function getProduct(id: string): Promise<ProductProps> {
 		}
 	});
 
-	if (!res.ok) {
+	if(!res.ok) {
 		redirect('/404');
 	} else {
 		return await res.json();
@@ -49,12 +48,11 @@ export async function generateMetadata({ params }: { params: Promise<{ product: 
 
 export default async function Product({ params }: { params: Promise<{ locale: Language, product: string }> }) {
 	const { locale, product } = await params;
-	const lang = locale === Language.UK ? LanguageCode.UA : Language.RU;
 	const match = product.match(/(\d+)$/); // match will be RegExpMatchArray | null
 	const idProduct = match ? match[1] : '';
 	const productResponse = await getProduct(idProduct);
 	const settings = await getSettings();
-	const section = /dia/.test(product) ? Section.Disks : /ah/.test(product)? Section.Battery : Section.Tires;
+	const section = /dia/.test(product) ? Section.Disks : /ah/.test(product) ? Section.Battery : Section.Tires;
 
 	const path = [
 		{
@@ -79,7 +77,7 @@ export default async function Product({ params }: { params: Promise<{ locale: La
 				section={ section }
 				settings={ settings }
 			/>
-			<SimilarProducts offerGroup={ productResponse.data.offer_group } />
+			<SimilarProducts offerGroup={ productResponse.data.offer_group }/>
 		</LayoutWrapper>
 	)
 };
