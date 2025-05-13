@@ -20,7 +20,8 @@ const CreateComment: FC<CreateCommentProps> = ({ model_id, product_id, trc_id })
 
 	const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
-		const formData = new FormData(event.currentTarget);
+		const form = event.currentTarget;
+		const formData = new FormData(form);
 		const name = formData.get('name');
 		const text = formData.get('text');
 
@@ -33,7 +34,7 @@ const CreateComment: FC<CreateCommentProps> = ({ model_id, product_id, trc_id })
 			trc_id,
 		}).then(data => {
 			if(data) {
-				event.currentTarget.reset(); // Reset form fields
+				form.reset(); // Reset form fields
 				setRate(0); // Reset rating
 			}
 		})

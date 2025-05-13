@@ -22,6 +22,6 @@ export const DEFAULT_HEADERS = {
 } as const;
 
 export const FORM_HEADERS = {
-	'Content-Type': 'application/x-www-form-urlencoded',
+	'Content-Type': 'application/json',
 	'Accept': 'application/json'
 } as const;
