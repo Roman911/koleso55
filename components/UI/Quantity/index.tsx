@@ -16,21 +16,21 @@ const Quantity: FC<QuantityProps> = ({ id = 0, price = 0, quantity, offerQuantit
 		<div className='flex gap-1.5'>
 			<button
 				onClick={() => setQuantity(id,quantity > 1 ? quantity - 1 : 1)}
-				className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] border-1 border-gray-500 hover:bg-[#D2D3D6] transition'>-
+				className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] border-1 border-[#EBECF0] bg-[#EBECF0] hover:bg-[#D2D3D6] transition dark:border-gray-500 dark:bg-gray-800 dark:text-[#949699]'>-
 			</button>
 			<input
 				onChange={e => onChange(e)}
-				className='w-10 rounded-sm border border-gray-500 text-center font-medium'
+				className='w-10 rounded-sm border border-gray-700 bg-white text-center font-medium text-black'
 				value={ quantity }
 				placeholder='1'
 				type="text"
 			/>
 			<button
 				onClick={() => setQuantity(id,quantity < offerQuantity ? quantity + 1 : offerQuantity)}
-				className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] border-1 border-gray-500 hover:bg-[#D2D3D6] transition'>+
+				className='p-2 w-10 text-center font-bold rounded-sm text-[#575C66] border-1 border-[#EBECF0] bg-[#EBECF0] hover:bg-[#D2D3D6] transition dark:border-gray-500 dark:bg-gray-800 dark:text-[#949699]'>+
 			</button>
 		</div>
-		{ price !== 0 && <div className={ twMerge('text-xl font-bold', !isCart && 'ml-6 text-3xl') }>
+		{ price !== 0 && <div className={ twMerge('text-xl font-bold', !isCart && 'ml-6 text-2xl') }>
 			{ +price * (quantity ?? 0) } грн
 		</div> }
 	</div>

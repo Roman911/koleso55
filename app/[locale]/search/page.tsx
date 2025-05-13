@@ -50,14 +50,14 @@ export default function Search() {
 				<NoResult noResultText='no result'/>
 			}
 		</Spinner>
-		{ data?.result && data.data.total_count > itemsProduct && <div className='mt-10 flex justify-center'>
+		{ data?.result && data.data.total_count > itemsProduct && <div className='mt-10 flex justify-start'>
 			<Pagination
 				size='lg'
 				initialPage={ paginateCount + 1 }
 				total={ Math.ceil(data?.data.total_count / itemsProduct) }
 				variant='bordered'
 				onChange={ onchange }
-				radius='full'
+				radius='sm'
 			/>
 		</div> }
 	</LayoutWrapper>

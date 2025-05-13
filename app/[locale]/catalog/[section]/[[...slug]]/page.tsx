@@ -74,12 +74,12 @@ export default async function Catalog({ params }: { params: Promise<{ locale: La
 				<div className='flex-1 -mt-8 lg:-mt-6'>
 					<FilterByCar />
 					<SelectionByCar />
-					<FilterActive locale={ locale } className='hidden lg:flex' slug={ slug } />
+					<FilterActive section={ section } locale={ locale } className='hidden lg:flex' slug={ slug } />
 					{ products.result ? <ProductList
 						classnames='grid-cols-1 lg:grid-cols-2 lg:grid-cols-3'
 						data={ products.data }
 					/> : <NoResult noResultText='no result' /> }
-					{ products.result && products.data.total_count > pageItem && <div className='mt-10 flex justify-center'>
+					{ products.result && products.data.total_count > pageItem && <div className='mt-10'>
 						<Pagination initialPage={ page || 1 } total={ Math.ceil(products.data.total_count/pageItem) } />
 					</div> }
 				</div>

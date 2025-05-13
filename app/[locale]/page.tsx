@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { Language, LanguageCode } from '@/models/language';
-import { Link } from '@/i18n/routing';
 import LayoutWrapper from '@/components/Layout/LayoutWrapper';
 import Filter from '@/components/Home/Filter';
 import Title from '@/components/UI/Title';
@@ -85,14 +84,13 @@ export default async function Home({ params }: { params: Promise<{ locale: Langu
 						classnames='grid-cols-1 md:grid-cols-2 lg:grid-cols-4'
 						data={ products.data }
 					/> : <NoResult noResultText='no result'/> }
-					{ products.result && <ShowAll />}
+					{ products.result && <ShowAll href='/catalog/tires' />}
 					{ featureParams.ProductTiporazmer && <PopularSizes locale={ locale } settings={ response } popularSizes={ featureParams.ProductTiporazmer } /> }
-					<Title title='popular brands' translations={ true } className='mt-24 mb-5 text-3xl font-bold px-3 md:px-0' />
 					<TopBrands />
+					{ reviews && <Reviews reviews={ reviews } /> }
+					{ featureParams.Car2Brand && <PopularCarBrands locale={ locale } settings={ response } popularCarBrands={ featureParams.Car2Brand } /> }
+					<TextSeo description={ response[lang].description }/>
 				</div>
-				{ reviews && <Reviews reviews={ reviews } /> }
-				{ featureParams.Car2Brand && <PopularCarBrands locale={ locale } settings={ response } popularCarBrands={ featureParams.Car2Brand } /> }
-				<TextSeo description={ response[lang].description }/>
 			</LayoutWrapper>
 		</>
 	);

@@ -80,7 +80,6 @@ export default async function Product({ params }: { params: Promise<{ locale: La
 				settings={ settings }
 			/>
 			<SimilarProducts offerGroup={ productResponse.data.offer_group } />
-			<TextSeo description={ settings[lang].description }/>
 		</LayoutWrapper>
 	)
 };

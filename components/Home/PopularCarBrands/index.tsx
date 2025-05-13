@@ -10,6 +10,7 @@ import { changeSubsection } from '@/store/slices/filterSlice';
 import { Language, LanguageCode } from '@/models/language';
 import { Car2BrandProps } from '@/models/featureParams';
 import { Subsection } from '@/models/filter';
+import { setProgress } from '@/store/slices/progressSlice';
 
 interface Props {
 	locale: Language
@@ -32,12 +33,19 @@ const PopularCarBrands: FC<Props> = ({ locale, settings, popularCarBrands }) => 
 			<Title title={ settings[lang].h2_popular_auto }/>
 			<div className='grid grid-cols-2 lg:grid-cols-6 mt-12 gap-5 mb-8'>
 				{ popularCarBrands?.map((item, index) => (
-					<Link key={ index } className='uppercase font-bold text-blue-500' href='/catalog/tires'>
-						<Button color='default' radius='sm' variant='bordered' size='lg' onPress={() => handleClick(item.id)}
-										className='text-black font-semibold w-full'>
-							{ item.name }
-						</Button>
-					</Link>
+					<Button
+						as={ Link }
+						key={ index }
+						href='/catalog/tires'
+						onPress={() => handleClick(item.id)}
+						color='default'
+						radius='full'
+						variant='bordered'
+						size='lg'
+						className='text-black bg-white dark:bg-gray-800 dark:text-gray-50 h-10 border-gray-700 dark:border-[#707070] border-1 hover:text-primary dark:hover:text-primary hover:border-primary dark:hover:border-primary'
+					>
+						{ item.name }
+					</Button>
 				)) }
 			</div>
 		</div>

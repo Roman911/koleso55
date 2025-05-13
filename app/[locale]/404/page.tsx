@@ -8,7 +8,7 @@ export default function NotFound() {
 	const locale = useLocale();
 
 	return (
-		<div className='min-h-96 bg-white py-10 px-6'>
+		<div className='min-h-96 py-10 px-6'>
 			<div className='max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-4'>
 				<div className='mt-16 col-span-2 ml-auto'>
 					<h2
@@ -20,7 +20,7 @@ export default function NotFound() {
 								'Возможно эта страница была удалена или допущена ошибка в адресе Воспользуйтесь поиском или вернитесь '
 						}
 						<Link
-							className='text-blue-500 uppercase font-semibold hover:underline'
+							className='text-primary uppercase font-semibold hover:underline'
 							href={`/`}>{locale === Language.UK ? 'На головну сторінку' : 'На главную страницу'}
 						</Link>
 					</p>

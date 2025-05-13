@@ -8,11 +8,10 @@ import * as Icons from '@/components/UI/Icons';
 import { AliasAll, AliasItem } from '@/models/alias';
 import { Language, LanguageCode } from '@/models/language';
 import { SettingsProps } from '@/models/settings';
-import Phones from '@/components/UI/Phones';
 import Logo from '@/components/UI/Logo';
-import Image from 'next/image';
 import { useAppDispatch } from '@/hooks/redux';
 import { setProgress } from '@/store/slices/progressSlice';
+import Contacts from '@/components/Layout/Header/Contacts';
 
 type IconType = 'telegram' | 'facebook' | 'viber';
 
@@ -27,6 +26,12 @@ const social = {
 interface Props {
 	alias: AliasAll
 	settings: SettingsProps
+}
+
+const Title = ({ title }: { title: string }) => {
+	return <h6 className='text-lg mb-6 text-gray-600'>
+		{ title }
+	</h6>
 }
 
 const Footer: FC<Props> = ({ alias, settings }) => {
@@ -70,7 +75,7 @@ const Footer: FC<Props> = ({ alias, settings }) => {
 		</Link>
 	}
 
-	return <footer className='bg-gray-800'>
+	return <footer className='bg-gray-800 dark:bg-gray-900'>
 		<div className='container mx-auto py-12 px-4 flex flex-col md:flex-row text-white'>
 			<div className='md:w-1/4'>
 				<Logo isFooter={ true } />
@@ -87,34 +92,36 @@ const Footer: FC<Props> = ({ alias, settings }) => {
 					}) }
 				</div>
 				<p className='mt-7 mb-7 leading-6 text-sm text-gray-600'>
-					© { settings && settings[lang].config_name } { new Date().getFullYear() }. { t('all rights reserved') }.
+					© 2008-{ new Date().getFullYear() }. { t('all rights reserved') }.
 				</p>
 			</div>
 			<div className='md:w-1/4 mt-6 md:mt-0 md:pl-12 font-medium'>
-				<h6 className='text-lg font-bold mb-6 text-gray-600'>
-					{ t('contacts') }
-				</h6>
-				<Phones settings={ settings } isInfo={ false } className='flex-col items-start gap-4 font-medium mb-5' />
-				<p className='block whitespace-pre-wrap mb-5'>
+				<Title title={ t('contacts') }/>
+				<Contacts isTopLine={ false } settings={ settings } isInfo={ true }/>
+				<div className='flex items-center mt-5'>
+					<Icons.EmailIcon className='fill-white'/>
+					{ settings && <a href={ `mailto:${ settings[lang].config_email }` } className='ml-2.5 text-sm text-white'>
+						{ settings[lang].config_email }
+					</a> }
+				</div>
+				<p className='block whitespace-pre-wrap mt-4 mb-5'>
 					{ settings[lang].config_address }
 				</p>
 			</div>
 			<div className='md:w-1/4 mt-6 md:mt-0 md:pl-12'>
-				<h6 className='text-lg font-bold mb-6 text-gray-600'>
-					{ t('goods') }
-				</h6>
+				<Title title={ t('goods') }/>
 				{ linksCatalog.map((item, index) => {
 					return link(item.link, t(item.title), index)
 				}) }
 			</div>
 			<div className='md:w-1/4 mt-6 md:mt-0 md:pl-12'>
-				<h6 className='text-lg font-bold mb-6 text-gray-600'>
-					{ t('information') }
-				</h6>
+				<Title title={ t('information') }/>
 				{ alias.footer.map((item: AliasItem, index: number) => {
 					return link(`/page/${ item.slug }`, item.descriptions[lang].title, index)
 				}) }
-				<HtmlContent htmlString={ settings[lang].config_open || '' } />
+				<div className='mt-4'>
+					<HtmlContent htmlString={ settings[lang].config_open || '' } />
+				</div>
 			</div>
 		</div>
 	</footer>

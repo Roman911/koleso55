@@ -9,10 +9,10 @@ interface CloseButtonProps {
 const CloseButton: FC<CloseButtonProps> = ({ handleClick }) => {
 	return (
 		<button
-			className='absolute right-3 top-3'
+			className='absolute right-3 top-2 bg-[#848486] rounded-full p-1 text-white hover:bg-primary cursor-pointer'
 			onClick={ handleClick }
 		>
-			<CloseIcon className='transition duration-150 ease-in fill-gray-400 hover:fill-gray-500'/>
+			<CloseIcon className='w-2.5 h-2.5'/>
 		</button>
 	)
 };

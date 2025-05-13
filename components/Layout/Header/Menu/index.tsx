@@ -36,7 +36,7 @@ const Navbar = () => {
 	)
 
 	return (
-		<div className='bg-gray-100 dark:bg-gray-900 hidden lg:block relative'>
+		<div className='bg-gray-100 dark:bg-gray-900 hidden lg:block relative shadow-sm'>
 			<nav className='container mx-auto max-w-7xl flex justify-between items-center gap-8 px-5'>
 				{[{ section: 'tires', label: t('cartires') }, { section: 'disks', label: t('cardiscs') }]
 					.map((item, i) => {

@@ -40,7 +40,7 @@ const PopularSizes: FC<Props> = ({ locale, settings, popularSizes }) => {
 								radius='full'
 								variant='bordered'
 								size='lg'
-								className='text-black dark:text-gray-50 h-10 border-gray-700 dark:border-[#707070] border-1 hover:text-primary dark:hover:text-primary hover:border-primary dark:hover:border-primary'
+								className='text-black bg-white dark:bg-gray-800 dark:text-gray-50 h-10 border-gray-700 dark:border-[#707070] border-1 hover:text-primary dark:hover:text-primary hover:border-primary dark:hover:border-primary'
 							>
 								{`${item.width}/${item.height} R${i}`}
 							</Button>

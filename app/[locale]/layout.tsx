@@ -69,7 +69,7 @@ export default async function RootLayout(
 		<head>
 			<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 		</head>
-		<body className={ twMerge(gilroy.className, 'bg-gray-100 dark:bg-gray-800') }>
+		<body className={ twMerge(gilroy.className, 'bg-[#FAFAFC] dark:bg-gray-800') }>
 		<StoreProvider>
 			<NextIntlClientProvider messages={ messages }>
 				<Header settings={ response } alias={ alias }/>

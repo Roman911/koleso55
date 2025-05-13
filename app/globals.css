@@ -9,8 +9,9 @@
 }
 
 :root {
-  --background: #F7F7F8;
+  --background: #FAFAFC;
   --foreground: #0A0A0B;
+  --radius-small: 4px;
 }
 
 @theme inline {

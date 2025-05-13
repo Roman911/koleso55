@@ -54,19 +54,22 @@ const LinkComponent: FC<ILinkComponent> = (
 		href={ href }
 		onClick={ handleClick }
 		className={ twMerge('flex items-center group/item',
-			section === 'catalog' && 'flex-col', section === 'header' && 'mt-3 gap-2.5'
+			section === 'catalog' && 'flex-col', section === 'header' && 'mt-3 gap-2.5',
 		) }
 	>
 		<IconComponent className={
 			twMerge(
 				'transition group-hover/item:text-gray-900 dark:group-hover/item:text-white text-gray-400',
+				section === 'catalog' && 'group-hover/item:text-primary dark:text-[#949699] dark:group-hover/item:text-white',
+				active && 'text-primary dark:text-white',
 			)
 		}/>
 		<span className={
 			twMerge(
 				'transition',
-				section === 'catalog' && 'text-sm font-bold',
+				section === 'catalog' && 'text-sm text-gray-400 group-hover/item:text-primary dark:text-[#949699] dark:group-hover/item:text-white',
 				section === 'header' && 'group-hover/item:underline',
+				active && 'text-primary dark:text-white',
 			)
 		}>
 			{ label }

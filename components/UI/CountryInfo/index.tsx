@@ -23,7 +23,7 @@ const CountryInfo: FC<CountryInfoProps> = ({ country, countryCode, year, mobileH
 			</div>
 			<Image className='h-6 w-6 rounded-full' src={ `/images/flags/${ countryCode }.svg` } width={ 26 } height={ 26 } alt=""/>
 		</div> }
-		<p className='ml-2.5 font-medium text-gray-900 dark:text-gray-50'>
+		<p className='ml-2.5 text-sm font-medium text-gray-900 dark:text-gray-50'>
 			<span className={ twMerge( mobileHidden && 'hidden sm:inline') }>
 				{ country + ', ' }
 			</span>{ year > 0 && year }
