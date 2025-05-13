@@ -14,6 +14,7 @@ import { ProductsProps } from '@/models/products';
 import { BaseDataProps, CarModelProps, KitDiskSize, KitTyreSize, ManufModels } from '@/models/baseData';
 import { OrdersParamProps } from '@/models/ordersParam';
 import { ProductProps } from '@/models/product';
+import { AkumProps } from '@/models/akumData';
 
 export const baseDataAPI = createApi({
 	reducerPath: 'baseDataAPI',
@@ -45,6 +46,11 @@ export const baseDataAPI = createApi({
 				url: productEndpoints.product(section),
 			}),
 			providesTags: () => ['Product']
+		}),
+		fetchDataAkum: build.query<AkumProps, string>({
+			query: () => ({
+				url: productEndpoints.dataAkum,
+			}),
 		}),
 		createOrder: build.mutation({
 			query: (data) => ({
