@@ -5,12 +5,11 @@ import type { Data } from '@/models/products';
 interface Props {
 	classnames?: string
 	data: Data
-	categories?: string
 }
 
-const ProductList: FC<Props> = ({ classnames, data, categories }) => {
+const ProductList: FC<Props> = ({ classnames, data }) => {
 	const products = data.products.map(item => {
-		return <ProductCard key={ item.group } item={ item } categories={ categories } />
+		return <ProductCard key={ item.group } item={ item } />
 	})
 
 	return (
