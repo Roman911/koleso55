@@ -18,7 +18,11 @@ export const API_CONSTANTS = {
 
 export const DEFAULT_HEADERS = {
 	'Content-Type': 'application/json',
-	'Accept': 'application/json'
+	'Accept': 'application/json',
+	'Access-Control-Allow-Origin': process.env.NEXT_PUBLIC_ACCESS_ORIGIN || '',
+	'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+	'Access-Control-Allow-Headers': 'Content-Type',
+	'Access-Control-Allow-Credentials': 'true'
 } as const;
 
 export const FORM_HEADERS = {

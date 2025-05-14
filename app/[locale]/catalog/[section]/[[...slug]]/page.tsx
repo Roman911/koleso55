@@ -1,8 +1,7 @@
 import LayoutWrapper from '@/components/Layout/LayoutWrapper';
-import { Language, LanguageCode } from '@/models/language';
+import { Language } from '@/models/language';
 import FilterAlt from '@/components/Catalog/FilterAlt';
 import { Section } from '@/models/filter';
-import { BaseDataProps } from '@/models/baseData';
 import ProductList from '@/components/ProductList';
 import NoResult from '@/components/UI/NoResult';
 import FilterByCar from '@/components/Catalog/FilterByCar';
@@ -12,6 +11,8 @@ import FilterActive from '@/components/Catalog/FilterActive';
 import HeaderCatalog from '@/components/Catalog/HeaderCatalog';
 import Pagination from '@/components/Catalog/Pagination';
 import type { Metadata } from 'next';
+import { getFilterData, getProducts, getSettings } from '@/app/api/api';
+import { language } from '@/lib/language';
 
 const pageItem = 12;
 const sort = {
@@ -21,36 +22,14 @@ const sort = {
 	off: '&order[value]=offers'
 }
 
-async function getFilterData(id: string): Promise<BaseDataProps> {
-	const res = await fetch(`${process.env.SERVER_URL}/api/FildterData/${id}`, {
-		method: 'GET',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-		}
-	});
-	return await res.json();
-}
-
-async function getProducts({ page, searchParams }: { page: number | null, searchParams: string }) {
-	const res = await fetch(`${process.env.SERVER_URL}/api/getProducts?${searchParams}`, {
-		method: 'POST',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-			'content-type': 'application/json',
-		},
-		body: JSON.stringify({ start: page ? (page - 1) * pageItem : 0, length: 12 }),
-	});
-	return await res.json();
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: Language }> }): Promise<Metadata> {
 	const { locale } = await params;
-	const response = await fetch(`${process.env.SERVER_URL}/baseData/settings`)
-		.then((res) => res.json());
+	const lang = language(locale);
+	const settings = await getSettings();
 
 	return {
-		title: response[locale === Language.UK ? LanguageCode.UA : Language.RU].meta_title,
-		description: response[locale === Language.UK ? LanguageCode.UA : Language.RU].meta_description,
+		title: settings[lang].meta_title,
+		description: settings[lang].meta_description,
 	}
 }
 
@@ -63,17 +42,18 @@ export default async function Catalog({ params }: { params: Promise<{ locale: La
 	);
 	const paramsUrl = transformUrl({ section, slug });
 	const found = slug?.find(item => item.startsWith('order-'))?.split('-')[1] as keyof typeof sort;
-	const searchParams = `${paramsUrl || ''}${found && sort[found] ? sort[found] : ''}`;
-	const products = await getProducts({ page, searchParams });
+	const searchParams = `?${paramsUrl || ''}${found && sort[found] ? sort[found] : ''}`;
+	const products = await getProducts(searchParams, page ? (page - 1) * pageItem : 0, pageItem);
+	const car = slug?.find(segment => segment.startsWith('car-')) || null;
 
 	return (
 		<LayoutWrapper>
 			<HeaderCatalog section={ section } slug={ slug } />
 			<div className='py-5 lg:flex lg:gap-10'>
-				<FilterAlt filterData={ filterData } section={ section } />
+				<FilterAlt filterData={ filterData } section={ section } car={ car } />
 				<div className='flex-1 -mt-8 lg:-mt-6'>
 					<FilterByCar />
-					<SelectionByCar />
+					<SelectionByCar car={ car } section={ section } />
 					<FilterActive section={ section } locale={ locale } className='hidden lg:flex' slug={ slug } />
 					{ products.result ? <ProductList
 						classnames='grid-cols-1 lg:grid-cols-2 lg:grid-cols-3'

@@ -1,44 +1,17 @@
-import { redirect } from 'next/navigation';
 import { Section } from '@/models/filter';
-import { ProductProps } from '@/models/product';
 import Breadcrumbs from '@/components/UI/Breadcrumbs';
 import ProductComponent from '@/components/Product';
 import { Language } from '@/models/language';
 import LayoutWrapper from '@/components/Layout/LayoutWrapper';
 import type { Metadata } from 'next';
 import SimilarProducts from '@/components/SimilarProducts';
-
-async function getSettings() {
-	const res = await fetch(`${ process.env.SERVER_URL }/baseData/settings`, {
-		method: 'GET',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-		}
-	});
-	return await res.json();
-}
-
-async function getProduct(id: string): Promise<ProductProps> {
-	const res = await fetch(`${ process.env.SERVER_URL }/api/getProduct/${ id }`, {
-		method: 'GET',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-		}
-	});
-
-	if(!res.ok) {
-		redirect('/404');
-	} else {
-		return await res.json();
-	}
-}
+import { getProduct, getSettings } from '@/app/api/api';
 
 export async function generateMetadata({ params }: { params: Promise<{ product: string }> }): Promise<Metadata> {
 	const { product } = await params;
 	const match = product.match(/(\d+)$/); // match will be RegExpMatchArray | null
 	const id = match ? match[1] : '';
-	const response = await fetch(`${ process.env.SERVER_URL }/api/getProduct/${ id }`)
-		.then((res) => res.json());
+	const response = await getProduct(id);
 
 	return {
 		title: response.data.full_name || '',

@@ -21,9 +21,10 @@ import SectionBattery from '@/components/Catalog/FilterAlt/SectionBattery';
 interface Props {
 	filterData: BaseDataProps | undefined
 	section: Section
+	car: string | null
 }
 
-const FilterAlt: FC<Props> = ({ filterData, section }) => {
+const FilterAlt: FC<Props> = ({ filterData, section, car }) => {
 	const t = useTranslations('Filters')
 	const [ element, setElement ] = useState<HTMLElement | null>(null);
 	const dispatch = useAppDispatch();
@@ -43,7 +44,7 @@ const FilterAlt: FC<Props> = ({ filterData, section }) => {
 		<div>
 			<FilterBtn openFilter={ onOpen } title={ t('filters') }/>
 			<div className='hidden lg:block'>
-				<SwitchTabs section={ section }/>
+				<SwitchTabs section={ section } car={ car } />
 				<div
 					className='relative pb-32 lg:pb-4 px-4 pt-4 bg-white border border-gray-200 z-10 overflow-y-auto lg:overflow-y-visible dark:border-[#333333] dark:bg-[#333333]'>
 					<SubmitFloat element={ element } btnTitle={ t('to apply') } setElement={ setElement } offset={ Section.Battery ? 354 : 360 }/>
@@ -60,7 +61,7 @@ const FilterAlt: FC<Props> = ({ filterData, section }) => {
 				<DrawerContent>
 					{ () => (
 						<>
-							<SwitchTabs section={ section }/>
+							<SwitchTabs section={ section } car={ car } />
 							<div
 								className='relative pb-32 lg:pb-4 px-4 pt-4 z-10 overflow-y-auto lg:overflow-y-visible dark:bg-[#333333]'>
 								<SwitchTabsByParams subsection={ subsection }/>

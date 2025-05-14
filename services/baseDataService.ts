@@ -82,13 +82,13 @@ export const baseDataAPI = createApi({
 			}),
 		}),
 		fetchKitDiskSize: build.query<KitDiskSize[], string>({
-			query: ([section]) => ({
-				url: baseEndpoints.kitDiskSize(section),
+			query: (id) => ({
+				url: baseEndpoints.kitDiskSize(id),
 			}),
 		}),
 		fetchManufModels: build.query<ManufModels[], string>({
-			query: ([section]) => ({
-				url: baseEndpoints.manufModels(section),
+			query: (id) => ({
+				url: baseEndpoints.manufModels(id),
 			}),
 		}),
 		fetchOrdersParam: build.query<OrdersParamProps, string>({

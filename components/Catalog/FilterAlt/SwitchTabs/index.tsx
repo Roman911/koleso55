@@ -3,11 +3,11 @@ import { twMerge } from 'tailwind-merge';
 import { Section } from '@/models/filter';
 import { useTranslations } from 'next-intl';
 
-const SwitchTabs = ({ section }: { section: Section }) => {
+const SwitchTabs = ({ section, car }: { section: Section, car: string | null }) => {
 	const t = useTranslations('Main');
 
 	const renderTab = (value: Section) => {
-		const url = `/catalog/${ value }`;
+		const url = `/catalog/${ value }${ car ? `/${ car }` : '' }`;
 
 		return (
 			<Link
@@ -17,7 +17,7 @@ const SwitchTabs = ({ section }: { section: Section }) => {
 					section !== value && 'bg-gray-200 text-gray-400 dark:text-[#949699] dark:bg-gray-900'
 				) }
 			>
-				{ value === Section.Battery ? 'АКБ' : t(value) }
+				{ t(value) }
 			</Link>
 		);
 	};

@@ -5,13 +5,14 @@ import DOMPurify from 'isomorphic-dompurify';
 import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
 import { Tooltip } from '@heroui/tooltip';
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useAppDispatch } from '@/hooks/redux';
 import { addBrandAlias, addModelAlias, reset } from '@/store/slices/brandAliasSlice';
 import * as Icons from '../../UI/Icons';
 import { SeasonTransform, VehicleTypeTransform } from '@/lib/characteristicsTransform';
 import Comments from '../Comments';
 import type { ProductProps } from '@/models/product';
 import { Language, LanguageCode } from '@/models/language';
+import { Section } from '@/models/filter';
 
 const tabs = [
 	{ label: 'main characteristics' },
@@ -22,13 +23,13 @@ const tabs = [
 interface CharacteristicsBlockProps {
 	locale: Language
 	data: ProductProps | undefined
+	section: Section
 }
 
-const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ locale, data }) => {
+const CharacteristicsBlock: FC<CharacteristicsBlockProps> = ({ locale, data, section }) => {
 	const t = useTranslations('Filters');
 	const [ tab, setTab ] = useState('main characteristics');
 	const [ showOptions, setShowOptions ] = useState(false);
-	const { section } = useAppSelector(state => state.filterReducer);
 	const description = data?.data.descr[locale === Language.UK ? LanguageCode.UA : Language.RU]?.description;
 	const vehicleType = data?.data.offer_group.vehicle_type;
 	const vehicleTransform = vehicleType ? VehicleTypeTransform(vehicleType) : undefined;

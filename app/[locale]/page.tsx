@@ -11,58 +11,17 @@ import PopularSizes from '@/components/Home/PopularSizes';
 import Reviews from '@/components/Home/Reviews';
 import PopularCarBrands from '@/components/Home/PopularCarBrands';
 import ShowAll from '@/components/Home/ShowAll';
-
-async function getSettings() {
-	const res = await fetch(`${ process.env.SERVER_URL }/baseData/settings`, {
-		method: 'GET',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-		}
-	});
-	return await res.json();
-}
-
-async function getProducts() {
-	const res = await fetch(`${ process.env.SERVER_URL }/api/getProducts?typeproduct=1`, {
-		method: 'POST',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-			'content-type': 'application/json',
-		},
-		body: JSON.stringify({ start: 0, length: 8 }),
-	});
-	return await res.json();
-}
-
-async function getFeatureParams() {
-	const res = await fetch(`${ process.env.SERVER_URL }/api/getFeatureParams`, {
-		method: 'GET',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-		}
-	});
-	return await res.json();
-}
-
-async function getReviews() {
-	const res = await fetch(`${ process.env.SERVER_URL }/api/reviews`, {
-		method: 'GET',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-		}
-	});
-	return await res.json();
-}
+import { getFeatureParams, getProducts, getSettings, getReviews } from '@/app/api/api';
+import { language } from '@/lib/language';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Language }> }): Promise<Metadata> {
 	const { locale } = await params;
-	const lang = locale === Language.UK ? LanguageCode.UA : Language.RU;
-	const response = await fetch(`${ process.env.SERVER_URL }/baseData/settings`)
-		.then((res) => res.json());
+	const lang = language(locale);
+	const settings = await getSettings();
 
 	return {
-		title: response[lang].meta_title,
-		description: response[lang].meta_description,
+		title: settings[lang].meta_title,
+		description: settings[lang].meta_description,
 	}
 }
 
@@ -70,7 +29,7 @@ export default async function Home({ params }: { params: Promise<{ locale: Langu
 	const locale = (await params).locale;
 	const lang = locale === Language.UK ? LanguageCode.UA : Language.RU;
 	const response = await getSettings();
-	const products = await getProducts();
+	const products = await getProducts('?typeproduct=1', 0, 8);
 	const featureParams = await getFeatureParams();
 	const reviews = await getReviews();
 

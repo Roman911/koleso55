@@ -8,7 +8,7 @@ const nextConfig: NextConfig = {
 		NEXT_PUBLIC_API_URL: process.env.SERVER_URL,
 		HOSTNAME: process.env.HOSTNAME,
 		HOSTNAME_TYRECLUB: process.env.HOSTNAME,
-		ACCESS_ORIGIN: process.env.ACCESS_ORIGIN,
+		ACCESS_ORIGIN: process.env.NEXT_PUBLIC_ACCESS_ORIGIN,
 	},
 	sassOptions: {
 		additionalData: `$var: red;`,

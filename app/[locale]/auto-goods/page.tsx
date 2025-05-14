@@ -1,35 +1,26 @@
 import LayoutWrapper from '@/components/Layout/LayoutWrapper';
 import Breadcrumbs from '@/components/UI/Breadcrumbs';
 import Title from '@/components/UI/Title';
-import { Language, LanguageCode } from '@/models/language';
+import { Language } from '@/models/language';
 import type { Metadata } from 'next';
 import ProductList from '@/components/ProductList';
 import NoResult from '@/components/UI/NoResult';
-
-async function getProducts() {
-	const res = await fetch(`${process.env.SERVER_URL}/api/getProducts?typeproduct=5&categories=7`, {
-		method: 'POST',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-			'content-type': 'application/json',
-		},
-	});
-	return await res.json();
-}
+import { getProducts, getSettings } from '@/app/api/api';
+import { language } from '@/lib/language';
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: Language }> }): Promise<Metadata> {
 	const { locale } = await params;
-	const response = await fetch(`${process.env.SERVER_URL}/baseData/settings`)
-		.then((res) => res.json());
+	const lang = language(locale);
+	const settings = await getSettings();
 
 	return {
-		title: response[locale === Language.UK ? LanguageCode.UA : Language.RU].meta_title,
-		description: response[locale === Language.UK ? LanguageCode.UA : Language.RU].meta_description,
+		title: settings[lang].meta_title,
+		description: settings[lang].meta_description,
 	}
 }
 
 export default async function AutoGoods() {
-	const products = await getProducts();
+	const products = await getProducts('?typeproduct=5&categories=7', 0, 12);
 
 	const path = [
 		{

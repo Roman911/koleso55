@@ -1,11 +1,9 @@
-'use client'
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
 import { Link } from '@/i18n/routing';
 import { Language } from '@/models/language';
 
-export default function NotFound() {
-	const locale = useLocale();
+export default async function NotFound({ params }: { params: Promise<{ locale: Language }> }) {
+	const locale = (await params).locale;
 
 	return (
 		<div className='min-h-96 py-10 px-6'>
@@ -29,4 +27,4 @@ export default function NotFound() {
 			</div>
 		</div>
 	)
-}
+};

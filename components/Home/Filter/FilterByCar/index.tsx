@@ -1,102 +1,122 @@
 'use client'
-import { FC, useState } from 'react';
+import { FC, useCallback, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale, useTranslations } from 'next-intl';
 import { baseDataAPI } from '@/services/baseDataService';
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { setCarFilter, setSend } from '@/store/slices/filterCarSlice';
-import { changeSubsection } from '@/store/slices/filterSlice';
 import MySelect from '../Select';
-import { Subsection } from '@/models/section';
 import { Section } from '@/models/filter';
-import { Button } from '@heroui/button';
+import Button from '@/components/UI/Button';
+
+interface CarFilters {
+	brand?: string | number;
+	model?: string | number;
+	year?: string | number;
+	modification?: string | number;
+}
+
+interface FilterConfig {
+	label: string;
+	name: keyof typeof filterNames;
+	options?: Array<{ value: string | number; label: string }>;
+	isDisabled?: boolean;
+}
+
+const filterNames = {
+	brand: 'brand',
+	model: 'model',
+	year: 'graduation year',
+	modification: 'modification',
+} as const;
 
 interface Props {
-	section: Section
+	section: Section;
 }
 
 const FilterByCar: FC<Props> = ({ section }) => {
-	const [ isLoadingTires, setIsLoadingTires ] = useState(false);
-	const [ isLoadingDisks, setIsLoadingDisks ] = useState(false);
+	const [ isLoadingTires, setLoadingTires ] = useState(false);
+	const [ isLoadingDisks, setLoadingDisks ] = useState(false);
+	const [ carFilters, setCarFilters ] = useState<CarFilters>({ brand: 0, model: 0, modification: 0, year: 0 });
 	const router = useRouter();
 	const locale = useLocale();
 	const t = useTranslations('Filters');
-	const { filter } = useAppSelector((state) => state.filterCarReducer);
-	const dispatch = useAppDispatch();
-	const { data } = baseDataAPI.useFetchBaseDataQuery('');
-	const { data: model, refetch: modelRefetch } = baseDataAPI.useFetchAutoModelQuery(`${ filter.brand }`);
-	const { data: modelYear } = baseDataAPI.useFetchAutoYearQuery(`${ filter.model }`);
-	const {
-		data: modelKit,
-		refetch: modelKitRefetch
-	} = baseDataAPI.useFetchAutoModelKitQuery(`${ filter.model }/${ filter.year }`);
+	const { data: baseData } = baseDataAPI.useFetchBaseDataQuery('');
+	const { data: model, refetch: modelRefetch } = baseDataAPI.useFetchAutoModelQuery(carFilters.brand?.toString() ?? '');
+	const { data: modelYear } = baseDataAPI.useFetchAutoYearQuery(carFilters.model?.toString() ?? '');
+	const { data: modelKit, refetch: modelKitRefetch } = baseDataAPI.useFetchAutoModelKitQuery(
+		`${ carFilters.model }/${ carFilters.year }`
+	);
 
-	const filters = [
+	const filters: FilterConfig[] = useMemo(() => [
 		{
-			label: 'car brand',
+			label: filterNames.brand,
 			name: 'brand',
-			options: data?.auto?.map(item => ({ value: item.value, label: item.label }))
+			options: baseData?.auto?.map(item => ({ value: item.value, label: item.label }))
 		},
 		{
-			label: 'model',
+			label: filterNames.model,
 			name: 'model',
 			options: model?.map(item => ({ value: item.value, label: item.label })),
-			isDisabled: model?.length === 0,
+			isDisabled: !model?.length,
 		},
 		{
-			label: 'graduation year',
+			label: filterNames.year,
 			name: 'year',
-			options: modelYear?.map(item => ({ value: item, label: `${ item }` })),
-			isDisabled: modelYear?.length === 0,
+			options: modelYear?.map(item => ({ value: item, label: String(item) })),
+			isDisabled: !modelYear?.length,
 		},
 		{
-			label: 'modification',
+			label: filterNames.modification,
 			name: 'modification',
 			options: modelKit?.map(item => ({ value: item.value, label: item.label })),
-			isDisabled: modelKit?.length === 0,
+			isDisabled: !modelKit?.length,
 		}
-	];
+	], [ baseData?.auto, model, modelYear, modelKit ]);
 
-	const onChange = (name: string, value: number | string | null) => {
-		dispatch(setCarFilter({ ...filter, [name]: value }));
+	const handleChange = useCallback((name: string, value: number | string | null) => {
+		setCarFilters({ ...carFilters, [name]: value })
 		if(name === 'model') {
 			modelRefetch();
-		} else if(name === 'modification' || name === 'year') {
+		} else if([ 'modification', 'year' ].includes(name)) {
 			modelKitRefetch();
 		}
-	}
+	}, [ carFilters, modelRefetch, modelKitRefetch ]);
 
-	const onSubmit = (section: Section) => {
-		if(section === Section.Tires) setIsLoadingTires(true);
-		if(section === Section.Disks) setIsLoadingDisks(true);
-		dispatch(changeSubsection(Subsection.ByCars));
-		dispatch(setSend());
-		router.push(`/${ locale }/catalog/${ section }`);
-	}
+	const handleSubmit = useCallback((selectedSection: Section) => {
+		const brandLabel = baseData?.auto.find(item => item.value == carFilters.brand)?.label.toLowerCase() ?? '';
+		const link = `car-${ brandLabel } ${ carFilters.year } ${ carFilters.brand } ${ carFilters.model } ${ carFilters.modification }`;
+		(selectedSection === Section.Disks ? setLoadingDisks : setLoadingTires)(true);
+		router.push(`/${ locale }/catalog/${ selectedSection }/${ link.split(' ').join('-') }`);
+	}, [ baseData?.auto, carFilters, router, locale ]);
 
 	return (
 		<>
-			{ filters.map(item => {
-				return <MySelect
-					key={ item.name }
-					name={ item.name }
-					label={ t(item.label) }
-					options={ item.options }
-					onChange={ onChange }
-					isDisabled={ item.isDisabled }
+			{ filters.map(({ name, label, options, isDisabled }) => (
+				<MySelect
+					key={ name }
+					name={ name }
+					label={ t(label) }
+					options={ options }
+					onChange={ handleChange }
+					isDisabled={ isDisabled }
 					section={ section }
 				/>
-			}) }
-			<Button isLoading={ isLoadingTires } isDisabled={ !filter.modification } color='primary' size='lg' radius='none' onPress={ () => onSubmit(Section.Tires) }
-							className='uppercase w-full font-semibold'>
-				{ t('choose tires') }
-			</Button>
-			<Button isLoading={ isLoadingDisks } isDisabled={ !filter.modification } color='primary' size='lg' radius='none' onPress={ () => onSubmit(Section.Disks) }
-							className='uppercase w-full font-semibold'>
-				{ t('choose disks') }
-			</Button>
+			)) }
+
+			{ [
+				{ section: Section.Tires, label: 'choose tires', isLoading: isLoadingTires },
+				{ section: Section.Disks, label: 'choose disks', isLoading: isLoadingDisks }
+			].map(({ section: btnSection, label, isLoading }) => (
+				<Button
+					key={ btnSection }
+					isDisabled={ !carFilters.modification }
+					isLoading={ isLoading }
+					onPress={ () => handleSubmit(btnSection) }
+				>
+					{ t(label) }
+				</Button>
+			)) }
 		</>
-	)
+	);
 };
 
 export default FilterByCar;

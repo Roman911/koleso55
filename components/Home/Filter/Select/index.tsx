@@ -36,9 +36,6 @@ const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisabled = fal
 		size='sm'
 		color='default'
 		className={ twMerge('max-w-full md:max-w-xs', hidden ) }
-		// classNames={{
-		// 	popoverContent: 'rounded-none'
-		// }}
 		label={ <span className='text-black dark:text-white'>{ label }</span> }
 		isDisabled={ isDisabled }
 		onSelectionChange={onSelectionChange}

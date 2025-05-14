@@ -1,33 +1,23 @@
 import LayoutWrapper from '@/components/Layout/LayoutWrapper';
 import Breadcrumbs from '@/components/UI/Breadcrumbs';
 import Title from '@/components/UI/Title';
-import { Language, LanguageCode } from '@/models/language';
+import { Language } from '@/models/language';
 import type { Metadata } from 'next';
 import ProductList from '@/components/ProductList';
 import NoResult from '@/components/UI/NoResult';
+import { getProducts, getSettings } from '@/app/api/api';
+import { language } from '@/lib/language';
 
 const pageItem = 12;
 
-async function getProducts(page: number | null) {
-	const res = await fetch(`${process.env.SERVER_URL}/api/getProducts?typeproduct=5&categories=8`, {
-		method: 'POST',
-		headers: {
-			'Access-Control-Allow-Credentials': 'true',
-			'content-type': 'application/json',
-		},
-		body: JSON.stringify({ start: page ? (page - 1) * pageItem : 0, length: 12 }),
-	});
-	return await res.json();
-}
-
 export async function generateMetadata({ params }: { params: Promise<{ locale: Language }> }): Promise<Metadata> {
 	const { locale } = await params;
-	const response = await fetch(`${process.env.SERVER_URL}/baseData/settings`)
-		.then((res) => res.json());
+	const lang = language(locale);
+	const settings = await getSettings();
 
 	return {
-		title: response[locale === Language.UK ? LanguageCode.UA : Language.RU].meta_title,
-		description: response[locale === Language.UK ? LanguageCode.UA : Language.RU].meta_description,
+		title: settings[lang].meta_title,
+		description: settings[lang].meta_description,
 	}
 }
 
@@ -35,7 +25,7 @@ export default async function Services({ params }: { params: Promise<{ slug: str
 	const { slug } = await params;
 	const value = slug?.find(item => item.startsWith('p-'));
 	const page = value ? parseInt(value.split('-')[1], 10) : null;
-	const products = await getProducts(page);
+	const products = await getProducts('?typeproduct=5&categories=8', page ? (page - 1) * pageItem : 0, 12);
 
 	const path = [
 		{

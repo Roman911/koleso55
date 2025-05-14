@@ -125,7 +125,7 @@ const ProductComponent: FC<Props> = ({ idProduct, locale, data, section, setting
 					</div>
 					<BuyActions locale={ locale } offerId={ +offerId } quantity={ quantity } section={ section } onSubmit={ onSubmit } data={ data } />
 				</div>
-				<CharacteristicsBlock locale={ locale } data={ data } />
+				<CharacteristicsBlock locale={ locale } data={ data } section={ section } />
 			</div>
 			<InfoBlock settings={ settings } />
 		</section>
