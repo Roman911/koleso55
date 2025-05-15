@@ -3,7 +3,7 @@ import { useRouter, usePathname } from 'next/navigation';
 import { FC, useMemo } from 'react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
-import { Button } from '@heroui/button';
+import Button from '@/components/UI/Button';
 import { Card, CardBody, CardFooter } from '@heroui/card';
 import { Link } from '@/i18n/routing';
 import { useAppDispatch } from '@/hooks/redux';
@@ -96,7 +96,7 @@ const ProductCard: FC<Props> = ({ item }) => {
 							<div>за 4 шт.</div>
 						</div>
 					</div>
-					<Button className='uppercase font-bold' onPress={ handleClick } color='primary' radius='sm' size='lg'>
+					<Button onPress={ handleClick } aria-label={ t('cart') }>
 						<Icons.CartIcon className='stroke-white'/>
 					</Button>
 				</div>

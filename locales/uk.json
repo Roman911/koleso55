@@ -232,7 +232,9 @@
     "oil": "Мастила",
     "used": "Б/У",
     "selection of tires and wheels": "Підбір шин та дисків",
-    "customer reviews": "Відгуки клієнтів"
+    "customer reviews": "Відгуки клієнтів",
+    "warning": "Попередження",
+    "minimum quantity of goods": "Мінімальна кількість товару для замовлення 2 або 4 товари"
   },
   "QuickOrder": {
     "quick order": "Швидке замовлення",

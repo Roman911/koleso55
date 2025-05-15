@@ -41,7 +41,7 @@ export default async function Product({ params }: { params: Promise<{ locale: La
 	];
 
 	return (
-		<LayoutWrapper>
+		<LayoutWrapper className='max-w-7xl'>
 			<Breadcrumbs path={ path }/>
 			<ProductComponent
 				idProduct={ idProduct }

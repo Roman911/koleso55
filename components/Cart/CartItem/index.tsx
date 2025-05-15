@@ -1,11 +1,14 @@
-import { FC } from 'react';
+import { Dispatch, FC, SetStateAction, useEffect } from 'react';
 import Image from 'next/image';
-import { Button } from '@heroui/button';
+import Button from '@/components/UI/Button';
 import { Link } from '@/i18n/routing';
 import { Language } from '@/models/language';
 import { countryCodeTransform } from '@/lib/countryCodetransform';
 import CountryInfo from '@/components/UI/CountryInfo';
 import Quantity from '@/components/UI/Quantity';
+import { twMerge } from 'tailwind-merge';
+import { Alert } from '@heroui/alert';
+import { useTranslations } from 'next-intl';
 
 interface CartItemProps {
 	id: number
@@ -20,6 +23,9 @@ interface CartItemProps {
 	year: number
 	locale: string
 	offerQuantity: number,
+	isLastItem: boolean
+	isBattery: boolean
+	setMinQuantity: Dispatch<SetStateAction<boolean>>
 	removeProduct: (id: number) => void
 	setQuantity: (id: number, quantity: number) => void
 }
@@ -39,8 +45,20 @@ const CartItem: FC<CartItemProps> = (
 		offerQuantity,
 		setQuantity,
 		removeProduct,
-		locale
+		locale,
+		isBattery,
+		isLastItem,
+		setMinQuantity
 	}) => {
+	const t = useTranslations('Main');
+
+	useEffect(() => {
+		if(!isBattery && (quantity === 1 || quantity === 3)) {
+			setMinQuantity(true);
+		} else {
+			setMinQuantity(false);
+		}
+	}, [quantity]);
 
 	const onChange = (e: { target: HTMLInputElement }) => {
 		const value = e.target.value;
@@ -50,7 +68,10 @@ const CartItem: FC<CartItemProps> = (
 		setQuantity(id,numericValue < offerQuantity ? numericValue : offerQuantity);
 	}
 
-	return <div className='flex flex-col lg:flex-row py-4 items-center relative border-b'>
+	return <div className={ twMerge('relative flex flex-col lg:flex-row py-4 items-center border-b border-gray-300', isLastItem && 'border-b-0') }>
+		{ !isBattery && (quantity === 1 || quantity === 3) && <div className='flex items-center justify-center absolute -bottom-2 right-0'>
+			<Alert radius='sm' description={ t('minimum quantity of goods') } title={ t('warning') } className='shadow-md py-1.5 px-2.5' />
+		</div> }
 		<Link href={`/${pageUrl}`}>
 			<Image src={ default_photo } height={ 122 } width={ 122 } alt={ full_name } />
 		</Link>
