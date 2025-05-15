@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 import { FC } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { Button } from '@heroui/button';
+import Button from '@/components/UI/Button';
 import { useInView } from 'react-intersection-observer';
 import Spinner from '@/components/UI/Spinner';
 import Item from '@/components/Order/Summary/Item';
@@ -59,7 +59,7 @@ const Summary: FC<SummaryProps> = ({ data, isLoading, loadingBtn, cartItems }) =
 					<div>{ t('total sum') }</div>
 					<div>{ totalQuantityPrice } грн</div>
 				</div>
-				<Button type='submit' color='primary' radius='full' size='lg'
+				<Button type='submit'
 								className='w-full uppercase font-bold' isLoading={ loadingBtn } disabled={ loadingBtn }>
 					{ t('place an order') }
 				</Button>

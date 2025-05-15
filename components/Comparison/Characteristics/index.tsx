@@ -45,7 +45,7 @@ export const Characteristics: FC<CharacteristicsProps> = ({ name, item, params  
 		} else if(i === 'country') {
 			return <Item key={ index } content={ item.best_offer.country ? locale === Language.UK ? item.best_offer.country : item.best_offer.country_ru : '-' } param={ t(params[index]) } />
 		} else if(i === 'price') {
-			return <div key={ index } className='h-11 leading-[44px] font-bold bg-[#E1E8F5]'>
+			return <div key={ index } className='h-11 leading-[44px] font-bold bg-black text-white mx-1'>
 				{ item.best_offer.price } ₴
 			</div>
 		} else if(i === 'load_index') {

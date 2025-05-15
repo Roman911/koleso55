@@ -1,11 +1,12 @@
 'use client'
 import { useEffect } from 'react';
 import { Link } from '@/i18n/routing';
-import { Badge } from '@heroui/badge';
+import { Badge } from '@heroui/react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { addBookmarksFromStorage } from '@/store/slices/bookmarksSlice';
 import { addComparisonFromStorage } from '@/store/slices/comparisonSlice';
 import { addCartFromStorage } from '@/store/slices/cartSlice';
+import { setProgress } from '@/store/slices/progressSlice';
 import * as Icons from '@/components/UI/Icons';
 import { getFromStorage } from '@/lib/localeStorage';
 
@@ -33,7 +34,7 @@ const ButtonBlock = () => {
 
 	return (
 		<>
-			<Link href='/comparison' className='relative'>
+			<Link href='/comparison' className='relative' onClick={ () => console.log('comparison') }>
 				<Badge
 					color='primary'
 					content={ comparisonItems.length }
@@ -43,7 +44,7 @@ const ButtonBlock = () => {
 					<Icons.LibraIcon className='fill-gray-900 dark:fill-gray-50'/>
 				</Badge>
 			</Link>
-			<Link href='/bookmarks' className='relative'>
+			<Link href='/bookmarks' className='relative' onClick={ () => dispatch(setProgress(true)) }>
 				<Badge
 					color='primary'
 					content={ bookmarksItems.length }
@@ -53,7 +54,7 @@ const ButtonBlock = () => {
 					<Icons.HeartIcon className='stroke-gray-900 dark:stroke-gray-50'/>
 				</Badge>
 			</Link>
-			<Link href='/cart' className='relative'>
+			<Link href='/cart' className='relative' onClick={ () => dispatch(setProgress(true)) }>
 				<Badge
 					color='primary'
 					content={ cartItems.length }

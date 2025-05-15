@@ -69,7 +69,7 @@ const CartItem: FC<CartItemProps> = (
 	}
 
 	return <div className={ twMerge('relative flex flex-col lg:flex-row py-4 items-center border-b border-gray-300', isLastItem && 'border-b-0') }>
-		{ !isBattery && (quantity === 1 || quantity === 3) && <div className='flex items-center justify-center absolute -bottom-2 right-0'>
+		{ !isBattery && (quantity === 1 || quantity === 3) && <div className='flex items-center justify-center absolute -bottom-0 right-0'>
 			<Alert radius='sm' description={ t('minimum quantity of goods') } title={ t('warning') } className='shadow-md py-1.5 px-2.5' />
 		</div> }
 		<Link href={`/${pageUrl}`}>

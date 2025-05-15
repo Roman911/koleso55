@@ -28,10 +28,9 @@ interface CarProps {
 	removeProduct: (id: number) => void
 	cartItems: { id: number; quantity: number }[]
 	setQuantity: (id: number, quantity: number) => void
-	isCartPage?: boolean
 }
 
-const CartComponent: FC<CarProps> = ({ data, cartItems, removeProduct, setQuantity, isCartPage }) => {
+const CartComponent: FC<CarProps> = ({ data, cartItems, removeProduct, setQuantity }) => {
 	const router = useRouter();
 	const [ minQuantity, setMinQuantity ] = useState(false);
 	const locale = useLocale();
@@ -99,11 +98,6 @@ const CartComponent: FC<CarProps> = ({ data, cartItems, removeProduct, setQuanti
 					<div>{ t('total payable') }:</div>
 					<div>{ totalQuantityPrice } ₴</div>
 				</div>
-				{ isCartPage && <div className='mt-6 flex justify-end'>
-					<Button onPress={ handleClick }>
-						{ t('place an order') }
-					</Button>
-				</div> }
 			</div>
 		</div>
 		<div className='flex justify-end border-t border-gray-200 py-6 gap-4'>

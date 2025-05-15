@@ -14,7 +14,8 @@
     "send": "Надіслати",
     "your comment": "Ваш коментар",
     "enter valid email": "Введіть правильний email",
-    "this field is required": "Це поле обовʼязкове"
+    "this field is required": "Це поле обовʼязкове",
+    "sent message": "Повідомлення надіслано"
   },
   "CarType": {
     "buses": "Буси",
@@ -43,7 +44,9 @@
     "name": "Ім'я",
     "rating": "Оцінка",
     "enter your name": "Введіть ваше ім'я",
-    "enter your comment": "Введіть свій коментар"
+    "enter your comment": "Введіть свій коментар",
+    "sent comment": "Дякуємо за відгук",
+    "your comment sent": "Ваш відгук успішно надіслано"
   },
   "Delivery": {
     "cost": "Вартість",
@@ -239,7 +242,9 @@
   "QuickOrder": {
     "quick order": "Швидке замовлення",
     "quick order text": "Економте Ваш час, просто залиште телефон і менеджер з Вами зв'яжеться для уточнення всіх деталей",
-    "send": "Надіслати"
+    "send": "Надіслати",
+    "sent order": "Замовлення надіслано",
+    "our manager": "Наш менеджер зателефонує Вам"
   },
   "Search": {
     "search": "Пошук"
@@ -313,7 +318,8 @@
   },
   "Cart": {
     "total payable": "Разом до сплати",
-    "place an order": "Оформити замовлення"
+    "place an order": "Оформити замовлення",
+    "continue shopping": "Продовжити покупки"
   },
   "PhoneMask": {
     "phone number": "Номер телефону",

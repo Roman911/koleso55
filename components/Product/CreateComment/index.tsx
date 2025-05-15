@@ -1,6 +1,7 @@
 'use client'
 import { FC, FormEvent, useState } from 'react';
 import { useTranslations } from 'next-intl';
+import { addToast } from '@heroui/toast';
 import { baseDataAPI } from '@/services/baseDataService';
 import Rating from '@/components/UI/Rating';
 import { Button } from '@heroui/button';
@@ -34,6 +35,11 @@ const CreateComment: FC<CreateCommentProps> = ({ model_id, product_id, trc_id })
 			trc_id,
 		}).then(data => {
 			if(data) {
+				addToast({
+					title: t('sent comment'),
+					description: t('your comment sent'),
+					classNames: { base: 'text-black dark:text-gray-50', title: 'text-black dark:text-gray-50' },
+				});
 				form.reset(); // Reset form fields
 				setRate(0); // Reset rating
 			}
@@ -42,8 +48,8 @@ const CreateComment: FC<CreateCommentProps> = ({ model_id, product_id, trc_id })
 
 	return (
 		<Form onSubmit={ onSubmit }>
-			<div className='bg-white  shadow-md mt-6 w-full'>
-				<h6 className='font-bold text-lg py-4 px-6 bg-blue-100'>
+			<div className='bg-white dark:bg-[#171719] shadow-md mt-6 w-full'>
+				<h6 className='font-bold text-lg py-4 px-6 bg-blue-100 dark:bg-gray-900'>
 					{ t('leave review') }
 				</h6>
 				<div className='pt-4 px-6 pb-6 flex flex-col gap-4'>

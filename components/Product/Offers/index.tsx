@@ -31,12 +31,12 @@ const Offers: FC<Props> = ({ locale, offerId, offers, setOfferId, setQuantity })
 												className='bg-white dark:gray-800 lg:bg-transparent border lg:border-0 rounded-full ml-0 mt-2 lg:mt-0 w-full max-w-full'
 					>
 						<div
-							className='grid-cols-10 grid lg:grid-cols-10 w-full gap-1 items-center lg:min-w-[460px]'
+							className='grid-cols-12 grid lg:grid-cols-10 w-full gap-1 items-center lg:min-w-[460px]'
 						>
-							<div className='font-medium col-span-1 lg:col-span-2 text-sm lg:ml-3 text-black dark:text-gray-50'>
+							<div className='font-medium col-span-2 lg:col-span-2 text-sm lg:ml-3 text-black dark:text-gray-50'>
 								{ item.quantity } шт.
 							</div>
-							<div className='country col-span-2 lg:col-span-3'>
+							<div className='country col-span-3 lg:col-span-3'>
 								<CountryInfo
 									country={ locale === Language.UK ? item.country : item.country_ru }
 									countryCode={ countryCodeTransform(item.country) } year={ item.year }

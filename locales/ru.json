@@ -14,7 +14,8 @@
     "send": "Отправить",
     "your comment": "Ваш комментарий",
     "enter valid email": "Введите правильный email",
-    "this field is required": "Это поле обязательно"
+    "this field is required": "Это поле обязательно",
+    "sent message": "Сообщение отправлено"
   },
   "CarType": {
     "buses": "Бусы",
@@ -43,7 +44,9 @@
     "name": "Имя",
     "rating": "Оценка",
     "enter your name": "Введите ваше имя",
-    "enter your comment": "Введите ваш комментарий"
+    "enter your comment": "Введите ваш комментарий",
+    "sent comment": "Спасибо за отзыв",
+    "your comment sent": "Ваш отзыв успешно отправлен"
   },
   "Delivery": {
     "cost": "Стоимость",
@@ -238,7 +241,9 @@
   "QuickOrder": {
     "quick order": "Быстрый заказ",
     "quick order text": "Экономьте Ваше время, просто оставьте телефон и менеджер с Вами свяжется для уточнения всех деталей",
-    "send": "Отправить"
+    "send": "Отправить",
+    "sent order": "Заказ отправлен",
+    "our manager": "Наш менеджер позвонит Вам"
   },
   "Search": {
     "search": "Поиск"
@@ -312,7 +317,8 @@
   },
   "Cart": {
     "total payable": "Итого к оплате",
-    "place an order": "Оформить заказ"
+    "place an order": "Оформить заказ",
+    "continue shopping": "Продолжить покупки"
   },
   "PhoneMask": {
     "phone number": "Номер телефона",

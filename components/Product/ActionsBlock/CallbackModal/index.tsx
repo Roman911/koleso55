@@ -1,10 +1,10 @@
 'use client'
 import { FC, FormEvent } from 'react';
 import { useTranslations } from 'next-intl';
+import { addToast } from '@heroui/toast';
 import * as Icons from '@/components/UI/Icons';
 import { Button } from '@heroui/button';
 import { Form } from '@heroui/form';
-import { addToast } from '@heroui/toast';
 import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@heroui/modal';
 import PhoneMaskInput from '@/components/UI/PhoneMaskInput';
 import { baseDataAPI } from '@/services/baseDataService';
@@ -30,11 +30,13 @@ const CallbackModal: FC<Props> = ({ id, quantity }) => {
 		await createCallback({
 			phone: formatPhoneNumber(phone),
 			product_id: id?.toString(),
-			quantity,
+			quantity: quantity.toString(),
 		}).then((response: { data?: { result: boolean }; error?: FetchBaseQueryError | SerializedError }) => {
 			if(response?.data?.result) {
 				addToast({
-					title: t('our manager'),
+					title: t('sent message'),
+					description: t('our manager'),
+					classNames: { base: 'text-black dark:text-gray-50', title: 'text-black dark:text-gray-50' },
 				});
 				onClose();
 			} else if(response.error) {

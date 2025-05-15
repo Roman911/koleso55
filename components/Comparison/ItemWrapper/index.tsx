@@ -7,7 +7,7 @@ import type { Product } from '@/models/products';
 import CloseButton from '@/components/UI/CloseButton';
 import { Characteristics } from '../Characteristics';
 import * as Icons from '../../UI/Icons';
-import { Button } from '@heroui/button';
+import Button from '@/components/UI/Button';
 
 interface ItemWrapperProps {
 	characteristics: Product[]
@@ -50,15 +50,13 @@ export const ItemWrapper: FC<ItemWrapperProps> = (
 			</div>
 			<div className='divide-y divide-[#D0D4D9] text-center'>
 				<Characteristics name={ name } item={ item } params={ params } />
-				<div className='pt-8 pb-14'>
+				<div className='pt-2 pb-14 px-1'>
 					<Button
 						as={ Link }
 						href='/cart'
+						radius='none'
 						onPress={() => onClickAction(item.best_offer.id, tab)}
-						radius='sm'
-						color='primary'
-						size='lg'
-						className='uppercase font-bold w-full md:w-52 mx-auto'
+						className='uppercase font-bold w-full mx-auto'
 						startContent={<Icons.CartIcon className='stroke-white'/>}
 					>
 						{ t('buy') }

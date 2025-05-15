@@ -1,6 +1,6 @@
-import { Button } from '@heroui/button';
 import { Link } from '@/i18n/routing';
 import { useTranslations } from 'next-intl';
+import Button from '@/components/UI/Button';
 
 interface SearchAllResultsButtonProps {
 	totalCount: number;
@@ -12,14 +12,13 @@ export const SearchAllResultsButton = ({ totalCount, onClick }: SearchAllResults
 
 	return (
 		<Button
-			as={Link}
-			onPress={onClick}
+			as={ Link }
+			onPress={ onClick }
 			href='/search'
-			className='mx-auto rounded-sm w-full'
-			color='primary'
+			className='mx-auto w-full'
 		>
-			{t('all search result') + ' '}
-			({totalCount})
+			{ t('all search result') + ' ' }
+			({ totalCount })
 		</Button>
 	);
 };

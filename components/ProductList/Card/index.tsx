@@ -8,6 +8,7 @@ import { Card, CardBody, CardFooter } from '@heroui/card';
 import { Link } from '@/i18n/routing';
 import { useAppDispatch } from '@/hooks/redux';
 import { addCart } from '@/store/slices/cartSlice';
+import { setProgress } from '@/store/slices/progressSlice';
 import type { Product } from '@/models/products';
 import { Language } from '@/models/language';
 import { addToStorage, getFromStorage } from '@/lib/localeStorage';
@@ -68,8 +69,13 @@ const ProductCard: FC<Props> = ({ item }) => {
 					/>
 				</div>
 				<div className='px-5 flex flex-col'>
-					<Link href={ url }
-								className='font-medium text-gray-900 dark:text-gray-50 my-2.5 min-h-12 after:absolute after:inset-0'>{ full_name }</Link>
+					<Link
+						href={ url }
+						onClick={ () => { dispatch(setProgress(true)) }}
+						className='font-medium text-gray-900 dark:text-gray-50 my-2.5 min-h-12 after:absolute after:inset-0'
+					>
+						{ full_name }
+					</Link>
 					<div className='text-sm text-gray-400 mb-2.5'>
 						<span>Артикул: </span><span>{ sku }</span>
 					</div>
