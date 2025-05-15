@@ -4,12 +4,10 @@ import { Link } from '@/i18n/routing';
 import { Button } from '@heroui/button';
 import { SettingsProps } from '@/models/settings';
 import Title from '@/components/UI/Title';
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { setCarFilter } from '@/store/slices/filterCarSlice';
-import { changeSubsection } from '@/store/slices/filterSlice';
+import { useAppDispatch } from '@/hooks/redux';
+import { setProgress } from '@/store/slices/progressSlice';
 import { Language, LanguageCode } from '@/models/language';
 import { Car2BrandProps } from '@/models/featureParams';
-import { Subsection } from '@/models/filter';
 
 interface Props {
 	locale: Language
@@ -19,12 +17,10 @@ interface Props {
 
 const PopularCarBrands: FC<Props> = ({ locale, settings, popularCarBrands }) => {
 	const dispatch = useAppDispatch();
-	const { filter } = useAppSelector(state => state.filterCarReducer);
 	const lang = locale === Language.UK ? LanguageCode.UA : Language.RU;
 
-	const handleClick = (brand: number) => {
-		dispatch(setCarFilter({ ...filter, brand }));
-		dispatch(changeSubsection(Subsection.ByCars));
+	const handleClick = () => {
+		dispatch(setProgress(true));
 	}
 
 	return (
@@ -35,8 +31,8 @@ const PopularCarBrands: FC<Props> = ({ locale, settings, popularCarBrands }) => 
 					<Button
 						as={ Link }
 						key={ index }
-						href='/catalog/tires'
-						onPress={ () => handleClick(item.id) }
+						href={ `/catalog/tires/car-${ item.name.toLowerCase() }-${ item.id }` }
+						onPress={ handleClick }
 						color='default'
 						radius='full'
 						variant='bordered'

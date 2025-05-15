@@ -1,7 +1,7 @@
 'use client'
 import { FC, useCallback, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useLocale, useTranslations } from 'next-intl';
+import { useRouter } from '@/i18n/routing';
+import { useTranslations } from 'next-intl';
 import { baseDataAPI } from '@/services/baseDataService';
 import MySelect from '../Select';
 import { Section } from '@/models/filter';
@@ -37,7 +37,6 @@ const FilterByCar: FC<Props> = ({ section }) => {
 	const [ isLoadingDisks, setLoadingDisks ] = useState(false);
 	const [ carFilters, setCarFilters ] = useState<CarFilters>({ brand: 0, model: 0, modification: 0, year: 0 });
 	const router = useRouter();
-	const locale = useLocale();
 	const t = useTranslations('Filters');
 	const { data: baseData } = baseDataAPI.useFetchBaseDataQuery('');
 	const { data: model, refetch: modelRefetch } = baseDataAPI.useFetchAutoModelQuery(carFilters.brand?.toString() ?? '');
@@ -45,6 +44,8 @@ const FilterByCar: FC<Props> = ({ section }) => {
 	const { data: modelKit, refetch: modelKitRefetch } = baseDataAPI.useFetchAutoModelKitQuery(
 		`${ carFilters.model }/${ carFilters.year }`
 	);
+	const { data: dataModification } = baseDataAPI.useFetchKitTyreSizeQuery(`${ carFilters.modification }`);
+	const { data: dataDisksModification } = baseDataAPI.useFetchKitDiskSizeQuery(`${ carFilters.modification }`);
 
 	const filters: FilterConfig[] = useMemo(() => [
 		{
@@ -84,9 +85,11 @@ const FilterByCar: FC<Props> = ({ section }) => {
 	const handleSubmit = useCallback((selectedSection: Section) => {
 		const brandLabel = baseData?.auto.find(item => item.value == carFilters.brand)?.label.toLowerCase() ?? '';
 		const link = `car-${ brandLabel } ${ carFilters.year } ${ carFilters.brand } ${ carFilters.model } ${ carFilters.modification }`;
+		const paramsTires = `/w-${ dataModification?.[0].width }/h-${ dataModification?.[0].height }/d-${ dataModification?.[0].diameter }`;
+		const paramsDisks = `/w-${ dataDisksModification?.[0].width }/d-${ dataDisksModification?.[0].diameter }/kr-${ dataDisksModification?.[0].kits.bolt_count }x${ dataDisksModification?.[0].kits.pcd }/et-${ dataDisksModification?.[0].et }/dia-${ dataDisksModification?.[0].kits.dia }`;
 		(selectedSection === Section.Disks ? setLoadingDisks : setLoadingTires)(true);
-		router.push(`/${ locale }/catalog/${ selectedSection }/${ link.split(' ').join('-') }`);
-	}, [ baseData?.auto, carFilters, router, locale ]);
+		router.push(`/catalog/${ selectedSection }/${ link.split(' ').join('-') }${ selectedSection === Section.Tires ? paramsTires : paramsDisks }`);
+	}, [baseData?.auto, carFilters, dataDisksModification, dataModification, router]);
 
 	return (
 		<>

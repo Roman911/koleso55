@@ -49,7 +49,6 @@ export async function getProduct(id: string): Promise<ProductProps> {
 }
 
 export async function getFeatureParams() {
-	console.log(`${ API_URL }${ baseEndpoints.featureParams }`)
 	const res = await fetch(`${ API_URL }${ baseEndpoints.featureParams }`, {
 		method: API_CONSTANTS.METHODS.GET,
 		headers: DEFAULT_HEADERS

@@ -1,8 +1,9 @@
 'use client'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import { useAppSelector } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { changeSubsection } from '@/store/slices/filterSlice';
 import FilterBlock from './FilterBlock';
 import TiresFilter from './TiresFilter';
 import { baseDataAPI } from '@/services/baseDataService';
@@ -12,14 +13,20 @@ import { generateUrl } from '@/lib/seo';
 import FilterByCar from './FilterByCar';
 import styles from './index.module.scss';
 import { twMerge } from 'tailwind-merge';
+import { Subsection } from '@/models/filter';
 
 const Filter = () => {
 	const router = useRouter();
+	const dispatch = useAppDispatch();
 	const { section } = useAppSelector(state => state.filterReducer);
 	const locale = useLocale();
 	const [ filter, setFilter ] = useState({});
 	const [ filterBattery, setFilterBattery ] = useState({});
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
+
+	useEffect(() => {
+		dispatch(changeSubsection(Subsection.ByParams));
+	}, [dispatch]);
 
 	const onChange = (name: string, value: number | string | null, section: Section) => {
 		if(value) {

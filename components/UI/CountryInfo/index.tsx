@@ -25,7 +25,8 @@ const CountryInfo: FC<CountryInfoProps> = ({ country, countryCode, year, mobileH
 		</div> }
 		<p className='ml-2.5 text-sm font-medium text-gray-900 dark:text-gray-50'>
 			<span className={ twMerge( mobileHidden && 'hidden sm:inline') }>
-				{ country + ', ' }
+				{ country }
+				{ country && year > 0 && ', ' }
 			</span>{ year > 0 && year }
 		</p>
 	</div>

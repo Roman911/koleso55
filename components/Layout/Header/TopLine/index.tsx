@@ -19,7 +19,9 @@ const TopLine: FC<Props> = ({ alias, settings }) => {
 					<Contacts settings={ settings } />
 					<LanguageChanger />
 					<Menu alias={ alias } />
-					<ThemeToggle />
+					<div className='min-w-14'>
+						<ThemeToggle />
+					</div>
 				</nav>
 			</div>
 		</section>

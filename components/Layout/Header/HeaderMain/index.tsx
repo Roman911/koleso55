@@ -5,7 +5,7 @@ import { twMerge } from 'tailwind-merge';
 import { Navbar, NavbarBrand, NavbarContent, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@heroui/navbar';
 import { Link } from '@/i18n/routing';
 import styles from './index.module.scss';
-import Logo from '@/components/UI/Logo';
+import Logo from '../../Logo';
 import Search from './Search';
 import ButtonBlock from './ButtonBlock';
 import * as Icons from '@/components/UI/Icons';

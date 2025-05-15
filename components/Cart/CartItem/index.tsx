@@ -43,7 +43,6 @@ const CartItem: FC<CartItemProps> = (
 	}) => {
 
 	const onChange = (e: { target: HTMLInputElement }) => {
-		console.log(e)
 		const value = e.target.value;
 		const onlyNumbers = value.replace(/\D/g, '');
 		const numericValue = Number(onlyNumbers);
