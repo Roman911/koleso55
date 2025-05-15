@@ -1,10 +1,8 @@
 import { FC, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Button from '@/components/UI/Button';
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@heroui/modal';
+import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@heroui/modal';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import QuickOrder from '@/components/Product/QuickOrder';
-import { Language } from '@/models/language';
 import { Section } from '@/models/filter';
 import { ProductProps } from '@/models/product';
 import { useTranslations } from 'next-intl';
@@ -18,7 +16,6 @@ import { Alert } from '@heroui/alert';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {
-	locale: Language
 	offerId: number
 	quantity: number
 	section: Section
@@ -26,8 +23,7 @@ interface Props {
 	onSubmit: () => void
 }
 
-const BuyActions: FC<Props> = ({ locale, offerId, quantity, section, data, onSubmit }) => {
-	const router = useRouter();
+const BuyActions: FC<Props> = ({ offerId, quantity, section, data, onSubmit }) => {
 	const [ showAlert, setShowAlert ] = useState(false);
 	const { isOpen, onOpen, onOpenChange } = useDisclosure();
 	const t = useTranslations('Main');
@@ -60,10 +56,6 @@ const BuyActions: FC<Props> = ({ locale, offerId, quantity, section, data, onSub
 		dispatch(setQuantity({ ...item, quantity }));
 	}
 
-	const handleClick = () => {
-		router.push(`/${ locale }/order`)
-	}
-
 	const handleClickBuy = () => {
 		if(section !== Section.Battery && quantity === 1 || quantity === 3) {
 			setShowAlert(true);
@@ -94,7 +86,7 @@ const BuyActions: FC<Props> = ({ locale, offerId, quantity, section, data, onSub
 			/>
 			<Modal isOpen={ isOpen } onOpenChange={ onOpenChange } size='4xl' placement='top'>
 				<ModalContent>
-					{ (onClose) => (
+					{ () => (
 						<>
 							<ModalHeader>{ t('cart') }</ModalHeader>
 							<ModalBody>
@@ -108,16 +100,6 @@ const BuyActions: FC<Props> = ({ locale, offerId, quantity, section, data, onSub
 										<NoResult noResultText='no product to cart'/> }
 								</Spinner>
 							</ModalBody>
-							{/*<ModalFooter>*/}
-							{/*	<Button variant='bordered' color='default'*/}
-							{/*					className='uppercase font-bold hidden lg:block text-black dark:text-gray-50'*/}
-							{/*					onPress={ onClose }>*/}
-							{/*		{ t('continue shopping') }*/}
-							{/*	</Button>*/}
-							{/*	<Button className='uppercase font-bold' onPress={ handleClick }>*/}
-							{/*		{ t('place an order') }*/}
-							{/*	</Button>*/}
-							{/*</ModalFooter>*/}
 						</>
 					) }
 				</ModalContent>

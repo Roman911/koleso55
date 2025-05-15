@@ -123,7 +123,7 @@ const ProductComponent: FC<Props> = ({ idProduct, locale, data, section, setting
 											price={ offer?.price } onChange={ onChange } setQuantity={ onSetQuantity }/>
 						<DeliveryCalculation offer_id={ offerId } quantity={ quantity } setQuantity={ setQuantity } price={ offer ? +offer?.price : 0 } />
 					</div>
-					<BuyActions locale={ locale } offerId={ +offerId } quantity={ quantity } section={ section } onSubmit={ onSubmit } data={ data } />
+					<BuyActions offerId={ +offerId } quantity={ quantity } section={ section } onSubmit={ onSubmit } data={ data } />
 				</div>
 				<CharacteristicsBlock locale={ locale } data={ data } section={ section } />
 			</div>
