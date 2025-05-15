@@ -26,7 +26,6 @@ const ByCar: FC<Props> = ({ data, car, section } ) => {
 	const dispatch = useAppDispatch();
 	const router = useRouter();
 	const t = useTranslations('Filters');
-	const [ isLoaded, setIsLoaded ] = useState<boolean>(false);
 	const [ filter, setFilter ] = useState<CarFilters>({ brand: 0, model: 0, modification: 0, year: 0 });
 	const { data: model, refetch: modelRefetch } = baseDataAPI.useFetchAutoModelQuery(`${filter.brand}`);
 	const { data: modelYear } = baseDataAPI.useFetchAutoYearQuery(`${filter.model}`);
