@@ -3,7 +3,6 @@ import { FC, useEffect, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import ImagesBlock from './ImagesBlock';
 import { useAppDispatch } from '@/hooks/redux';
-import { changeSection } from '@/store/slices/filterSlice';
 import { Language } from '@/models/language';
 import { ProductProps } from '@/models/product';
 import { addToStorage, getFromStorage } from '@/lib/localeStorage';
@@ -50,14 +49,6 @@ const ProductComponent: FC<Props> = ({ idProduct, locale, data, section, setting
 	useEffect(() => {
 		if(data) setOfferId(data.data.offers[0].offer_id);
 	}, [ data ]);
-
-	useEffect(() => {
-		if(data) {
-			if(section === 'disks') {
-				dispatch(changeSection(Section.Disks));
-			}
-		}
-	}, [ data, dispatch, section ]);
 
 	const onChange = (e: { target: HTMLInputElement }) => {
 		const value = e.target.value;

@@ -6,8 +6,8 @@ import { useAppSelector } from '@/hooks/redux';
 import Spinner from '@/components/UI/Spinner';
 
 const postpaid = {
-	const: 0,
-	cof: 0.03
+	const: 20,
+	cof: 1.02
 };
 
 interface NpDocumentPriceProps {
@@ -20,6 +20,7 @@ const NpDocumentPrice: FC<NpDocumentPriceProps> = ({ offer_id, quantity, price }
 	const { city } = useAppSelector(state => state.orderReducer);
 	const { data, isLoading } = baseDataAPI.useFetchNpDocumentPriceQuery({ offer_id, ref: city.value, count: quantity });
 	const t = useTranslations('Delivery');
+	const totalPrice = price * quantity;
 	const num = (e: number) => {
 		return (e % 1) === 0 ? e.toFixed(0) : e.toFixed(2);
 	}
@@ -28,12 +29,12 @@ const NpDocumentPrice: FC<NpDocumentPriceProps> = ({ offer_id, quantity, price }
 		<p className='mt-4'>
 			{ `${ t('estimated shipping') } ${ quantity } шт.` }
 		</p>
-		<h3 className="text-base font-semibold leading-6 text-gray-900 mt-6">
+		<h3 className="text-base font-semibold leading-6 mt-6">
 			{ t('cost') + ':' } { data?.[0].Cost } грн
 		</h3>
-		<h3 className="text-base font-semibold leading-6 text-gray-900 mt-3">
+		<h3 className="text-base font-semibold leading-6 mt-3">
 			{ t('with cash') + ': ' }
-			{ num(price * quantity * postpaid.cof + postpaid.const + data?.[0].Cost) } грн
+			{ num(totalPrice * postpaid.cof + postpaid.const + data?.[0].Cost) } грн
 		</h3>
 	</Spinner>
 };

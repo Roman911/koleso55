@@ -22,6 +22,26 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 	return {
 		title: settings[lang].meta_title,
 		description: settings[lang].meta_description,
+		openGraph: {
+			type: 'website',
+			title: settings[lang].meta_title,
+			description: settings[lang].meta_description,
+			url: process.env.NEXT_PUBLIC_ACCESS_ORIGIN,
+			images: [
+				{
+					url: `${process.env.NEXT_PUBLIC_ACCESS_ORIGIN}/logo_light.svg`,
+					width: 1200,
+					height: 630,
+					alt: settings[lang].meta_title,
+				},
+			],
+		},
+		twitter: {
+			card: settings[lang].meta_title,
+			title: settings[lang].meta_title,
+			description: settings[lang].meta_description,
+		},
+		generator: process.env.NEXT_PUBLIC_ACCESS_ORIGIN,
 	}
 }
 

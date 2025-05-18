@@ -19,20 +19,20 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 	}
 }
 
-export default async function Brands({ params }: { params: Promise<{ locale: Language, section: string, slug: string[] }> }) {
-	const { locale, section, slug } = await params;
+export default async function Brands({ params }: { params: Promise<{ section: string, slug: string[] }> }) {
+	const { section, slug } = await params;
 	const brands = await getBrands( slug ? `${section}/${slug[0]}` : section);
 	const title = `manufacturers ${ section }`;
 
 	const path = [
 		{
 			title: 'brands',
-			href: `/${locale}/catalog-map`,
+			href: `/catalog-map`,
 			translations: true
 		},
 		{
 			title: title,
-			href: `/${locale}/catalog-map/${section}`,
+			href: `/catalog-map/${section}`,
 			translations: true
 		}
 	];

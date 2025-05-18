@@ -96,11 +96,11 @@ const ProductCard: FC<Props> = ({ item }) => {
 							<div className='text-sm font-medium mb-0.5 mr-1 lowercase'>{ t('from') }</div>
 							<div className='text-2xl font-bold'>{ min_price } ₴</div>
 						</div>
-						<div className='flex text-sm text-gray-400'>
+						{ section !== Section.Battery && <div className='flex text-sm text-gray-400'>
 							<div className='lowercase'>{ t('from') }</div>
 							<div className='font-bold mx-1'>{ min_price * 4 } ₴</div>
 							<div>за 4 шт.</div>
-						</div>
+						</div> }
 					</div>
 					<Button onPress={ handleClick } aria-label={ t('cart') }>
 						<Icons.CartIcon className='stroke-white'/>

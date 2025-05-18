@@ -49,7 +49,7 @@ const ImagesBlock: FC<Props> = ({ locale, labels, images, photo, full_name, vehi
 					}) }
 					<div className='flex gap-x-2'>
 						{ IconComponent && (
-							<IconComponent className={ twMerge('fill-gray-500', vehicle_type === '2' && 'stroke-gray-500') }/>) }
+							<IconComponent className='text-gray-500' />) }
 						{ seasonTransform && <Image src={ seasonTransform } height={ 24 } width={ 24 } alt=""/> }
 					</div>
 				</div>
