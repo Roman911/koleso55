@@ -49,7 +49,7 @@ const LinkComponent: FC<ILinkComponent> = (
 	const dispatch = useAppDispatch();
 
 	const handleClick = () => {
-		onClick && onClick();
+		if(onClick) onClick();
 		dispatch(resetFilter());
 		dispatch(setParams({ 'vehicle_type': null }));
 	}
