@@ -22,7 +22,7 @@ const nextConfig: NextConfig = {
 			},
 			{
 				protocol: 'https',
-				hostname: 'admin.firststop.com.ua',
+				hostname: 'admin.koleso55.com.ua',
 				pathname: '**',
 			},
 		],

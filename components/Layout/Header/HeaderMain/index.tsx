@@ -74,7 +74,7 @@ const HeaderMain: FC<Props> = ({ settings }) => {
 					</button>
 					{ filterIsOpen === 'tires' &&
 						<div className='mt-4 grid grid-cols-2 gap-2'>
-							<CarTireFilter />
+							<CarTireFilter onClick={ closeFilter } />
 						</div>
 					}
 				</NavbarMenuItem>
@@ -91,15 +91,14 @@ const HeaderMain: FC<Props> = ({ settings }) => {
 					</button>
 					{ filterIsOpen === 'disks' &&
 						<div className='mt-5 grid grid-cols-2 gap-2'>
-							<CarDiskFilter />
+							<CarDiskFilter onClick={ closeFilter } />
 						</div>
 					}
 				</NavbarMenuItem>
 				{ links.map((item, index) => {
-					return <NavbarMenuItem key={ index }>
+					return <NavbarMenuItem key={ index } onClick={ closeFilter }>
 						<Link
 							href={ item.url }
-							onClick={ () => closeFilter() }
 							className='py-2 px-5 block uppercase font-bold'
 						>
 							{ t(item.title) }
