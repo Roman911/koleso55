@@ -25,7 +25,7 @@ export default async function Product({ params }: { params: Promise<{ locale: La
 	const idProduct = match ? match[1] : '';
 	const productResponse = await getProduct(idProduct);
 	const settings = await getSettings();
-	const section =  /\bdia\d+\b/.test(product) ? Section.Disks : /(?:^|[^a-zA-Z])\d+ah(?=-|$)/.test(product) ? Section.Battery : Section.Tires;
+	const section = /\bdia\d+\b/.test(product) ? Section.Disks : /(?:^|[^a-zA-Z])\d+ah(?=-|$)/.test(product) ? Section.Battery : Section.Tires;
 
 	const path = [
 		{
@@ -50,7 +50,8 @@ export default async function Product({ params }: { params: Promise<{ locale: La
 				section={ section }
 				settings={ settings }
 			/>
-			{ section !== Section.Battery && <SimilarProducts offerGroup={ productResponse.data.offer_group } section={ section } /> }
+			{ section !== Section.Battery &&
+				<SimilarProducts offerGroup={ productResponse.data.offer_group } section={ section }/> }
 		</LayoutWrapper>
 	)
 };

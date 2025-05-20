@@ -22,3 +22,15 @@
       border: 1px solid transparent;
 	}
 }
+
+.image-gallery-content:not(.fullscreen) {
+  .image-gallery-icon.image-gallery-fullscreen-button {
+    display: contents;
+
+    &::after {
+      content: '';
+      inset: 0;
+      position: absolute;
+    }
+  }
+}

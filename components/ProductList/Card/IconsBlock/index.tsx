@@ -21,7 +21,7 @@ const IconsBlock: FC<Props> = ({ season, vehicle_type }) => {
 	const Icon = icons[vehicle_type_number] || null;
 
 	return (
-		<div className='absolute left-5 top-5'>
+		<div className='absolute left-2 md:left-5 top-3 md:top-5'>
 			{ seasonIcon && <Image
 				src={ `/icons/${ seasonIcon }.svg` }
 				alt=''

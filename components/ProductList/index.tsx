@@ -9,11 +9,11 @@ interface Props {
 
 const ProductList: FC<Props> = ({ classnames, data }) => {
 	const products = data.products.map(item => {
-		return <ProductCard key={ item.group } item={ item } />
+		return <ProductCard key={ item.group } item={ item }/>
 	})
 
 	return (
-		<div className={`grid gap-4 ${classnames}`}>
+		<div className={ `grid gap-1 lg:gap-4 ${ classnames }` }>
 			{ products }
 		</div>
 	)

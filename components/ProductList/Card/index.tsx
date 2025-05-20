@@ -57,7 +57,7 @@ const ProductCard: FC<Props> = ({ item }) => {
 	return (
 		<Card radius='sm' className='relative group p-0'>
 			<CardBody className='p-0'>
-				<div className='relative min-h-72 dark:bg-white p-5 sm:min-h-52 text-center'>
+				<div className='relative min-h-32 sm:min-h-52 dark:bg-white pb-0 lg:pb-5 p-5 text-center'>
 					<IconsBlock season={ season } vehicle_type={ vehicle_type }/>
 					{ !hasMatch && <ActionsBlock sectionNew={ sectionNew } group={ group } /> }
 					<Image
@@ -68,18 +68,18 @@ const ProductCard: FC<Props> = ({ item }) => {
 						height={ 220 }
 					/>
 				</div>
-				<div className='px-5 flex flex-col'>
+				<div className='px-2 md:px-5 flex flex-col'>
 					<Link
 						href={ url }
 						onClick={ () => { dispatch(setProgress(true)) }}
-						className='font-medium text-gray-900 dark:text-gray-50 my-2.5 min-h-12 after:absolute after:inset-0'
+						className='font-medium text-gray-900 dark:text-gray-50 my-1 md:my-2.5 min-h-18 md:min-h-12 after:absolute after:inset-0'
 					>
 						{ full_name }
 					</Link>
-					<div className='text-sm text-gray-400 mb-2.5'>
+					<div className='text-sm text-gray-400 mb-1 md:mb-2.5'>
 						<span>Артикул: </span><span>{ sku }</span>
 					</div>
-					{ section !== Section.Battery && <div className='my-3.5'>
+					{ section !== Section.Battery && <div className='my-1.5 md:my-3.5'>
 						<CountryInfo
 							country={ locale === Language.UK ? best_offer.country : best_offer.country_ru }
 							countryCode={ countryCode }
@@ -88,21 +88,26 @@ const ProductCard: FC<Props> = ({ item }) => {
 					</div> }
 					<Rating commentsCount={ undefined } commentsAvgRate={ 0 }/>
 				</div>
+				{ section !== Section.Battery && <div className='flex text-sm text-gray-400 mt-2 px-2 md:px-5 md:hidden'>
+					<div className='lowercase'>{ t('from') }</div>
+					<div className='font-bold mx-1'>{ min_price * 4 } ₴</div>
+					<div>за 4 шт.</div>
+				</div> }
 			</CardBody>
-			<CardFooter className='px-5 pb-5'>
-				<div className='w-full flex justify-between'>
+			<CardFooter className='px-2 md:px-5 pb-5'>
+				<div className='w-full flex items-center justify-between'>
 					<div>
 						<div className='flex items-end mb-0.5 text-gray-900 dark:text-gray-50'>
-							<div className='text-sm font-medium mb-0.5 mr-1 lowercase'>{ t('from') }</div>
-							<div className='text-2xl font-bold'>{ min_price } ₴</div>
+							<div className='hidden md:block text-sm font-medium mb-0.5 mr-1 lowercase'>{ t('from') }</div>
+							<div className='text-xl md:text-2xl font-bold'>{ min_price } ₴</div>
 						</div>
-						{ section !== Section.Battery && <div className='flex text-sm text-gray-400'>
+						{ section !== Section.Battery && <div className='hidden md:flex text-sm text-gray-400'>
 							<div className='lowercase'>{ t('from') }</div>
 							<div className='font-bold mx-1'>{ min_price * 4 } ₴</div>
 							<div>за 4 шт.</div>
 						</div> }
 					</div>
-					<Button onPress={ handleClick } aria-label={ t('cart') }>
+					<Button onPress={ handleClick } aria-label={ t('cart') } className='min-w-16 md:min-w-24'>
 						<Icons.CartIcon className='stroke-white'/>
 					</Button>
 				</div>

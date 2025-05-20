@@ -52,7 +52,7 @@ const ActionsBlock: FC<Props> = ({ group, sectionNew }) => {
 	}
 
 	return (
-		<div className='absolute top-5 right-5 flex flex-col z-10'>
+		<div className='absolute top-2 md:top-5 right-2 md:right-5 flex flex-col z-10'>
 			<Button isIconOnly onPress={ addToDefense } radius='full' variant='light' color='default' aria-label='Bookmarks'
 							className='group/item hover:bg-gray-100 rounded-md'>
 				<Icons.HeartIcon className={
