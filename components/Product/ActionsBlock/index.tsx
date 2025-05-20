@@ -66,6 +66,7 @@ const ActionsBlock: FC<ActionsBlockProps> = ({ id, className, section, quantity 
 		navigator.clipboard.writeText(url).then(r => console.log(r));
 		addToast({
 			title: t('copy link'),
+			classNames: { base: 'text-black dark:text-gray-50', title: 'text-black dark:text-gray-50' },
 		});
 	}
 
@@ -90,7 +91,7 @@ const ActionsBlock: FC<ActionsBlockProps> = ({ id, className, section, quantity 
 			<div className='w-12 h-12 p-3 bg-gray-200 rounded-full group cursor-pointer relative text-gray-400 hover:text-primary dark:bg-gray-500 dark:text-gray-50 dark:hover:text-primary'>
 				<Icons.ShareIcon />
 				<div
-					className='absolute top-10 left-0 bg-white rounded shadow-md py-4 px-6 hidden group-hover:flex flex-col gap-4'>
+					className='absolute top-10 left-0 bg-white rounded shadow-md py-4 px-6 hidden group-hover:flex flex-col gap-4 z-10'>
 					<FacebookShareButton url={ url }>
 						<div className='flex items-center gap-x-2'>
 							<FacebookIcon size={ 26 } round/>
