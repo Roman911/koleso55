@@ -1,6 +1,5 @@
 'use client'
 import { FC } from 'react';
-import { usePathname } from 'next/navigation';
 import { OfferGroup } from '@/models/product';
 import { Section } from '@/models/filter';
 import { baseDataAPI } from '@/services/baseDataService';
@@ -10,11 +9,10 @@ import ProductList from '@/components/ProductList';
 
 interface Props {
 	offerGroup: OfferGroup
+	section: Section
 }
 
-const SimilarProducts: FC<Props> = ({ offerGroup }) => {
-	const pathname = usePathname();
-	const section = /dia/.test(pathname) ? Section.Disks : Section.Tires;
+const SimilarProducts: FC<Props> = ({ offerGroup, section }) => {
 	const id: string[] = [];
 
 	const pushIfExists = (key: string, value?: string | number) => {

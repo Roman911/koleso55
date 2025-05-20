@@ -8,7 +8,7 @@ import { Section } from '@/models/filter';
 import { POPULAR_SIZE } from '@/etc/const';
 import './index.css';
 
-const popularSize = ['width', 'height', 'radius'];
+const popularSize = [ 'width', 'height', 'radius' ];
 
 interface SelectProps {
 	name: string
@@ -21,7 +21,15 @@ interface SelectProps {
 	hidden?: string
 }
 
-const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisabled = false, onChange, section, hidden = '' }) => {
+const MySelect: FC<SelectProps> = ({
+																		 name,
+																		 label,
+																		 options = [],
+																		 isDisabled = false,
+																		 onChange,
+																		 section,
+																		 hidden = ''
+																	 }) => {
 	const t = useTranslations('Select');
 	const popularSizeOptions =
 		section === Section.Tires ? popularSize.includes(name) && POPULAR_SIZE[name]
@@ -35,22 +43,22 @@ const MySelect: FC<SelectProps> = ({ name, label, options = [], isDisabled = fal
 		variant='flat'
 		size='sm'
 		color='default'
-		className={ twMerge('max-w-full md:max-w-xs', hidden ) }
-		label={ <span className='text-black dark:text-white'>{ label }</span> }
+		className={ twMerge('max-w-full md:max-w-xs', hidden) }
+		label={ <span className='text-black dark:text-white font-semibold'>{ label }</span> }
 		isDisabled={ isDisabled }
-		onSelectionChange={onSelectionChange}
+		onSelectionChange={ onSelectionChange }
 		radius='sm'
-		listboxProps={{
+		listboxProps={ {
 			emptyContent: t('no options message'),
-		}}
+		} }
 	>
 		{ popularSizeOptions ? <>
-			<AutocompleteSection classNames={{ heading: 'text-medium font-bold' }} title={ t('popular') }>
+			<AutocompleteSection classNames={ { heading: 'text-medium font-bold' } } title={ t('popular') }>
 				{ popularSizeOptions.map((item) => (
 					<AutocompleteItem key={ item.value }>{ item.label }</AutocompleteItem>
 				)) }
 			</AutocompleteSection>
-			<AutocompleteSection classNames={{ heading: 'text-medium font-bold' }} title={ t('all') }>
+			<AutocompleteSection classNames={ { heading: 'text-medium font-bold' } } title={ t('all') }>
 				{ options.map((item) => (
 					<AutocompleteItem key={ item.value }>{ item.label }</AutocompleteItem>
 				)) }

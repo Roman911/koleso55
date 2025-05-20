@@ -1,0 +1,24 @@
+@import 'react-image-gallery/styles/css/image-gallery.css';
+
+.image-gallery-icon {
+  color: var(--color-gray-100);
+
+  &:hover {
+    color: var(--color-gray-200);
+  }
+}
+
+.image-gallery-left-nav .image-gallery-svg,
+.image-gallery-right-nav .image-gallery-svg {
+  width: 28px;
+}
+
+.image-gallery-thumbnail {
+  border: 1px solid transparent;
+
+	&.active,
+	&:focus,
+	&:hover {
+      border: 1px solid transparent;
+	}
+}

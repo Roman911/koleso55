@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 import { Labels, Photo } from '@/models/product';
 import { Language } from '@/models/language';
-import InlinePlugin from '@/components/Product/ImagesBlock/ImageGallery';
+import { ReactImageGallery } from './ReactImageGallery';
 import { SeasonTransform, VehicleTypeTransform } from '@/lib/characteristicsTransform';
 import * as Icons from '../../UI/Icons';
 
@@ -35,7 +35,7 @@ const ImagesBlock: FC<Props> = ({ locale, labels, images, photo, full_name, vehi
 	const seasonTransform = season && SeasonTransform(season)?.icon;
 
 	return (
-		<div className={ twMerge('gallery relative mb-7 pt-10 pb-5 bg-white') }>
+		<div className={ twMerge('gallery relative mb-7 pt-10 pb-5 bg-white rounded-lg w-full') }>
 			<div className='-mt-8 px-4 mb-2 w-full flex justify-between items-start'>
 				<div>
 					{ labels?.length !== 0 && labels?.map(item => {
@@ -60,8 +60,7 @@ const ImagesBlock: FC<Props> = ({ locale, labels, images, photo, full_name, vehi
 					width={ 288 }
 					height={ 288 }
 					alt={ full_name }
-				/> :
-				<InlinePlugin images={ images } photo={ photo }/> }
+				/> : <ReactImageGallery images={ images } photo={ photo } /> }
 		</div>
 	)
 }

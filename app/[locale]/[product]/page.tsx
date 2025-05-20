@@ -50,7 +50,7 @@ export default async function Product({ params }: { params: Promise<{ locale: La
 				section={ section }
 				settings={ settings }
 			/>
-			<SimilarProducts offerGroup={ productResponse.data.offer_group }/>
+			{ section !== Section.Battery && <SimilarProducts offerGroup={ productResponse.data.offer_group } section={ section } /> }
 		</LayoutWrapper>
 	)
 };
