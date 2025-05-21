@@ -14,25 +14,11 @@ import {
 	ViberIcon,
 	ViberShareButton
 } from 'next-share';
-import { Button } from '@heroui/button';
 import { addToast } from '@heroui/toast';
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { addToStorage, getFromStorage, removeFromStorage } from '@/lib/localeStorage';
-import { addBookmarks, removeBookmarks } from '@/store/slices/bookmarksSlice';
-import { addComparison, removeComparison } from '@/store/slices/comparisonSlice';
 import * as Icons from '../../UI/Icons';
 import CallbackModal from '@/components/Product/ActionsBlock/CallbackModal';
 import AddToDefense from '@/components/UI/Button/AddToDefense';
-
-// Helper function to update local storage
-const updateStorage = (storageKey: string, id: number, section: string, shouldRemove: boolean) => {
-	if(shouldRemove) {
-		removeFromStorage(storageKey, id);
-	} else {
-		const storage = getFromStorage(storageKey) || [];
-		addToStorage(storageKey, [ ...storage, { id, section } ]);
-	}
-};
+import AddToComparison from '@/components/UI/Button/AddToComparison';
 
 interface ActionsBlockProps {
 	id: number
@@ -45,23 +31,6 @@ const ActionsBlock: FC<ActionsBlockProps> = ({ id, className, section, quantity 
 	const t = useTranslations('ActionBlock');
 	const pathname = usePathname();
 	const url = process.env.ACCESS_ORIGIN + pathname;
-	const dispatch = useAppDispatch();
-	const { bookmarksItems } = useAppSelector(state => state.bookmarksReducer);
-	const { comparisonItems } = useAppSelector(state => state.comparisonReducer);
-	const isBookmarks = bookmarksItems.some(item => item.id === id);
-	const isComparison = comparisonItems.some(item => item.id === id);
-
-	// Toggle bookmarks
-	const handleClickBookmarks = () => {
-		dispatch(isBookmarks ? removeBookmarks(id) : addBookmarks({ id, section }));
-		updateStorage('reducerBookmarks', id, section, isBookmarks);
-	};
-
-	// Toggle comparison
-	const handleClickComparison = () => {
-		dispatch(isComparison ? removeComparison(id) : addComparison({ id, section }));
-		updateStorage('reducerComparison', id, section, isComparison);
-	};
 
 	const handleClick = () => {
 		navigator.clipboard.writeText(url).then(r => console.log(r));
@@ -75,13 +44,7 @@ const ActionsBlock: FC<ActionsBlockProps> = ({ id, className, section, quantity 
 		<div className={ twMerge('gap-1.5 xl:gap-4 h-full', className) }>
 			<CallbackModal id={ id } quantity={ quantity }/>
 			<AddToDefense id={ id } section={ section } isProduct={ true } />
-			<Button
-				onPress={ handleClickComparison }
-				isIconOnly aria-label='mail'
-				className={ twMerge('bg-gray-200 w-12 h-12 p-3 rounded-full group text-gray-400 hover:text-primary dark:bg-gray-500 dark:text-gray-50 dark:hover:text-primary', isComparison && 'text-primary') }
-			>
-				<Icons.LibraIcon />
-			</Button>
+			<AddToComparison id={ id } section={ section } isProduct={ true } />
 			<div className='w-12 h-12 p-3 bg-gray-200 rounded-full group cursor-pointer relative text-gray-400 hover:text-primary dark:bg-gray-500 dark:text-gray-50 dark:hover:text-primary'>
 				<Icons.ShareIcon />
 				<div

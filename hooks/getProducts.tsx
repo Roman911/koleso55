@@ -106,14 +106,14 @@ export const useAppGetProducts = (
 		cleanInvalidProducts(dataServices?.data?.products, groupedIds.services);
 
 		setGroupedItems({
-			tiresItems: dataTires?.data?.products || [],
-			cargoItems: dataCargo?.data?.products || [],
-			disksItems: dataDisks?.data?.products || [],
-			batteryItems: dataBattery?.data?.products || [],
-			autoGoodsItems: dataAutoGoods?.data?.products || [],
-			servicesItems: dataServices?.data?.products || [],
+			tiresItems: groupedIds.tires.length ? dataTires?.data?.products || [] : [],
+			cargoItems: groupedIds.cargo.length ? dataCargo?.data?.products || [] : [],
+			disksItems: groupedIds.disks.length ? dataDisks?.data?.products || [] : [],
+			batteryItems: groupedIds.battery.length ? dataBattery?.data?.products || [] : [],
+			autoGoodsItems: groupedIds.autoGoods.length ? dataAutoGoods?.data?.products || [] : [],
+			servicesItems: groupedIds.services.length ? dataServices?.data?.products || [] : [],
 		});
-	}, [dataTires, dataCargo, dataDisks, dataBattery, dataAutoGoods, dataServices]);
+	}, [groupedIds, dataTires, dataCargo, dataDisks, dataBattery, dataAutoGoods, dataServices]);
 
 	// Sort returned products to match original order
 	useEffect(() => {

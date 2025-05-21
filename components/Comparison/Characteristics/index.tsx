@@ -24,7 +24,7 @@ interface CharacteristicsProps {
 
 const Item = ({ content, param }: { content: string, param: string }) => {
 	return <>
-		<div className='h-11 leading-[44px] bg-[#D0D4D9]'>
+		<div className='h-11 leading-[44px] bg-[#D0D4D9] text-black'>
 			{ param }
 		</div>
 		<div className='h-11 leading-[44px]'>

@@ -344,7 +344,11 @@
     "kolpachki-dlya-kriplennya": "Ковпачки для кріплення"
   },
   "AddButton": {
+    "comparison": "Порівняння",
     "wishlist": "Список бажань",
-    "product added to wishlist": "Товар додано до списку бажань"
+    "product added to wishlist": "Товар додано до списку бажань",
+    "product removed from wishlist": "Товар видалено із списку бажань",
+    "product added to comparison": "Товар додано до порівняння",
+    "product removed from comparison": "Товар видалено із порівняння"
   }
 }

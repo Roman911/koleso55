@@ -23,6 +23,8 @@ export default function Cart() {
 		}
 	};
 
+	// console.log('data cart' );
+
 	const removeProduct = (id: number) => {
 		removeFromStorage('reducerCart', id);
 		dispatch(removeCart(id));

@@ -43,7 +43,7 @@ const HeaderMain: FC<Props> = ({ settings }) => {
 			isMenuOpen={ isMenuOpen }
 			onMenuOpenChange={ setIsMenuOpen }
 			className={ twMerge('bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 relative', styles['header-center']) }
-			classNames={ { wrapper: twMerge('grid h-40 md:h-16 items-center justify-normal py-3 px-4 grid-cols-2 lg:grid-cols-[220px_420px_auto_150px]', styles['container']) } }
+			classNames={ { toggleIcon: 'before:h-0.5 after:h-0.5', wrapper: twMerge('grid h-40 md:h-16 items-center justify-normal py-3 px-4 grid-cols-2 lg:grid-cols-[220px_420px_auto_150px]', styles['container']) } }
 		>
 			<NavbarContent className={ styles.logo }>
 				<NavbarBrand>

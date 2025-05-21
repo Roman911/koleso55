@@ -2,17 +2,15 @@ import LayoutWrapper from '@/components/Layout/LayoutWrapper';
 import { Language } from '@/models/language';
 import FilterAlt from '@/components/Catalog/FilterAlt';
 import { Section } from '@/models/filter';
-import ProductList from '@/components/ProductList';
-import NoResult from '@/components/UI/NoResult';
 import FilterByCar from '@/components/Catalog/FilterByCar';
 import { transformUrl } from './transformUrl';
 import SelectionByCar from '@/components/Catalog/SelectionByCar';
-import FilterActive from '@/components/Catalog/FilterActive';
 import HeaderCatalog from '@/components/Catalog/HeaderCatalog';
 import Pagination from '@/components/Catalog/Pagination';
 import type { Metadata } from 'next';
 import { getFilterData, getProducts, getSettings } from '@/app/api/api';
 import { language } from '@/lib/language';
+import CatalogContent from '@/components/Catalog/CatalogContent';
 
 const pageItem = 12;
 const sort = {
@@ -54,11 +52,7 @@ export default async function Catalog({ params }: { params: Promise<{ locale: La
 				<div className='flex-1 -mt-8 lg:-mt-6'>
 					<FilterByCar />
 					<SelectionByCar car={ car } section={ section } />
-					<FilterActive section={ section } locale={ locale } className='hidden lg:flex' slug={ slug } />
-					{ products.result ? <ProductList
-						classnames='grid-cols-2 lg:grid-cols-3'
-						data={ products.data }
-					/> : <NoResult noResultText='no result' /> }
+					<CatalogContent section={ section } locale={ locale } data={ products.data } slug={ slug } result={ products.result } />
 					{ products.result && products.data.total_count > pageItem && <div className='mt-10'>
 						<Pagination initialPage={ page || 1 } total={ Math.ceil(products.data.total_count/pageItem) } />
 					</div> }

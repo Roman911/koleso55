@@ -4,7 +4,7 @@ import { FC, useMemo } from 'react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import Button from '@/components/UI/Button';
-import { Card, CardBody, CardFooter } from '@heroui/card';
+import { Card, CardBody } from '@heroui/card';
 import { Link } from '@/i18n/routing';
 import { useAppDispatch } from '@/hooks/redux';
 import { addCart } from '@/store/slices/cartSlice';
@@ -19,15 +19,17 @@ import ActionsBlock from '@/components/ProductList/Card/ActionsBlock';
 import { countryCodeTransform } from '@/lib/countryCodetransform';
 import CountryInfo from '@/components/UI/CountryInfo';
 import * as Icons from '@/components/UI/Icons';
+import { twMerge } from 'tailwind-merge';
 
 const regex = /\/(auto-goods|services)/;
 const cargo = [ '3', '4', '5', '6', '9', '10', '11' ];
 
 interface Props {
 	item: Product
+	isList?: boolean
 }
 
-const ProductCard: FC<Props> = ({ item }) => {
+const ProductCard: FC<Props> = ({ item, isList }) => {
 	const locale = useLocale();
 	const router = useRouter();
 	const pathname = usePathname();
@@ -56,23 +58,23 @@ const ProductCard: FC<Props> = ({ item }) => {
 
 	return (
 		<Card radius='sm' className='relative group p-0'>
-			<CardBody className='p-0'>
-				<div className='relative min-h-32 sm:min-h-52 dark:bg-white pb-0 lg:pb-5 p-5 text-center'>
+			<CardBody className={ twMerge('p-0', isList && 'flex-row align-center justify-between') }>
+				<div className={ twMerge('relative min-h-32 sm:min-h-52 dark:bg-white pb-0 lg:pb-5 p-5 text-center', isList && 'min-h-24 sm:min-h-36 min-w-36 md:min-w-60') }>
 					<IconsBlock season={ season } vehicle_type={ vehicle_type }/>
 					{ !hasMatch && <ActionsBlock sectionNew={ sectionNew } group={ group } /> }
 					<Image
 						className='mx-auto'
 						src={ default_photo || (locale === Language.UK ? '/images/no-photo.jpg' : '/images/no-photo-ru.jpg') }
 						alt={ full_name }
-						width={ 220 }
-						height={ 220 }
+						width={ isList ? 160 : 220 }
+						height={ isList ? 160 : 220 }
 					/>
 				</div>
 				<div className='px-2 md:px-5 flex flex-col'>
 					<Link
 						href={ url }
 						onClick={ () => { dispatch(setProgress(true)) }}
-						className='font-medium text-gray-900 dark:text-gray-50 my-1 md:my-2.5 min-h-18 md:min-h-12 after:absolute after:inset-0'
+						className={ twMerge('font-medium text-gray-900 dark:text-gray-50 my-1 md:my-2.5 min-h-18 md:min-h-12 after:absolute after:inset-0', isList && 'min-h-auto') }
 					>
 						{ full_name }
 					</Link>
@@ -88,30 +90,30 @@ const ProductCard: FC<Props> = ({ item }) => {
 					</div> }
 					<Rating commentsCount={ undefined } commentsAvgRate={ 0 }/>
 				</div>
-				{ section !== Section.Battery && <div className='flex text-sm text-gray-400 mt-2 px-2 md:px-5 md:hidden'>
+				{ section !== Section.Battery && !isList && <div className='flex text-sm text-gray-400 mt-2 px-2 md:px-5 md:hidden'>
 					<div className='lowercase'>{ t('from') }</div>
 					<div className='font-bold mx-1'>{ min_price * 4 } ₴</div>
 					<div>за 4 шт.</div>
 				</div> }
-			</CardBody>
-			<CardFooter className='px-2 md:px-5 pb-5'>
-				<div className='w-full flex items-center justify-between'>
-					<div>
-						<div className='flex items-end mb-0.5 text-gray-900 dark:text-gray-50'>
-							<div className='hidden md:block text-sm font-medium mb-0.5 mr-1 lowercase'>{ t('from') }</div>
-							<div className='text-xl md:text-2xl font-bold'>{ min_price } ₴</div>
+				<div className={ twMerge('px-2 md:px-5 pt-4 pb-5', isList && 'ml-auto') }>
+					<div className={ twMerge('w-full flex items-center justify-between', isList && 'flex-col h-full justify-end gap-4') }>
+						<div>
+							<div className='flex items-end mb-0.5 text-gray-900 dark:text-gray-50'>
+								<div className='hidden md:block text-sm font-medium mb-0.5 mr-1 lowercase'>{ t('from') }</div>
+								<div className='text-xl md:text-2xl font-bold'>{ min_price } ₴</div>
+							</div>
+							{ section !== Section.Battery && <div className='hidden md:flex text-sm text-gray-400'>
+								<div className='lowercase'>{ t('from') }</div>
+								<div className='font-bold mx-1'>{ min_price * 4 } ₴</div>
+								<div>за 4 шт.</div>
+							</div> }
 						</div>
-						{ section !== Section.Battery && <div className='hidden md:flex text-sm text-gray-400'>
-							<div className='lowercase'>{ t('from') }</div>
-							<div className='font-bold mx-1'>{ min_price * 4 } ₴</div>
-							<div>за 4 шт.</div>
-						</div> }
+						<Button onPress={ handleClick } aria-label={ t('cart') } className='min-w-16 md:min-w-24'>
+							<Icons.CartIcon className='stroke-white'/>
+						</Button>
 					</div>
-					<Button onPress={ handleClick } aria-label={ t('cart') } className='min-w-16 md:min-w-24'>
-						<Icons.CartIcon className='stroke-white'/>
-					</Button>
 				</div>
-			</CardFooter>
+			</CardBody>
 		</Card>
 	)
 };
