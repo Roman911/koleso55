@@ -1,8 +1,7 @@
 'use client'
 import { FC, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { useDisclosure } from '@heroui/modal';
-import { Drawer, DrawerContent } from '@heroui/drawer';
+import { Drawer, DrawerContent, useDisclosure } from '@heroui/react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { setParams } from '@/store/slices/filterSlice';
 import SwitchTabs from './SwitchTabs';

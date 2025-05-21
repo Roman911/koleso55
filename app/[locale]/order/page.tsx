@@ -1,7 +1,7 @@
 'use client'
 import { useParams, useRouter } from 'next/navigation';
 import { FormEvent, useMemo, useState } from 'react';
-import { Form } from '@heroui/form';
+import { Form } from '@heroui/react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import { baseDataAPI } from '@/services/baseDataService';

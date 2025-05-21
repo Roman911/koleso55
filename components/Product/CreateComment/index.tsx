@@ -4,9 +4,7 @@ import { useTranslations } from 'next-intl';
 import { addToast } from '@heroui/toast';
 import { baseDataAPI } from '@/services/baseDataService';
 import Rating from '@/components/UI/Rating';
-import { Button } from '@heroui/button';
-import { Form } from '@heroui/form';
-import { Input, Textarea } from '@heroui/input';
+import { Button, Input, Form, Textarea } from '@heroui/react';
 
 interface CreateCommentProps {
 	model_id?: number

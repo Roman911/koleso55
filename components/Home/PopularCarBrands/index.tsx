@@ -1,7 +1,7 @@
 'use client';
 import { FC } from 'react';
 import { Link } from '@/i18n/routing';
-import { Button } from '@heroui/button';
+import { Button } from '@heroui/react';
 import { SettingsProps } from '@/models/settings';
 import Title from '@/components/UI/Title';
 import { useAppDispatch } from '@/hooks/redux';

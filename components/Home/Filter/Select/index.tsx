@@ -2,7 +2,7 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
-import { Autocomplete, AutocompleteItem, AutocompleteSection } from '@heroui/autocomplete';
+import { Autocomplete, AutocompleteItem, AutocompleteSection } from '@heroui/react';
 import type { Options } from '@/models/baseData';
 import { Section } from '@/models/filter';
 import { POPULAR_SIZE } from '@/etc/const';

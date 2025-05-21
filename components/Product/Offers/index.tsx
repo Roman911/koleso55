@@ -1,5 +1,5 @@
 import { FC, Dispatch, SetStateAction } from 'react';
-import { Radio, RadioGroup } from '@heroui/radio';
+import { Radio, RadioGroup } from '@heroui/react';
 import CountryInfo from '@/components/UI/CountryInfo';
 import { Language } from '@/models/language';
 import { countryCodeTransform } from '@/lib/countryCodetransform';

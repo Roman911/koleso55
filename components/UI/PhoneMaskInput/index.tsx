@@ -2,7 +2,7 @@
 import { forwardRef, useState } from 'react';
 import { PatternFormat } from 'react-number-format';
 import { useTranslations } from 'next-intl';
-import { Input } from '@heroui/input';
+import { Input } from '@heroui/react';
 
 interface Props {
 	phoneErrorMessage: null | string;

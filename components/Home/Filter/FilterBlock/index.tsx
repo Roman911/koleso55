@@ -2,7 +2,7 @@
 import { FC, JSX, ReactNode, useState } from 'react';
 import { twMerge } from 'tailwind-merge';
 import { useTranslations } from 'next-intl';
-import { Button, ButtonGroup } from '@heroui/button';
+import { Button, ButtonGroup } from '@heroui/react';
 import { useAppDispatch } from '@/hooks/redux';
 import { changeSection, reset as resetFilter } from '@/store/slices/filterSlice';
 import { reset as resetFilterCar } from '@/store/slices/filterCarSlice';

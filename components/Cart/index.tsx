@@ -2,7 +2,7 @@
 import { FC, useState } from 'react';
 import { useRouter } from '@/i18n/routing';
 import { useLocale, useTranslations } from 'next-intl';
-import { ScrollShadow } from '@heroui/scroll-shadow';
+import { ScrollShadow } from '@heroui/react';
 import CartItem from './CartItem';
 import type { ProductsProps } from '@/models/products';
 import { Language } from '@/models/language';
@@ -101,11 +101,6 @@ const CartComponent: FC<CarProps> = ({ data, cartItems, removeProduct, setQuanti
 			</div>
 		</div>
 		<div className='flex justify-end border-t border-gray-200 py-6 gap-4'>
-			<Button variant='bordered' color='default'
-							className='uppercase font-bold hidden lg:block text-black dark:text-gray-50'
-							onPress={ handleClick }>
-				{ t('continue shopping') }
-			</Button>
 			<Button className='uppercase font-bold' onPress={ handleClick }>
 				{ t('place an order') }
 			</Button>

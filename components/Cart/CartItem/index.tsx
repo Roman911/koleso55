@@ -7,7 +7,7 @@ import { countryCodeTransform } from '@/lib/countryCodetransform';
 import CountryInfo from '@/components/UI/CountryInfo';
 import Quantity from '@/components/UI/Quantity';
 import { twMerge } from 'tailwind-merge';
-import { Alert } from '@heroui/alert';
+import { Alert } from '@heroui/react';
 import { useTranslations } from 'next-intl';
 
 interface CartItemProps {

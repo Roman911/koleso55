@@ -1,6 +1,6 @@
 import { FC, useEffect, useState } from 'react';
 import Button from '@/components/UI/Button';
-import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@heroui/modal';
+import { Modal, ModalBody, ModalContent, ModalHeader, useDisclosure } from '@heroui/react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import QuickOrder from '@/components/Product/QuickOrder';
 import { Section } from '@/models/filter';
@@ -12,7 +12,7 @@ import { removeCart, setQuantity } from '@/store/slices/cartSlice';
 import CartComponent from '@/components/Cart';
 import NoResult from '@/components/UI/NoResult';
 import Spinner from '@/components/UI/Spinner';
-import { Alert } from '@heroui/alert';
+import { Alert } from '@heroui/react';
 import { twMerge } from 'tailwind-merge';
 
 interface Props {

@@ -1,7 +1,7 @@
 'use client';
 import { FC } from 'react';
 import { useLocale,  useTranslations } from 'next-intl';
-import { BreadcrumbItem, Breadcrumbs } from '@heroui/breadcrumbs';
+import { BreadcrumbItem, Breadcrumbs } from '@heroui/react';
 import * as Icons from '@/components/UI/Icons';
 
 interface Props {

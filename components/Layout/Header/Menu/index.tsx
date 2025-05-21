@@ -6,7 +6,7 @@ import { Link } from '@/i18n/routing';
 import CarTireFilter from './CarTireFilter';
 import CarDiskFilter from './CarDiskFilter';
 import * as Icons from '@/components/UI/Icons';
-import { Button } from '@heroui/button';
+import { Button } from '@heroui/react';
 import { links } from '../links';
 import { Section } from '@/models/section';
 

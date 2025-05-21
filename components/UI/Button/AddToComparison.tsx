@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { usePathname, useRouter } from '@/i18n/routing';
-import { Button } from '@heroui/button';
+import { Button } from '@heroui/react';
 import { addToast } from '@heroui/toast';
 import { twMerge } from 'tailwind-merge';
 import { useTranslations } from 'next-intl';

@@ -1,8 +1,7 @@
 'use client'
 import { FC, useState } from 'react';
 import { useTranslations } from 'next-intl';
-import { Button } from '@heroui/button';
-import { Input } from '@heroui/input';
+import { Button, Input } from '@heroui/react';
 import { useAppDispatch } from '@/hooks/redux';
 import { useAppSubmit } from '@/hooks/submit';
 import { setParams } from '@/store/slices/filterSlice';

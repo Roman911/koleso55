@@ -4,7 +4,7 @@ import { FC, useMemo } from 'react';
 import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import Button from '@/components/UI/Button';
-import { Card, CardBody } from '@heroui/card';
+import { Card, CardBody } from '@heroui/react';
 import { Link } from '@/i18n/routing';
 import { useAppDispatch } from '@/hooks/redux';
 import { addCart } from '@/store/slices/cartSlice';

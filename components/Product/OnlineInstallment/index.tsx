@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import DOMPurify from 'isomorphic-dompurify';
 import Button from '@/components/UI/Button';
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@heroui/modal';
+import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@heroui/react';
 import { SettingsProps } from '@/models/settings';
 import { Language, LanguageCode } from '@/models/language';
 

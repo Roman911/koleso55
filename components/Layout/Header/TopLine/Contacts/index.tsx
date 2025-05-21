@@ -1,8 +1,7 @@
 'use client'
 import Image from 'next/image';
 import { FC } from 'react';
-import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/dropdown';
-import { Button } from '@heroui/button';
+import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@heroui/react';
 import * as Icons from '@/components/UI/Icons';
 import { SettingsProps } from '@/models/settings';
 

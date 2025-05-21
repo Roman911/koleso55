@@ -2,7 +2,7 @@
 import { FC, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
-import { Navbar, NavbarBrand, NavbarContent, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@heroui/navbar';
+import { Navbar, NavbarBrand, NavbarContent, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@heroui/react';
 import { Link } from '@/i18n/routing';
 import styles from './index.module.scss';
 import Logo from '../../Logo';

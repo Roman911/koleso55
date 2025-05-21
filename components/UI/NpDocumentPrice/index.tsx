@@ -30,11 +30,11 @@ const NpDocumentPrice: FC<NpDocumentPriceProps> = ({ offer_id, quantity, price }
 			{ `${ t('estimated shipping') } ${ quantity } шт.` }
 		</p>
 		<h3 className="text-base font-semibold leading-6 mt-6">
-			{ t('cost') + ':' } { data?.[0].Cost } грн
+			{ t('cost') + ':' } { data?.length && data[0].Cost } грн
 		</h3>
 		<h3 className="text-base font-semibold leading-6 mt-3">
 			{ t('with cash') + ': ' }
-			{ num(totalPrice * postpaid.cof + postpaid.const + data?.[0].Cost) } грн
+			{ num(totalPrice * postpaid.cof + postpaid.const + (data?.length && data[0].Cost)) } грн
 		</h3>
 	</Spinner>
 };

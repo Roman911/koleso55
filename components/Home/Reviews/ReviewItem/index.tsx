@@ -1,7 +1,7 @@
 'use client';
 import { FC } from 'react';
 import { Review } from '@/models/product';
-import { Card, CardBody, CardFooter, CardHeader } from '@heroui/card';
+import { Card, CardBody, CardFooter, CardHeader } from '@heroui/react';
 import { baseDataAPI } from '@/services/baseDataService';
 import { Link } from '@/i18n/routing';
 import Rating from '@/components/UI/Rating';

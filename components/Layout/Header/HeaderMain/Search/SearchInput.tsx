@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent } from 'react';
-import { Input } from '@heroui/input';
-import { Button } from '@heroui/button';
+import { Button, Input } from '@heroui/react';
 import { useTranslations } from 'next-intl';
 import * as Icons from '@/components/UI/Icons';
 

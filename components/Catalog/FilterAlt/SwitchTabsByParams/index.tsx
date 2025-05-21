@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { twMerge } from 'tailwind-merge';
-import { Button } from '@heroui/button';
+import { Button } from '@heroui/react';
 import { useAppDispatch } from '@/hooks/redux';
 import { Subsection } from '@/models/filter';
 import { changeSubsection } from '@/store/slices/filterSlice';
