@@ -1,5 +1,5 @@
 'use client'
-import { FC, FormEvent } from 'react';
+import { FC, FormEvent, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { addToast } from '@heroui/toast';
 import * as Icons from '@/components/UI/Icons';
@@ -21,6 +21,17 @@ const CallbackModal: FC<Props> = ({ id, quantity }) => {
 	const t = useTranslations('CallbackModal');
 	const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 	const [ createCallback, { isLoading } ] = baseDataAPI.useCreateCallbackMutation();
+	const phoneInputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		if(isOpen) {
+			const timeout = setTimeout(() => {
+				phoneInputRef.current?.focus();
+			}, 100);
+
+			return () => clearTimeout(timeout);
+		}
+	}, [ isOpen ]);
 
 	const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -58,7 +69,8 @@ const CallbackModal: FC<Props> = ({ id, quantity }) => {
 					{ () => (
 						<>
 							<ModalHeader className="flex items-center gap-2">
-								<h3 className="text-base font-semibold leading-6 text-gray-900 uppercase" id="modal-title">
+								<h3 className="text-base font-semibold leading-6 text-gray-900 dark:text-gray-100 uppercase"
+										id="modal-title">
 									{ t('callback') }
 								</h3>
 							</ModalHeader>
@@ -67,10 +79,10 @@ const CallbackModal: FC<Props> = ({ id, quantity }) => {
 									className='mt-2 mb-8 flex flex-col gap-4'
 									onSubmit={ onSubmit }
 								>
-									<p className="text-sm text-gray-500">
+									<p className="text-sm text-gray-500 dark:text-gray-200">
 										{ t('put phone') }
 									</p>
-									<PhoneMaskInput phoneErrorMessage={null}/>
+									<PhoneMaskInput phoneErrorMessage={ null } ref={ phoneInputRef }/>
 									<Button type='submit' color='primary' radius='full' size='lg' isLoading={ isLoading }
 													className='uppercase font-bold'>
 										{ t('send') }

@@ -22,6 +22,7 @@ import { addBookmarks, removeBookmarks } from '@/store/slices/bookmarksSlice';
 import { addComparison, removeComparison } from '@/store/slices/comparisonSlice';
 import * as Icons from '../../UI/Icons';
 import CallbackModal from '@/components/Product/ActionsBlock/CallbackModal';
+import AddToDefense from '@/components/UI/Button/AddToDefense';
 
 // Helper function to update local storage
 const updateStorage = (storageKey: string, id: number, section: string, shouldRemove: boolean) => {
@@ -73,14 +74,7 @@ const ActionsBlock: FC<ActionsBlockProps> = ({ id, className, section, quantity 
 	return (
 		<div className={ twMerge('gap-1.5 xl:gap-4 h-full', className) }>
 			<CallbackModal id={ id } quantity={ quantity }/>
-			<Button
-				onPress={ handleClickBookmarks }
-				isIconOnly aria-label='mail'
-				className={ twMerge('bg-gray-200 w-12 h-12 p-3 rounded-full group text-gray-400 hover:text-primary dark:bg-gray-500 dark:text-gray-50 dark:hover:text-primary', isBookmarks && 'text-primary') }
-			>
-				<Icons.HeartIcon
-					className={ twMerge( isBookmarks && 'fill-primary') }/>
-			</Button>
+			<AddToDefense id={ id } section={ section } isProduct={ true } />
 			<Button
 				onPress={ handleClickComparison }
 				isIconOnly aria-label='mail'

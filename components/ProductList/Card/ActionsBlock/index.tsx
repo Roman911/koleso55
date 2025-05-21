@@ -7,6 +7,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { addToStorage, getFromStorage, removeFromStorage } from '@/lib/localeStorage';
 import { Section } from '@/models/filter';
 import { Button } from '@heroui/button';
+import AddToDefense from '@/components/UI/Button/AddToDefense';
 
 const toggleStorageItem = (storageKey: string, id: number, section: string, isInStorage: boolean) => {
 	if(isInStorage) {
@@ -53,12 +54,7 @@ const ActionsBlock: FC<Props> = ({ group, sectionNew }) => {
 
 	return (
 		<div className='absolute top-2 md:top-5 right-2 md:right-5 flex flex-col z-10'>
-			<Button isIconOnly onPress={ addToDefense } radius='full' variant='light' color='default' aria-label='Bookmarks'
-							className='group/item hover:bg-gray-100 rounded-md'>
-				<Icons.HeartIcon className={
-					twMerge('text-gray-400 group-hover/item:text-primary', isBookmarks && 'text-primary fill-primary')
-				}/>
-			</Button>
+			<AddToDefense id={ group } section={ sectionNew } />
 			<Button isIconOnly onPress={ addToComparison } radius='full' variant='light' color='default' aria-label='Comparison'
 							className='group/item hover:bg-gray-100 rounded-md'>
 				<Icons.LibraIcon className={

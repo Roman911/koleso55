@@ -33,7 +33,7 @@ const Offers: FC<Props> = ({ locale, offerId, offers, setOfferId, setQuantity })
 						<div
 							className='grid-cols-12 grid lg:grid-cols-10 w-full gap-1 items-center lg:min-w-[460px]'
 						>
-							<div className='font-medium col-span-2 lg:col-span-2 text-sm lg:ml-3 text-black dark:text-gray-50'>
+							<div className='font-medium col-span-2 lg:col-span-2 text-sm lg:ml-3 text-black dark:md:text-gray-50'>
 								{ item.quantity } шт.
 							</div>
 							<div className='country col-span-3 lg:col-span-3'>
@@ -41,13 +41,14 @@ const Offers: FC<Props> = ({ locale, offerId, offers, setOfferId, setQuantity })
 									country={ locale === Language.UK ? item.country : item.country_ru }
 									countryCode={ countryCodeTransform(item.country) } year={ item.year }
 									mobileHidden={ true }
+									titleClassName='dark:text-gray-900 dark:md:dark:text-gray-50'
 								/>
 							</div>
-							<div className='storage col-span-4 lg:col-span-3 text-sm text-gray-600 content-center flex items-center gap-x-1 lg:gap-x-2 dark:text-gray-50'>
+							<div className='storage col-span-4 lg:col-span-3 text-sm text-gray-600 content-center flex items-center gap-x-1 lg:gap-x-2'>
 								<Icons.MarkerIcon className='fill-gray-600 w-6' />
 								{ locale === Language.UK ? item.posts.city : item.posts.city_ru }
 							</div>
-							<div className='price col-span-3 lg:col-span-2 font-bold content-center text-sm text-black dark:text-gray-50'>
+							<div className='price col-span-3 lg:col-span-2 font-bold content-center text-sm text-black dark:md:text-gray-50'>
 								{ +item.price } грн
 							</div>
 						</div>

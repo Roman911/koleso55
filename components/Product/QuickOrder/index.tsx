@@ -1,5 +1,5 @@
 'use client'
-import { FC, FormEvent, useState } from 'react';
+import { FC, FormEvent, useEffect, useRef, useState } from 'react';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import { SerializedError } from '@reduxjs/toolkit';
 import { addToast } from '@heroui/toast';
@@ -31,6 +31,17 @@ const QuickOrder: FC<Props> = (
 	const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 	const [ createOrder, { isLoading } ] = baseDataAPI.useCreateOrderMutation();
 	const t = useTranslations('QuickOrder');
+	const phoneInputRef = useRef<HTMLInputElement>(null);
+
+	useEffect(() => {
+		if(isOpen) {
+			const timeout = setTimeout(() => {
+				phoneInputRef.current?.focus();
+			}, 100);
+
+			return () => clearTimeout(timeout);
+		}
+	}, [ isOpen ]);
 
 	const onSubmit = async(event: FormEvent<HTMLFormElement>) => {
 		event.preventDefault();
@@ -117,7 +128,7 @@ const QuickOrder: FC<Props> = (
 									className='mt-2 mb-8 flex flex-col gap-4'
 									onSubmit={ onSubmit }
 								>
-									<PhoneMaskInput phoneErrorMessage={ phoneErrorMessage } />
+									<PhoneMaskInput phoneErrorMessage={ phoneErrorMessage } ref={ phoneInputRef } />
 									<Button type='submit' className='uppercase ml-auto mt-2 font-bold'
 													isLoading={ isLoading }>
 										{ t('send') }

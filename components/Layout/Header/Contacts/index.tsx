@@ -37,7 +37,7 @@ const Contacts: FC<Props> = ({ isTopLine, settings, isInfo }) => {
 				return (
 					<div key={ index } className='flex items-center'>
 						<Image width={ 20 } height={ 20 } src={ `/icons/${ item.logo }-logo.svg` } alt=''/>
-						<a href={ `tel:${ item.url }` } className={ twMerge('ml-2.5 font-medium', isTopLine && 'text-white') }>
+						<a href={ `tel:${ item.url }` } className={ twMerge('ml-2.5 font-medium hover:text-primary hover:underline', isTopLine && 'text-white') }>
 							{ item.phone }
 						</a>
 					</div>

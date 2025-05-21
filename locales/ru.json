@@ -341,5 +341,9 @@
     "datchiki-tisku": "Датчики давления",
     "ventelya": "Вентиля",
     "kolpachki-dlya-kriplennya": "Колпачки для крепления"
+  },
+  "AddButton": {
+    "wishlist": "Список желаний",
+    "product added to wishlist": "Товар добавлен в список желаний"
   }
 }

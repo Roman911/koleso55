@@ -100,7 +100,7 @@ const Footer: FC<Props> = ({ alias, settings }) => {
 				<Contacts isTopLine={ false } settings={ settings } isInfo={ true }/>
 				<div className='flex items-center mt-5'>
 					<Icons.EmailIcon className='fill-white'/>
-					{ settings && <a href={ `mailto:${ settings[lang].config_email }` } className='ml-2.5 text-sm text-white'>
+					{ settings && <a href={ `mailto:${ settings[lang].config_email }` } className='ml-2.5 text-sm text-white hover:text-primary hover:underline'>
 						{ settings[lang].config_email }
 					</a> }
 				</div>
