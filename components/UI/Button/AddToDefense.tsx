@@ -54,7 +54,7 @@ const AddToDefense: FC<Props> = ({ id, section, isProduct }) => {
 			className={ twMerge('text-gray-400 hover:text-primary dark:hover:text-primary', isBookmarks && 'text-primary', isProduct && 'dark:text-gray-50 bg-gray-200 dark:bg-gray-500 w-12 h-12 p-3') }
 		>
 			<Icons.HeartIcon
-				className={ twMerge( isBookmarks && 'fill-primary') }/>
+				className={ twMerge( isBookmarks && 'fill-primary text-primary') }/>
 		</Button>
 	)
 };
