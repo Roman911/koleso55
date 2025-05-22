@@ -25,7 +25,7 @@ export const ReactImageGallery: FC<Props> = ({ photo, images = [] }) => {
 	const items = [ onePhoto, ...imgArr ];
 
 	return (
-		<div className="md:max-w-72 mx-auto">
+		<div className="md:max-w-72 -mx-5 md:mx-auto dark:mx-0 ">
 			<ImageGallery
 				items={ items }
 				showPlayButton={ false }
