@@ -49,6 +49,7 @@ const MyTabs: FC<Props> = ({ selected, setSelected }) => {
 	return (
 		<Tabs
 			radius='sm'
+			size='sm'
 			aria-label="Tabs variants"
 			selectedKey={selected}
 			onSelectionChange={(key) => setSelected(String(key))}

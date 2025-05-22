@@ -52,7 +52,7 @@ export default async function Catalog({ params }: { params: Promise<{ locale: La
 				<div className='flex-1 -mt-8 lg:-mt-6'>
 					<FilterByCar />
 					<SelectionByCar car={ car } section={ section } />
-					<CatalogContent section={ section } locale={ locale } data={ products.data } slug={ slug } result={ products.result } />
+					<CatalogContent section={ section } locale={ locale } data={ products.data } slug={ slug } result={ products.result } isCatalog={ true } />
 					{ products.result && products.data.total_count > pageItem && <div className='mt-10'>
 						<Pagination initialPage={ page || 1 } total={ Math.ceil(products.data.total_count/pageItem) } />
 					</div> }
