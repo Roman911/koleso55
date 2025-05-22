@@ -44,7 +44,7 @@ export default function Comparison() {
 	}
 
 	return (
-		<LayoutWrapper>
+		<LayoutWrapper className='max-w-7xl'>
 			<Breadcrumbs path={ path } />
 			<Title title={ t('comparison') } />
 			{comparisonItems.length > 0 ? <Spinner height='h-40' show={ isLoading } >

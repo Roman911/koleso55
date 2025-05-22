@@ -29,7 +29,7 @@ export default function CatalogMap() {
 	];
 
 	return (
-		<LayoutWrapper className='max-w-[1260px]'>
+		<LayoutWrapper className='max-w-7xl'>
 			<Breadcrumbs path={ path } />
 			<div className='mt-2.5 grid grid-cols-1 lg:grid-cols-2 gap-5'>
 				{ links.map((item, index) => (

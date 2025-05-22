@@ -21,7 +21,7 @@ export default function Bookmarks() {
 		}
 	];
 
-	return <LayoutWrapper>
+	return <LayoutWrapper className='max-w-7xl'>
 		<Breadcrumbs path={ path }/>
 		<Title title={ t('favorites') }/>
 		{ bookmarksItems.length > 0 ? <Spinner height='h-40' show={ isLoading }>

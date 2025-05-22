@@ -30,7 +30,7 @@ export default async function TyreDiskSizeCalc({ params }: { params: Promise<{ l
 	];
 
 	return (
-		<LayoutWrapper>
+		<LayoutWrapper className='max-w-7xl'>
 			<Breadcrumbs path={ path } />
 			<Title title='tire calculator' translations={ true } />
 			<TyreDiskSizeCalcComponent locale={ locale } />

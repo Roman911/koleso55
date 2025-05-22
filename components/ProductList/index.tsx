@@ -15,7 +15,7 @@ const ProductList: FC<Props> = ({ classnames, data, isList }) => {
 	})
 
 	return (
-		<div className={ twMerge('grid gap-1 lg:gap-4', classnames) }>
+		<div className={ twMerge('grid gap-1 lg:gap-4 -mx-5 md:mx-0', classnames) }>
 			{ products }
 		</div>
 	)

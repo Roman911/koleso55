@@ -31,7 +31,7 @@ export default async function AutoGoods() {
 	];
 
 	return (
-		<LayoutWrapper>
+		<LayoutWrapper className='max-w-7xl'>
 			<Breadcrumbs path={ path } />
 			<Title isMain={ true } title='auto goods' translations={ true } className='mt-3 text-lg font-medium px-0 md:px-3 mb-3 md:mb-1' />
 			{ products.result ? <ProductList

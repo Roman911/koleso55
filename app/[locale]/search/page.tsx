@@ -36,7 +36,7 @@ export default function Search() {
 		setPaginateCount(page)
 	}
 
-	return <LayoutWrapper>
+	return <LayoutWrapper className='max-w-7xl'>
 		<Head>
 			<title>{ t('search') }</title>
 		</Head>

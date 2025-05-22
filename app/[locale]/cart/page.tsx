@@ -23,8 +23,6 @@ export default function Cart() {
 		}
 	};
 
-	// console.log('data cart' );
-
 	const removeProduct = (id: number) => {
 		removeFromStorage('reducerCart', id);
 		dispatch(removeCart(id));
@@ -37,7 +35,7 @@ export default function Cart() {
 		dispatch(setQuantity({ ...item, quantity }));
 	}
 
-	return <LayoutWrapper>
+	return <LayoutWrapper className='max-w-7xl'>
 		<Breadcrumbs path={ path } />
 		<Title title='cart' translations={ true } />
 		<Spinner height='h-40' show={ isLoading }>
