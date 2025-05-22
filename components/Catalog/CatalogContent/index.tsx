@@ -26,7 +26,7 @@ const CatalogContent: FC<Props> = ({ section, slug, locale, data, result }) => {
 				<Tabs selected={ selected } setSelected={ setSelected } />
 			</div>
 			{ result ? <ProductList
-				classnames={ selected === 'table' ? 'grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 gap-1 lg:gap-1' }
+				classnames={ selected === 'table' ? 'grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 gap-3 lg:gap-3' }
 				data={ data }
 				isList={ selected === 'list' }
 			/> : <NoResult noResultText='no result' /> }
