@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { Button, Input } from '@heroui/react';
-import { useTranslations } from 'next-intl';
 import * as Icons from '@/components/UI/Icons';
 
 interface SearchInputProps {
@@ -22,8 +21,6 @@ const placeHolderExamples = [
 ];
 
 export const SearchInput = ({ value, onChange, onSubmit }: SearchInputProps) => {
-	const t = useTranslations('Catalog');
-
 	const [ placeholder, setPlaceholder ] = useState('');
 	const [ currentPlaceholderIndex, setCurrentPlaceholderIndex ] = useState(0);
 	const currentLetter = useRef(0);
