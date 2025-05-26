@@ -5,11 +5,7 @@ import { Select } from '@/components/Catalog/FilterAlt/Select';
 import { useAppSelector } from '@/hooks/redux';
 import { baseDataAPI } from '@/services/baseDataService';
 import type { BaseDataProps } from '@/models/baseData';
-import {
-	appointmentCargo,
-	appointmentIndustrial,
-	customTireSeason, others
-} from '../customParamForSelector';
+import { appointmentCargo, appointmentIndustrial, customTireSeason, others } from '../customParamForSelector';
 import { Language } from '@/models/language';
 
 const cargoTypes = [ '3', '4', '5', '6' ];
@@ -26,6 +22,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 	const { filter, subsection } = useAppSelector(state => state.filterReducer);
 	const appointmentCargoShow = filter.vehicle_type && cargoTypes.includes(filter.vehicle_type);
 	const appointmentIndustrialShow = filter.vehicle_type && industrialTypes.includes(filter.vehicle_type);
+	const { data: manufModels } = baseDataAPI.useFetchManufModelsQuery(`${ filter.brand }`);
 
 	return (
 		<>
@@ -35,7 +32,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					name='width'
 					label='width'
 					focusValue='175'
-					options={ filterData?.tyre_width.map(item => ({ value: item.value, label: item.value, p: item.p })) || []}
+					options={ filterData?.tyre_width.map(item => ({ value: item.value, label: item.value, p: item.p })) || [] }
 					variant='gray'
 					onChangeAction={ onChange }
 					filterValue={ filter.width ? filter.width.split(',') : [] }
@@ -46,7 +43,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					name='height'
 					label='height'
 					focusValue='45'
-					options={ filterData?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p })) || []}
+					options={ filterData?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p })) || [] }
 					variant='gray'
 					onChangeAction={ onChange }
 					filterValue={ filter.height ? filter.height.split(',') : [] }
@@ -57,7 +54,11 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					name='radius'
 					label='diameter'
 					focusValue='R14'
-					options={ filterData?.tyre_diameter?.map(item => ({ value: item.value, label: `R${ item.value }`, p: item.p })) || []}
+					options={ filterData?.tyre_diameter?.map(item => ({
+						value: item.value,
+						label: `R${ item.value }`,
+						p: item.p
+					})) || [] }
 					variant='gray'
 					onChangeAction={ onChange }
 					filterValue={ filter.radius ? filter.radius.split(',') : [] }
@@ -71,7 +72,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				options={ customTireSeason.map(item => ({
 					value: item.value,
 					label: locale === Language.UK ? item.name_ua : item.name
-				}))}
+				})) }
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter.sezon ? filter.sezon.split(',') : [] }
@@ -84,7 +85,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				options={ appointmentCargo.map(item => ({
 					value: item.value,
 					label: locale === Language.UK ? item.name_ua : item.name
-				}))}
+				})) }
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.vehicle_type ? filter.vehicle_type.split(',') : [] }
@@ -96,7 +97,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				options={ appointmentIndustrial.map(item => ({
 					value: item.value,
 					label: locale === Language.UK ? item.name_ua : item.name
-				}))}
+				})) }
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.vehicle_type ? filter.vehicle_type.split(',') : [] }
@@ -105,17 +106,27 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				id='b'
 				name='brand'
 				label='brand'
-				options={ data?.brand?.map(item => ({ value: item.value, label: item.label })) || []}
+				options={ data?.brand?.map(item => ({ value: item.value, label: item.label })) || [] }
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.brand ? filter.brand.split(',') : [] }
 				search={ true }
 			/>
+			{ filter.brand && !filter.brand.includes(',') && manufModels && manufModels.length > 0 && <Select
+				id='m'
+				name='model_id'
+				label='model'
+				options={ manufModels?.map(item => ({ value: item.value, label: item.label })) || [] }
+				variant='white'
+				onChangeAction={ onChange }
+				filterValue={ filter?.model_id ? filter.model_id.split(',') : [] }
+				search={ true }
+			/> }
 			<Select
 				id='li'
 				name='li'
 				label='load index'
-				options={ data?.load.map(item => ({ value: item.value, label: item.value })) || []}
+				options={ data?.load.map(item => ({ value: item.value, label: item.value })) || [] }
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.li ? filter.li.split(',') : [] }
@@ -125,7 +136,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				id='si'
 				name='si'
 				label='speed index'
-				options={ data?.speed.map(item => ({ value: item.value, label: item.value })) || []}
+				options={ data?.speed.map(item => ({ value: item.value, label: item.value })) || [] }
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.si ? filter.si.split(',') : [] }
@@ -135,7 +146,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				id='hm'
 				name='omolog'
 				label='homologation'
-				options={ data?.omolog.map(item => ({ value: item.value, label: item.value })) || []}
+				options={ data?.omolog.map(item => ({ value: item.value, label: item.value })) || [] }
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.omolog ? filter.omolog.split(',') : [] }
@@ -145,7 +156,10 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				id='other'
 				name='other'
 				label='other'
-				options={ others.map(item => ({ value: item.value, label: locale === Language.UK ? item.name_ua : item.name })) || []}
+				options={ others.map(item => ({
+					value: item.value,
+					label: locale === Language.UK ? item.name_ua : item.name
+				})) || [] }
 				variant='white'
 				onChangeAction={ onChange }
 			/>

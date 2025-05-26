@@ -19,6 +19,7 @@ const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
 	const locale = useLocale();
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 	const { filter, subsection } = useAppSelector(state => state.filterReducer);
+	const { data: manufModels } = baseDataAPI.useFetchManufModelsQuery(`${ filter.brand }`);
 
 	return (
 		<>
@@ -87,6 +88,16 @@ const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
 				filterValue={ filter?.brand ? filter.brand.split(',') : [] }
 				search={ true }
 			/>
+			{ filter.brand && !filter.brand.includes(',') && manufModels && manufModels.length > 0 && <Select
+				id='m'
+				name='model_id'
+				label='model'
+				options={ manufModels?.map(item => ({ value: item.value, label: item.label })) || [] }
+				variant='white'
+				onChangeAction={ onChange }
+				filterValue={ filter?.model_id ? filter.model_id.split(',') : [] }
+				search={ true }
+			/> }
 		</>
 	)
 };

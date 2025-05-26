@@ -40,7 +40,7 @@ const HeaderCatalog: FC<Props> = ({ section, slug }) => {
 				? data?.brand_disc.find(item => item.value === +urlParams.brand!) ?? null
 				: null
 		: null;
-	const title = `${urlParams.sezon ? t(SeasonTransform(urlParams.sezon)?.name || '') : ''} ${t(section)} ${brandParam?.label ?? ''} ${urlParams.width ?? ''}${urlParams.width && urlParams.height ? '/' : ''}${urlParams.height ?? ''} ${urlParams.radius ? 'R' + urlParams.radius : ''}`;
+	const title = `${(urlParams.sezon && !urlParams.sezon.includes(',')) ? t(SeasonTransform(urlParams.sezon)?.name || '') : ''} ${t(section)} ${brandParam?.label ?? ''} ${urlParams.width ?? ''}${urlParams.width && urlParams.height ? '/' : ''}${urlParams.height ?? ''} ${urlParams.radius ? 'R' + urlParams.radius : ''}`;
 
 	useEffect(() => {
 		dispatch(resetFilter());

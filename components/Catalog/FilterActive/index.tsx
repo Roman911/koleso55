@@ -1,6 +1,8 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { Language } from '@/models/language';
+import { useAppSelector } from '@/hooks/redux';
+import { baseDataAPI } from '@/services/baseDataService';
 import * as Icons from '../../UI/Icons';
 import { Section } from '@/models/filter';
 import { Link } from '@/i18n/routing';
@@ -16,6 +18,11 @@ interface FilterActiveProps {
 
 const FilterActive: FC<FilterActiveProps> = ({ className, slug, section }) => {
 	const t = useTranslations('Filters');
+	const { filter } = useAppSelector(state => state.filterReducer);
+	const { data } = baseDataAPI.useFetchBaseDataQuery('');
+	const { data: manufModels } = baseDataAPI.useFetchManufModelsQuery(`${ filter.brand }`);
+	const { data: dataAkum } = baseDataAPI.useFetchDataAkumQuery('');
+
 	const renderItem = (key: number, id: string, value: string, label: string) => {
 		const cleanArray = (arr: string[]): string[] => {
 			return arr.reduce((acc: string[], item: string) => {
@@ -60,7 +67,23 @@ const FilterActive: FC<FilterActiveProps> = ({ className, slug, section }) => {
 				}
 
 				if(split && split[0] === 'vt') {
-					return decodeURIComponent(split[1]).split(',').map((i, key) => renderItem(key, split[0], i, t(VehicleTypeTransform(i)?.name || '1')))
+					return decodeURIComponent(split[1]).split(',').map((i, key) => renderItem(key, split[0], i, t(VehicleTypeTransform(i)?.name || '1')));
+				}
+
+				if(split && split[0] === 'b') {
+					if(section === Section.Tires) {
+						return decodeURIComponent(split[1]).split(',').map((i, key) => renderItem(key, split[0], i, data?.brand.find(b => b.value === +i)?.label || '1'));
+					}
+					if(section === Section.Disks) {
+						return decodeURIComponent(split[1]).split(',').map((i, key) => renderItem(key, split[0], i, data?.brand_disc.find(b => b.value === +i)?.label || '1'));
+					}
+					if(section === Section.Battery) {
+						return decodeURIComponent(split[1]).split(',').map((i, key) => renderItem(key, split[0], i, dataAkum?.brand_akum.find(b => b.value === +i)?.label || '1'));
+					}
+				}
+
+				if(split && split[0] === 'm') {
+					return decodeURIComponent(split[1]).split(',').map((i, key) => renderItem(key, split[0], i, manufModels?.find(b => b.value === +i)?.label || '1'));
 				}
 
 				return decodeURIComponent(split[1]).split(',').map((i, key) => renderItem(key, split[0], i, i))

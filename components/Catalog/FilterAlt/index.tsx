@@ -87,7 +87,6 @@ const FilterAlt: FC<Props> = ({ filterData, section, car }) => {
 					idMax='pto'
 					from={ 200 }
 					to={ 10000 }
-
 					title={ `${ t('price range') } (грн)` }
 					btnTitle={ t('to apply') }
 				/>
