@@ -49,12 +49,12 @@ export const Select: FC<SelectProps> = (
 	const t = useTranslations('Filters');
 
 	useEffect(() => {
-		if (filterValue) {
+		if(filterValue) {
 			setActive(filterValue);
 		} else {
 			setActive([]);
 		}
-	}, [filterValue]);
+	}, [ filterValue ]);
 
 	const handleClickOpen = useCallback(() => {
 		setOpen(prev => !prev);
@@ -74,8 +74,11 @@ export const Select: FC<SelectProps> = (
 		setEventSearch(value.toLowerCase());
 	}
 
-	return <div className={ twMerge('relative mt-2.5 rounded-sm bg-transparent', variant === 'gray' && 'bg-[#F0F2F5] dark:bg-[#F0F2F5]') }>
-		<Badge isInvisible={ !filterValue?.length } className='border-white dark:border-[#333333]' classNames={{ base: 'w-full', badge: 'left-[1%]' }} color='primary' content={ filterValue?.length } placement='top-left'>
+	return <div
+		className={ twMerge('relative mt-2.5 rounded-sm bg-transparent', variant === 'gray' && 'bg-[#F0F2F5] dark:bg-[#F0F2F5]') }>
+		<Badge isInvisible={ !filterValue?.length } className='border-white dark:border-[#333333]'
+					 classNames={ { base: 'w-full', badge: 'left-[1%]' } } color='primary' content={ filterValue?.length }
+					 placement='top-left'>
 			<button
 				type='button'
 				onClick={ () => handleClickOpen() }
@@ -88,57 +91,67 @@ export const Select: FC<SelectProps> = (
         <span className='block truncate'>{ t(label) }</span>
       </span>
 				<span className="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2.5">
-        <Icons.ChevronDownIcon className={ twMerge('w-3.5 h-3.5 stroke-black', variant === 'gray' && 'stroke-gray-500') }/>
+        <Icons.ChevronDownIcon
+					className={ twMerge('w-3.5 h-3.5 stroke-black', variant === 'gray' && 'stroke-gray-500') }/>
       </span>
 			</button>
 		</Badge>
 		{ search && open && <SearchInput value={ eventSearch } handleChange={ handleChange }/> }
 		{ name === 'other' ?
-			<div className={twMerge('flex flex-col flex-wrap gap-2 data-[orientation=horizontal]:flex-row px-2.5 pb-2.5')}>
+			<div className={ twMerge('flex flex-col flex-wrap gap-2 data-[orientation=horizontal]:flex-row px-2.5 pb-2.5', !open && 'hidden') }>
 				{ options.map(item => {
 					return <Checkbox
 						key={ item.value }
 						size='lg'
 						radius='sm'
 						isSelected={ valueStudded === '1' }
-						onValueChange={ (value) => onChangeAction(otherOptions[item.value], 'only_studded', value ? ['1'] : [])}
+						onValueChange={ (value) => onChangeAction(otherOptions[item.value], 'only_studded', value ? [ '1' ] : []) }
 						value={ String(item.value) }
-						classNames={{ label: twMerge('text-black text-base', variant === 'white' && 'dark:text-white'), wrapper: 'bg-white before:-m-[1px]' }}
+						classNames={ {
+							label: twMerge('text-black text-base', variant === 'white' && 'dark:text-white'),
+							wrapper: 'bg-white before:-m-[1px]'
+						} }
 					>
 						{ item.label }
 					</Checkbox>
 				}) }
 			</div>
 			: <CheckboxGroup
-			size='lg'
-			radius='sm'
-			ref={ ref }
-			onChange={ (value) => {
-				setActive(value); // обов'язково оновлюємо локальний state
-				onChangeAction(id, name, value);
-			}}
-			value={ active } // контрольований компонент
-			className={ twMerge('relative max-h-[480px] w-full overflow-auto', !open && 'hidden') }
-			classNames={{ wrapper: 'px-2.5 pb-2.5' }}
-		>
-			{ options?.filter(i => i.label.toString().toLowerCase().includes(eventSearch)).map(item => {
-				return <Checkbox value={ `${item.value}` } key={ item.value } classNames={{ label: twMerge('text-black text-base', variant === 'white' && 'dark:text-white'), wrapper: 'bg-white before:-m-[1px]' }}>
-					{ item.label }
-				</Checkbox>
-			}) }
-		</CheckboxGroup> }
-		{  name === 'sezon' && filterValue?.includes('2') &&
+				size='lg'
+				radius='sm'
+				ref={ ref }
+				onChange={ (value) => {
+					setActive(value); // обов'язково оновлюємо локальний state
+					onChangeAction(id, name, value);
+				} }
+				value={ active } // контрольований компонент
+				className={ twMerge('relative max-h-[480px] w-full overflow-auto', !open && 'hidden') }
+				classNames={ { wrapper: 'px-2.5 pb-2.5' } }
+			>
+				{ options?.filter(i => i.label.toString().toLowerCase().includes(eventSearch)).map(item => {
+					return <Checkbox value={ `${ item.value }` } key={ item.value } classNames={ {
+						label: twMerge('text-black text-base', variant === 'white' && 'dark:text-white'),
+						wrapper: 'bg-white before:-m-[1px]'
+					} }>
+						{ item.label }
+					</Checkbox>
+				}) }
+			</CheckboxGroup> }
+		{ name === 'sezon' && filterValue?.includes('2') &&
 			<Checkbox
 				size='lg'
 				radius='sm'
 				color='primary'
 				isSelected={ valueStudded === '1' }
-				onValueChange={ (value) => onChangeAction('stud', 'only_studded', value ? ['1'] : [])}
+				onValueChange={ (value) => onChangeAction('stud', 'only_studded', value ? [ '1' ] : []) }
 				className={ twMerge('before-bg-white ml-6', !open && 'hidden') }
 				value='1'
-				classNames={{ label: twMerge('text-black text-base', variant === 'white' && 'dark:text-white'), wrapper: 'bg-white before:-m-[1px]' }}
+				classNames={ {
+					label: twMerge('text-black text-base', variant === 'white' && 'dark:text-white'),
+					wrapper: 'bg-white before:-m-[1px]'
+				} }
 			>
-			Шип
-		</Checkbox> }
+				Шип
+			</Checkbox> }
 	</div>
 };
