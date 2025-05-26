@@ -23,7 +23,7 @@ const CatalogContent: FC<Props> = ({ section, slug, locale, data, result, isCata
   return (
 		<>
 			<div className='flex justify-between mb-2'>
-				{ isCatalog && <FilterActive section={ section } locale={ locale } className='hidden lg:flex' slug={ slug } /> }
+				{/*{ isCatalog && <FilterActive section={ section } locale={ locale } className='hidden lg:flex' slug={ slug } /> }*/}
 				<Tabs selected={ selected } setSelected={ setSelected } />
 			</div>
 			{ (result && data) ? <ProductList

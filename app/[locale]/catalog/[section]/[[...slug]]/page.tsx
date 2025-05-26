@@ -6,11 +6,10 @@ import FilterByCar from '@/components/Catalog/FilterByCar';
 import { transformUrl } from './transformUrl';
 import SelectionByCar from '@/components/Catalog/SelectionByCar';
 import HeaderCatalog from '@/components/Catalog/HeaderCatalog';
-import Pagination from '@/components/Catalog/Pagination';
 import type { Metadata } from 'next';
-import { getFilterData, getProducts, getSettings } from '@/app/api/api';
+import { getFilterData, getSettings } from '@/app/api/api';
 import { language } from '@/lib/language';
-import CatalogContent from '@/components/Catalog/CatalogContent';
+import GetProducts from '@/components/Catalog/GetProducts';
 
 const pageItem = 12;
 const sort = {
@@ -34,28 +33,24 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: L
 export default async function Catalog({ params }: { params: Promise<{ locale: Language, section: Section, slug: string[] }> }) {
 	const { locale, section, slug } = await params;
 	const value = slug?.find(item => item.startsWith('p-'));
-	const page = value ? parseInt(value.split('-')[1], 10) : null;
+	const pageFrom = value ? parseInt(value.split('-')[1], 10) : null;
 	const filterData = await getFilterData(
 		`?typeproduct=${section === Section.Disks ? 3 : section === Section.Battery ? 4 : 1}`,
 	);
 	const paramsUrl = transformUrl({ section, slug });
 	const found = slug?.find(item => item.startsWith('order-'))?.split('-')[1] as keyof typeof sort;
 	const searchParams = `?${paramsUrl || ''}${found && sort[found] ? sort[found] : ''}`;
-	const products = await getProducts(searchParams, page ? (page - 1) * pageItem : 0, pageItem);
 	const car = slug?.find(segment => segment.startsWith('car-')) || null;
 
 	return (
 		<LayoutWrapper className='max-w-7xl'>
-			<HeaderCatalog section={ section } slug={ slug } />
+			{/*<HeaderCatalog section={ section } slug={ slug } />*/}
 			<div className='py-5 lg:flex lg:gap-10'>
 				<FilterAlt filterData={ filterData } section={ section } car={ car } />
 				<div className='flex-1 -mt-8 lg:-mt-6'>
 					<FilterByCar />
 					<SelectionByCar car={ car } section={ section } />
-					<CatalogContent section={ section } locale={ locale } data={ products.data } slug={ slug } result={ products.result } isCatalog={ true } />
-					{ products.result && products.data.total_count > pageItem && <div className='mt-10'>
-						<Pagination initialPage={ page || 1 } total={ Math.ceil(products.data.total_count/pageItem) } />
-					</div> }
+					<GetProducts searchParams={ searchParams } pageFrom={ pageFrom } pageTo={ null} section={ section } slug={ slug } locale={ locale } pageItem={ pageItem } />
 				</div>
 			</div>
 		</LayoutWrapper>

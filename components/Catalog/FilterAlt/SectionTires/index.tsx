@@ -17,7 +17,7 @@ const industrialTypes = [ '9', '10', '11' ];
 
 interface Props {
 	filterData?: BaseDataProps
-	onChange: (name: string, value: number | string | undefined | null, element: HTMLElement) => void
+	onChange: (id: string, name: string, value: string[]) => void
 }
 
 const SectionTires: FC<Props> = ({ filterData, onChange }) => {
@@ -31,37 +31,41 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 		<>
 			{ subsection === Subsection.ByParams && <>
 				<Select
+					id='w'
 					name='width'
 					label='width'
 					focusValue='175'
 					options={ filterData?.tyre_width.map(item => ({ value: item.value, label: item.value, p: item.p })) || []}
 					variant='gray'
 					onChange={ onChange }
-					filterValue={ filter?.width }
+					filterValue={ filter.width ? filter.width.split(',') : [] }
 					search={ true }
 				/>
 				<Select
+					id='h'
 					name='height'
 					label='height'
 					focusValue='45'
 					options={ filterData?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p })) || []}
 					variant='gray'
 					onChange={ onChange }
-					filterValue={ filter?.height }
+					filterValue={ filter.height ? filter.height.split(',') : [] }
 					search={ true }
 				/>
 				<Select
+					id='d'
 					name='radius'
 					label='diameter'
 					focusValue='R14'
 					options={ filterData?.tyre_diameter?.map(item => ({ value: item.value, label: `R${ item.value }`, p: item.p })) || []}
 					variant='gray'
 					onChange={ onChange }
-					filterValue={ filter?.radius }
+					filterValue={ filter.radius ? filter.radius.split(',') : [] }
 					search={ true }
 				/>
 			</> }
 			{ !appointmentCargoShow && !appointmentIndustrialShow && <Select
+				id='s'
 				name='sezon'
 				label='season'
 				options={ customTireSeason.map(item => ({
@@ -70,7 +74,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				}))}
 				variant='white'
 				onChange={ onChange }
-				filterValue={ filter?.sezon }
+				filterValue={ filter.sezon ? filter.sezon.split(',') : [] }
 				valueStudded={ filter?.only_studded }
 			/> }
 			{ appointmentCargoShow && <Select
