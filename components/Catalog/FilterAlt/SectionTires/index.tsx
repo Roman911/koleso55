@@ -148,13 +148,6 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				options={ others.map(item => ({ value: item.value, label: locale === Language.UK ? item.name_ua : item.name })) || []}
 				variant='white'
 				onChangeAction={ onChange }
-				filterOther={{
-					only_c: filter?.only_c ?? null,
-					only_xl: filter?.only_xl ?? null,
-					only_owl: filter?.only_owl ?? null,
-					only_run_flat: filter?.only_run_flat ?? null,
-					only_off_road: filter?.only_off_road ?? null,
-				}}
 			/>
 		</>
 	)

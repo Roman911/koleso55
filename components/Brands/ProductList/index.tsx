@@ -10,8 +10,6 @@ interface Props {
 const ProductList: FC<Props> = ({ section, data }) => {
 	const sectionTransform = section === 'tyre' ? 'tires' : section === 'disc' ? 'disks' : 'battery';
 
-	console.log(sectionTransform, section)
-
 	return Array.isArray(data) ? data.map(item => {
 		return <Link
 			key={ item.model_id }
