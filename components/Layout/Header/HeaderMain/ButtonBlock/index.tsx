@@ -34,7 +34,7 @@ const ButtonBlock = () => {
 
 	return (
 		<>
-			<Link href='/comparison' className='relative' onClick={ () => console.log('comparison') }>
+			<Link href='/comparison' className='relative'>
 				<Badge
 					color='primary'
 					content={ comparisonItems.length }

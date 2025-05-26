@@ -48,9 +48,9 @@ const MySelect: FC<SelectProps> = ({
 		isDisabled={ isDisabled }
 		onSelectionChange={ onSelectionChange }
 		radius='sm'
-		listboxProps={ {
+		listboxProps={{
 			emptyContent: t('no options message'),
-		} }
+		}}
 	>
 		{ popularSizeOptions ? <>
 			<AutocompleteSection classNames={ { heading: 'text-medium font-bold' } } title={ t('popular') }>

@@ -29,6 +29,7 @@ export const ReactImageGallery: FC<Props> = ({ photo, images = [] }) => {
 			<ImageGallery
 				items={ items }
 				showPlayButton={ false }
+				showBullets={ true }
 				showThumbnails={ items.length > 1 }
 			/>
 		</div>

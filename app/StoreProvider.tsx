@@ -15,8 +15,8 @@ export default function StoreProvider({ children }: { children: ReactNode }) {
 
 	// Return the Provider component with the store
 	return <Provider store={ storeRef.current }>
-		<ThemeProvider attribute="class" enableSystem defaultTheme='system' >
-			<ToastProvider placement='top-right' />
+		<ThemeProvider attribute='class' enableSystem defaultTheme='system' >
+			<ToastProvider placement='top-right' toastProps={{ timeout: 3000 }} />
 			{ children }
 		</ThemeProvider>
 	</Provider>;

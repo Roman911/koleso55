@@ -23,11 +23,11 @@ const CatalogContent: FC<Props> = ({ section, slug, locale, data, result, isCata
   return (
 		<>
 			<div className='flex justify-between mb-2'>
-				{/*{ isCatalog && <FilterActive section={ section } locale={ locale } className='hidden lg:flex' slug={ slug } /> }*/}
+				{ isCatalog && <FilterActive section={ section } locale={ locale } className='hidden lg:flex' slug={ slug } /> }
 				<Tabs selected={ selected } setSelected={ setSelected } />
 			</div>
 			{ (result && data) ? <ProductList
-				classnames={ selected === 'table' ? `grid-cols-2 lg:grid-cols-${ isCatalog ? 3 : 4 }` : 'grid-cols-1 gap-3 lg:gap-3' }
+				classnames={ selected === 'table' ? `grid-cols-2 lg:grid-cols-${ isCatalog ? 3 : 4 }` : 'grid-cols-1' }
 				data={ data }
 				isList={ selected === 'list' }
 			/> : <NoResult noResultText='no result' /> }

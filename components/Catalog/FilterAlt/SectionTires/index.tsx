@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { useLocale } from 'next-intl';
 import { Subsection } from '@/models/filter';
-import Select from '@/components/Catalog/FilterAlt/Select';
+import { Select } from '@/components/Catalog/FilterAlt/Select';
 import { useAppSelector } from '@/hooks/redux';
 import { baseDataAPI } from '@/services/baseDataService';
 import type { BaseDataProps } from '@/models/baseData';
@@ -37,7 +37,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					focusValue='175'
 					options={ filterData?.tyre_width.map(item => ({ value: item.value, label: item.value, p: item.p })) || []}
 					variant='gray'
-					onChange={ onChange }
+					onChangeAction={ onChange }
 					filterValue={ filter.width ? filter.width.split(',') : [] }
 					search={ true }
 				/>
@@ -48,7 +48,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					focusValue='45'
 					options={ filterData?.tyre_height?.map(item => ({ value: item.value, label: item.value, p: item.p })) || []}
 					variant='gray'
-					onChange={ onChange }
+					onChangeAction={ onChange }
 					filterValue={ filter.height ? filter.height.split(',') : [] }
 					search={ true }
 				/>
@@ -59,7 +59,7 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					focusValue='R14'
 					options={ filterData?.tyre_diameter?.map(item => ({ value: item.value, label: `R${ item.value }`, p: item.p })) || []}
 					variant='gray'
-					onChange={ onChange }
+					onChangeAction={ onChange }
 					filterValue={ filter.radius ? filter.radius.split(',') : [] }
 					search={ true }
 				/>
@@ -73,11 +73,12 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					label: locale === Language.UK ? item.name_ua : item.name
 				}))}
 				variant='white'
-				onChange={ onChange }
+				onChangeAction={ onChange }
 				filterValue={ filter.sezon ? filter.sezon.split(',') : [] }
 				valueStudded={ filter?.only_studded }
 			/> }
 			{ appointmentCargoShow && <Select
+				id='vt'
 				name='vehicle_type'
 				label='appointment'
 				options={ appointmentCargo.map(item => ({
@@ -85,10 +86,11 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					label: locale === Language.UK ? item.name_ua : item.name
 				}))}
 				variant='white'
-				onChange={ onChange }
-				filterValue={ filter?.vehicle_type }
+				onChangeAction={ onChange }
+				filterValue={ filter?.vehicle_type ? filter.vehicle_type.split(',') : [] }
 			/> }
 			{ appointmentIndustrialShow && <Select
+				id='vt'
 				name='vehicle_type'
 				label='appointment'
 				options={ appointmentIndustrial.map(item => ({
@@ -96,51 +98,56 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					label: locale === Language.UK ? item.name_ua : item.name
 				}))}
 				variant='white'
-				onChange={ onChange }
-				filterValue={ filter?.vehicle_type }
+				onChangeAction={ onChange }
+				filterValue={ filter?.vehicle_type ? filter.vehicle_type.split(',') : [] }
 			/> }
 			<Select
+				id='b'
 				name='brand'
 				label='brand'
 				options={ data?.brand?.map(item => ({ value: item.value, label: item.label })) || []}
 				variant='white'
-				onChange={ onChange }
-				filterValue={ filter?.brand && Number(filter.brand) }
+				onChangeAction={ onChange }
+				filterValue={ filter?.brand ? filter.brand.split(',') : [] }
 				search={ true }
 			/>
 			<Select
+				id='li'
 				name='li'
 				label='load index'
 				options={ data?.load.map(item => ({ value: item.value, label: item.value })) || []}
 				variant='white'
-				onChange={ onChange }
-				filterValue={ filter?.li }
+				onChangeAction={ onChange }
+				filterValue={ filter?.li ? filter.li.split(',') : [] }
 				search={ true }
 			/>
 			<Select
+				id='si'
 				name='si'
 				label='speed index'
 				options={ data?.speed.map(item => ({ value: item.value, label: item.value })) || []}
 				variant='white'
-				onChange={ onChange }
-				filterValue={ filter?.si }
+				onChangeAction={ onChange }
+				filterValue={ filter?.si ? filter.si.split(',') : [] }
 				search={ true }
 			/>
 			<Select
+				id='hm'
 				name='omolog'
 				label='homologation'
 				options={ data?.omolog.map(item => ({ value: item.value, label: item.value })) || []}
 				variant='white'
-				onChange={ onChange }
-				filterValue={ filter?.omolog }
+				onChangeAction={ onChange }
+				filterValue={ filter?.omolog ? filter.omolog.split(',') : [] }
 				search={ true }
 			/>
 			<Select
+				id='other'
 				name='other'
 				label='other'
 				options={ others.map(item => ({ value: item.value, label: locale === Language.UK ? item.name_ua : item.name })) || []}
 				variant='white'
-				onChange={ onChange }
+				onChangeAction={ onChange }
 				filterOther={{
 					only_c: filter?.only_c ?? null,
 					only_xl: filter?.only_xl ?? null,

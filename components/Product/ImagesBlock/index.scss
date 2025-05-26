@@ -11,34 +11,46 @@
 .image-gallery-left-nav .image-gallery-svg,
 .image-gallery-right-nav .image-gallery-svg {
   width: 28px;
+
+  @media (width <= 768px) {
+    display: none;
+  }
 }
 
 .image-gallery-thumbnail {
   border: 1px solid transparent;
 
-	&.active,
-	&:focus,
-	&:hover {
-      border: 1px solid transparent;
-	}
+  &.active,
+  &:focus,
+  &:hover {
+    border: 1px solid transparent;
+  }
 }
 
 .image-gallery-content:not(.fullscreen) {
   .image-gallery-icon.image-gallery-fullscreen-button {
-    display: contents;
+    @media (width >= 768px) {
+      display: contents;
 
-    svg {
-      display: none;
-    }
+      svg {
+        display: none;
+      }
 
-    &::after {
-      content: '';
-      inset: 0;
-      position: absolute;
+      &::after {
+        content: '';
+        inset: 0;
+        position: absolute;
+      }
     }
   }
 }
 
 .image-gallery-content.fullscreen {
   background: #ffffff;
+}
+
+.image-gallery-bullets {
+  @media (width >= 768px) {
+    display: none;
+  }
 }

@@ -131,7 +131,8 @@
     "winter": "Зимові",
     "year": "Рік",
     "type of electrolyte": "Тип електроліту",
-    "body type": "Тип корпусу"
+    "body type": "Тип корпусу",
+    "to": "До"
   },
   "Footer": {
     "accumulators": "Акумулятори",
