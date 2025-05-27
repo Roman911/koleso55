@@ -27,7 +27,6 @@ const LinkComponent: FC<Props> = ({ href, img, label, mt, border, onClick }) => 
 			alt={ `${img} logo` }
 			width={ 24 }
 			height={ 24 }
-			priority
 		/> }
 		<span className={ twMerge(!border && 'transition group-hover/item:underline') }>
 			{ label }

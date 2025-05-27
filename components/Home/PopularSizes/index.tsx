@@ -24,7 +24,7 @@ const PopularSizes: FC<Props> = ({ locale, settings, popularSizes }) => {
 	return (
 		<div className='mt-20'>
 			<Title title={ settings[lang].h2_popular_tyre }/>
-			<div className='grid grid-cols-2 lg:grid-cols-6 mt-12 gap-5'>
+			<div className='grid grid-cols-2 lg:grid-cols-7 mt-12 gap-5'>
 				{ popularSizes && popularDiameter.map(i => {
 					const diameters = popularSizes.filter(item => item.radius === i);
 					if(diameters.length === 0) return;

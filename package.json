@@ -41,5 +41,9 @@
     "sass": "^1.87.0",
     "tailwindcss": "^4.1.4",
     "typescript": "^5"
-  }
+  },
+  "browserslist": [
+    "defaults and supports es6-module",
+    "maintained node versions"
+  ]
 }
