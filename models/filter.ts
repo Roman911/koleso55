@@ -52,3 +52,46 @@ export interface IFilter {
 	minDovzina?: null | string
 	maxDovzina?: null | string
 }
+
+export interface IOpenFilter {
+	width: boolean
+	height: boolean
+	radius: boolean
+	sezon: boolean
+	brand: boolean
+	model_id: boolean
+	citys: boolean
+	country: boolean
+	year: boolean
+	omolog: boolean
+	krepeg: boolean
+	typedisk: boolean
+	colir: boolean
+	jemnist: boolean
+	puskovii_strum: boolean
+	tip_elektrolitu: boolean
+	tip_korpusu: boolean
+	napruga: boolean
+	poliarnist: boolean
+	vehicle_type: boolean
+	li: boolean
+	si: boolean
+	only_studded: boolean
+	only_c: boolean
+	only_xl: boolean
+	only_owl: boolean
+	only_run_flat: boolean
+	only_off_road: boolean
+	minPrice: boolean
+	maxPrice: boolean
+	etMin: boolean
+	etMax: boolean
+	diaMin: boolean
+	diaMax: boolean
+	minShirina: boolean
+	maxShirina: boolean
+	minVisota: boolean
+	maxVisota: boolean
+	minDovzina: boolean
+	maxDovzina: boolean
+}

@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { useLocale } from 'next-intl';
-import { Subsection } from '@/models/filter';
+import { IOpenFilter, Subsection } from '@/models/filter';
 import { Select } from '@/components/Catalog/FilterAlt/Select';
-import { useAppSelector } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { close, open } from '@/store/slices/filterIsOpenSlice';
 import { baseDataAPI } from '@/services/baseDataService';
 import type { BaseDataProps } from '@/models/baseData';
 import { appointmentCargo, appointmentIndustrial, customTireSeason, others } from '../customParamForSelector';
@@ -18,11 +19,21 @@ interface Props {
 
 export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 	const locale = useLocale();
+	const dispatch = useAppDispatch();
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 	const { filter, subsection } = useAppSelector(state => state.filterReducer);
+	const { filterIsOpen } = useAppSelector(state => state.filterIsOpenReducer);
 	const appointmentCargoShow = filter.vehicle_type && cargoTypes.includes(filter.vehicle_type);
 	const appointmentIndustrialShow = filter.vehicle_type && industrialTypes.includes(filter.vehicle_type);
 	const { data: manufModels } = baseDataAPI.useFetchManufModelsQuery(`${ filter.brand }`);
+
+	const handleClickOpen = (name: keyof IOpenFilter, value: boolean) => {
+		if (value) {
+			dispatch(open(name));
+		} else {
+			dispatch(close(name));
+		}
+	};
 
 	return (
 		<>
@@ -37,6 +48,8 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					onChangeAction={ onChange }
 					filterValue={ filter.width ? filter.width.split(',') : [] }
 					search={ true }
+					isOpened={ filterIsOpen.width }
+					handleClick={ handleClickOpen }
 				/>
 				<Select
 					id='h'
@@ -111,6 +124,8 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.brand ? filter.brand.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.brand }
+				handleClick={ handleClickOpen }
 			/>
 			{ filter.brand && !filter.brand.includes(',') && manufModels && manufModels.length > 0 && <Select
 				id='m'
@@ -121,6 +136,8 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.model_id ? filter.model_id.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.model_id }
+				handleClick={ handleClickOpen }
 			/> }
 			<Select
 				id='li'

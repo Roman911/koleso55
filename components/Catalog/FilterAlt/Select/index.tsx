@@ -7,18 +7,21 @@ import './index.scss';
 import * as Icons from '@/components/UI/Icons';
 import SearchInput from './SearchInput';
 import type { Options } from '@/models/baseData';
+import { IOpenFilter } from '@/models/filter';
 
 interface SelectProps {
 	id: string
 	label: string
 	name: string
 	variant: 'white' | 'gray'
+	isOpened?: boolean
 	search?: boolean
 	options: Array<Options>
 	focusValue?: string | false
 	onChangeAction: (id: string, name: string, value: string[]) => void
 	filterValue?: string[]
 	valueStudded?: null | string
+	handleClick: (name: keyof IOpenFilter, value: boolean) => void
 }
 
 const otherOptions: Record<string, string> = {
@@ -37,12 +40,14 @@ export const Select: FC<SelectProps> = (
 		variant,
 		search,
 		options,
+		isOpened,
 		onChangeAction,
 		focusValue,
 		filterValue,
-		valueStudded
+		valueStudded,
+		handleClick,
 	}) => {
-	const [ open, setOpen ] = useState(false);
+	// const [ open, setOpen ] = useState(false);
 	const [ active, setActive ] = useState<string[]>([]);
 	const [ eventSearch, setEventSearch ] = useState('');
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -57,7 +62,7 @@ export const Select: FC<SelectProps> = (
 	}, [ filterValue ]);
 
 	const handleClickOpen = useCallback(() => {
-		setOpen(prev => !prev);
+		handleClick(name as keyof IOpenFilter, !isOpened);
 
 		if(focusValue && ref.current) {
 			const cont = ref.current.querySelectorAll('label');
@@ -68,7 +73,7 @@ export const Select: FC<SelectProps> = (
 				}, 15);
 			}
 		}
-	}, [ focusValue ]);
+	}, [focusValue, handleClick, isOpened, name]);
 
 	const handleChange = (value: string) => {
 		setEventSearch(value.toLowerCase());
@@ -96,9 +101,9 @@ export const Select: FC<SelectProps> = (
       </span>
 			</button>
 		</Badge>
-		{ search && open && <SearchInput value={ eventSearch } handleChange={ handleChange }/> }
+		{ search && isOpened && <SearchInput value={ eventSearch } handleChange={ handleChange }/> }
 		{ name === 'other' ?
-			<div className={ twMerge('flex flex-col flex-wrap gap-2 data-[orientation=horizontal]:flex-row px-2.5 pb-2.5', !open && 'hidden') }>
+			<div className={ twMerge('flex flex-col flex-wrap gap-2 data-[orientation=horizontal]:flex-row px-2.5 pb-2.5', !isOpened && 'hidden') }>
 				{ options.map(item => {
 					return <Checkbox
 						key={ item.value }
@@ -125,7 +130,7 @@ export const Select: FC<SelectProps> = (
 					onChangeAction(id, name, value);
 				} }
 				value={ active } // контрольований компонент
-				className={ twMerge('relative max-h-[480px] w-full overflow-auto', !open && 'hidden') }
+				className={ twMerge('relative max-h-[480px] w-full overflow-auto', !isOpened && 'hidden') }
 				classNames={ { wrapper: 'px-2.5 pb-2.5' } }
 			>
 				{ options?.filter(i => i.label.toString().toLowerCase().includes(eventSearch)).map(item => {
@@ -144,7 +149,7 @@ export const Select: FC<SelectProps> = (
 				color='primary'
 				isSelected={ valueStudded === '1' }
 				onValueChange={ (value) => onChangeAction('stud', 'only_studded', value ? [ '1' ] : []) }
-				className={ twMerge('before-bg-white ml-6', !open && 'hidden') }
+				className={ twMerge('before-bg-white ml-6', !isOpened && 'hidden') }
 				value='1'
 				classNames={ {
 					label: twMerge('text-black text-base', variant === 'white' && 'dark:text-white'),
