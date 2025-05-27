@@ -37,6 +37,7 @@ const Logo: FC<Props> = ({ isFooter }) => {
 					alt='logo'
 					width={ width }
 					height={ height }
+					loading='lazy'
 				/>
 			) : (
 				<>

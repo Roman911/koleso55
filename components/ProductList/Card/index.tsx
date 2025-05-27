@@ -68,6 +68,7 @@ const ProductCard: FC<Props> = ({ item, isList }) => {
 						alt={ full_name }
 						width={ isList ? 160 : 220 }
 						height={ isList ? 160 : 220 }
+						loading='lazy'
 					/>
 					{ model.model_images.length > 0 && <Image
 						className='mx-auto hidden group-hover:block'
@@ -75,6 +76,7 @@ const ProductCard: FC<Props> = ({ item, isList }) => {
 						alt={ full_name }
 						width={ isList ? 160 : 220 }
 						height={ isList ? 160 : 220 }
+						loading='lazy'
 					/> }
 				</div>
 				<div className='px-2 md:px-5 flex flex-col'>

@@ -33,6 +33,7 @@ const BrandLink = ({ img, link, darkOnly = false }: { img: string, link: string,
 			alt={img}
 			width={150}
 			height={40}
+			loading='lazy'
 		/>
 		{!darkOnly && (
 			<Image
@@ -41,6 +42,7 @@ const BrandLink = ({ img, link, darkOnly = false }: { img: string, link: string,
 				alt={img}
 				width={150}
 				height={40}
+				loading='lazy'
 			/>
 		)}
 	</Link>
