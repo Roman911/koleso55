@@ -35,7 +35,7 @@ const ProductCard: FC<Props> = ({ item, isList }) => {
 	const pathname = usePathname();
 	const dispatch = useAppDispatch();
 	const t = useTranslations('Main');
-	const { default_photo, full_name, sku, min_price, season, vehicle_type, page_url, best_offer, group } = item;
+	const { default_photo, full_name, sku, min_price, season, vehicle_type, page_url, best_offer, group, model } = item;
 	const cartStorage = useMemo(() => getFromStorage('reducerCart'), []);
 	const section = item.vehicle_type ? Section.Tires : item.diameter ? Section.Disks : Section.Battery;
 	const sectionNew = section === Section.Tires ? cargo.includes(item.vehicle_type) ? 'cargo' : 'tires' : section;
@@ -63,12 +63,19 @@ const ProductCard: FC<Props> = ({ item, isList }) => {
 					<IconsBlock season={ season } vehicle_type={ vehicle_type }/>
 					{ !hasMatch && <ActionsBlock sectionNew={ sectionNew } group={ group } /> }
 					<Image
-						className='mx-auto'
+						className={ twMerge('mx-auto', model.model_images.length > 0 && 'group-hover:hidden') }
 						src={ default_photo || (locale === Language.UK ? '/images/no-photo.jpg' : '/images/no-photo-ru.jpg') }
 						alt={ full_name }
 						width={ isList ? 160 : 220 }
 						height={ isList ? 160 : 220 }
 					/>
+					{ model.model_images.length > 0 && <Image
+						className='mx-auto hidden group-hover:block'
+						src={ model.model_images[0].small }
+						alt={ full_name }
+						width={ isList ? 160 : 220 }
+						height={ isList ? 160 : 220 }
+					/> }
 				</div>
 				<div className='px-2 md:px-5 flex flex-col'>
 					<Link

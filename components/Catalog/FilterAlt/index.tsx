@@ -12,7 +12,7 @@ import { baseDataAPI } from '@/services/baseDataService';
 import ByCar from '@/components/Catalog/FilterAlt/ByCar';
 import { SelectFromTo } from '@/components/Catalog/FilterAlt/SelectFromTo';
 import FilterBtn from '@/components/Catalog/FilterByCar/FilterBtn';
-import SectionTires from '@/components/Catalog/FilterAlt/SectionTires';
+import { SectionTires } from '@/components/Catalog/FilterAlt/SectionTires';
 import SectionDisks from '@/components/Catalog/FilterAlt/SectionDisks';
 import SectionBattery from '@/components/Catalog/FilterAlt/SectionBattery';
 

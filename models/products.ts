@@ -1,6 +1,9 @@
 interface Model {
 	name: string
-	model_images: []
+	model_images: {
+		small: string
+		big: string
+	}[]
 }
 
 interface BestOffer {

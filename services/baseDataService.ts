@@ -105,6 +105,15 @@ export const baseDataAPI = createApi({
 			}),
 			invalidatesTags: ['Product'],
 		}),
+		fetchNpAllCity: build.query({
+			query: (name) => ({
+				url: deliveryEndpoints.novaPoshta.allCity,
+				method: API_CONSTANTS.METHODS.POST,
+				body: {
+					name: name
+				}
+			}),
+		}),
 		fetchNpSearch: build.query({
 			query: (name) => ({
 				url: deliveryEndpoints.novaPoshta.search,

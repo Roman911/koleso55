@@ -16,7 +16,7 @@ interface Props {
 	onChange: (id: string, name: string, value: string[]) => void
 }
 
-const SectionTires: FC<Props> = ({ filterData, onChange }) => {
+export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 	const locale = useLocale();
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 	const { filter, subsection } = useAppSelector(state => state.filterReducer);
@@ -166,5 +166,3 @@ const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 		</>
 	)
 };
-
-export default SectionTires;
