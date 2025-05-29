@@ -5,7 +5,10 @@ import { IOpenFilter } from '@/models/filter';
 
 export interface FilterState {
 	filterIsOpen: IOpenFilter
+	menuIsOpen: boolean
 }
+
+const initialMenuState: boolean = false;
 
 const initialFilterState: IOpenFilter = {
 	width: {
@@ -104,6 +107,7 @@ const initialFilterState: IOpenFilter = {
 
 const initialState: FilterState = {
 	filterIsOpen: initialFilterState,
+	menuIsOpen: initialMenuState,
 }
 
 export const filterIsOpenSlice = createSlice({
@@ -119,10 +123,13 @@ export const filterIsOpenSlice = createSlice({
 		setScrollValue: (state, actions: PayloadAction<{ key: keyof IOpenFilter, value: number | null }>) => {
 			state.filterIsOpen[actions.payload.key] = { open: true, scrollValue: actions.payload.value };
 		},
+		setMenuIsOpen: (state, actions: PayloadAction<boolean>) => {
+			state.menuIsOpen = actions.payload;
+		},
 		reset: () => initialState,
 	},
 });
 
-export const { close, open, setScrollValue, reset } = filterIsOpenSlice.actions;
+export const { close, open, setScrollValue, setMenuIsOpen, reset } = filterIsOpenSlice.actions;
 
 export default filterIsOpenSlice.reducer;

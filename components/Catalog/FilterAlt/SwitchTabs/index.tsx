@@ -2,8 +2,11 @@ import { Link } from '@/i18n/routing';
 import { twMerge } from 'tailwind-merge';
 import { Section } from '@/models/filter';
 import { useTranslations } from 'next-intl';
+import { useAppDispatch } from '@/hooks/redux';
+import { reset } from '@/store/slices/filterIsOpenSlice';
 
 const SwitchTabs = ({ section, car }: { section: Section, car: string | null }) => {
+	const dispatch = useAppDispatch();
 	const t = useTranslations('Main');
 
 	const renderTab = (value: Section) => {
@@ -11,6 +14,7 @@ const SwitchTabs = ({ section, car }: { section: Section, car: string | null }) 
 
 		return (
 			<Link
+				onClick={ () => dispatch(reset()) }
 				href={ url }
 				className={ twMerge(
 					'text-sm font-bold uppercase py-3.5 rounded-t-sm text-center text-white bg-[#070F15] dark:bg-[#333333]',

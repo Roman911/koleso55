@@ -1,9 +1,10 @@
 import { FC } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
-import { Subsection } from '@/models/filter';
+import { IOpenFilter, Subsection } from '@/models/filter';
 import { Select } from '@/components/Catalog/FilterAlt/Select';
 import { baseDataAPI } from '@/services/baseDataService';
-import { useAppSelector } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { close, open, setScrollValue } from '@/store/slices/filterIsOpenSlice';
 import type { BaseDataProps } from '@/models/baseData';
 import { SelectFromTo } from '@/components/Catalog/FilterAlt/SelectFromTo';
 import { typeDisc } from '@/components/Catalog/FilterAlt/customParamForSelector';
@@ -15,11 +16,25 @@ interface Props {
 }
 
 const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
+	const dispatch = useAppDispatch();
 	const t = useTranslations('Filters');
 	const locale = useLocale();
+	const { filterIsOpen } = useAppSelector(state => state.filterIsOpenReducer);
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
 	const { filter, subsection } = useAppSelector(state => state.filterReducer);
 	const { data: manufModels } = baseDataAPI.useFetchManufModelsQuery(`${ filter.brand }`);
+
+	const handleClickOpen = (name: keyof IOpenFilter, value: boolean) => {
+		if (value) {
+			dispatch(open({ key: name, value: true }));
+		} else {
+			dispatch(close(name));
+		}
+	};
+
+	const handleScroll = (name: keyof IOpenFilter, value: number) => {
+		dispatch(setScrollValue({ key: name, value }));
+	}
 
 	return (
 		<>
@@ -33,6 +48,10 @@ const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
 					onChangeAction={ onChange }
 					filterValue={ filter?.width ? filter.width.split(',') : [] }
 					search={ true }
+					isOpened={ filterIsOpen.width.open }
+					scroll={ filterIsOpen.width.scrollValue }
+					handleScrollAction={ handleScroll }
+					handleClickAction={ handleClickOpen }
 				/>
 				<Select
 					id='d'
@@ -43,6 +62,10 @@ const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
 					onChangeAction={ onChange }
 					filterValue={ filter?.radius ? filter.radius.split(',') : [] }
 					search={ true }
+					isOpened={ filterIsOpen.radius.open }
+					scroll={ filterIsOpen.radius.scrollValue }
+					handleScrollAction={ handleScroll }
+					handleClickAction={ handleClickOpen }
 				/>
 			</> }
 			<Select
@@ -54,6 +77,10 @@ const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.krepeg ? filter.krepeg.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.krepeg.open }
+				scroll={ filterIsOpen.krepeg.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			<SelectFromTo name='et' idMin='etfrom' idMax='etto' minus={ true } from={ -140 } to={ 500 }
 										title={ `ET(${ t('departure') })` } btnTitle={ t('to apply') }/>
@@ -67,6 +94,8 @@ const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
 				variant='gray'
 				onChangeAction={ onChange }
 				filterValue={ filter?.typedisk ? filter.typedisk.split(',') : [] }
+				isOpened={ filterIsOpen.typedisk.open }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='clr'
@@ -77,6 +106,10 @@ const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.colir ? filter.colir.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.colir.open }
+				scroll={ filterIsOpen.colir.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='b'
@@ -87,6 +120,10 @@ const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.brand ? filter.brand.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.brand.open }
+				scroll={ filterIsOpen.brand.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			{ filter.brand && !filter.brand.includes(',') && manufModels && manufModels.length > 0 && <Select
 				id='m'
@@ -97,6 +134,10 @@ const SectionDisks: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.model_id ? filter.model_id.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.model_id.open }
+				scroll={ filterIsOpen.model_id.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/> }
 		</>
 	)

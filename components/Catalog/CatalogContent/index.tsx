@@ -7,6 +7,7 @@ import NoResult from '@/components/UI/NoResult';
 import { Section } from '@/models/filter';
 import { Language } from '@/models/language';
 import type { Data } from '@/models/products';
+import { Spinner } from '@heroui/react';
 
 interface Props {
 	section: Section
@@ -15,9 +16,11 @@ interface Props {
 	result: boolean | undefined
 	data: Data | undefined
 	isCatalog?: boolean
+	isLoading: boolean
+	isFetching: boolean
 }
 
-const CatalogContent: FC<Props> = ({ section, slug, locale, data, result, isCatalog }) => {
+const CatalogContent: FC<Props> = ({ section, slug, locale, data, result, isCatalog, isFetching, isLoading }) => {
 	const [selected, setSelected] = useState('table');
 
   return (
@@ -26,11 +29,17 @@ const CatalogContent: FC<Props> = ({ section, slug, locale, data, result, isCata
 				{ isCatalog && <FilterActive section={ section } locale={ locale } className='hidden lg:flex' slug={ slug } /> }
 				<Tabs selected={ selected } setSelected={ setSelected } />
 			</div>
-			{ (result && data) ? <ProductList
+			{ (isLoading || (!data && isFetching)) && (
+				<div className='my-10 h-96 flex items-center justify-center'>
+					<Spinner size='lg' />
+				</div>
+			)}
+			{ !result && !isLoading && !isFetching && !data && <NoResult noResultText='no result' /> }
+			{ (result && data) && <ProductList
 				classnames={ selected === 'table' ? `grid-cols-2 lg:grid-cols-${ isCatalog ? 3 : 4 }` : 'grid-cols-1' }
 				data={ data }
 				isList={ selected === 'list' }
-			/> : <NoResult noResultText='no result' /> }
+			/> }
 		</>
 	);
 };

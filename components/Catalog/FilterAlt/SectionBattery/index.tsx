@@ -1,19 +1,35 @@
 import { FC } from 'react';
 import { useTranslations } from 'next-intl';
 import { Select } from '@/components/Catalog/FilterAlt/Select';
-import { useAppSelector } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { close, open, setScrollValue } from '@/store/slices/filterIsOpenSlice';
 import { baseDataAPI } from '@/services/baseDataService';
 import { SelectFromTo } from '@/components/Catalog/FilterAlt/SelectFromTo';
+import { IOpenFilter } from '@/models/filter';
 
 interface Props {
 	onChange: (id: string, name: string, value: string[]) => void
 }
 
 const SectionBattery: FC<Props> = ({ onChange }) => {
+	const dispatch = useAppDispatch();
 	const t = useTranslations('Filters');
+	const { filterIsOpen } = useAppSelector(state => state.filterIsOpenReducer);
 	const { filter } = useAppSelector(state => state.filterReducer);
 	const { data: dataAkum } = baseDataAPI.useFetchDataAkumQuery('');
 	const { data: manufModels } = baseDataAPI.useFetchManufModelsQuery(`${ filter.brand }`);
+
+	const handleClickOpen = (name: keyof IOpenFilter, value: boolean) => {
+		if (value) {
+			dispatch(open({ key: name, value: true }));
+		} else {
+			dispatch(close(name));
+		}
+	};
+
+	const handleScroll = (name: keyof IOpenFilter, value: number) => {
+		dispatch(setScrollValue({ key: name, value }));
+	}
 
 	return (
 		<>
@@ -26,6 +42,10 @@ const SectionBattery: FC<Props> = ({ onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.jemnist ? filter.jemnist.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.jemnist.open }
+				scroll={ filterIsOpen.jemnist.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='sk'
@@ -40,6 +60,10 @@ const SectionBattery: FC<Props> = ({ onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.puskovii_strum ? filter.puskovii_strum.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.puskovii_strum.open }
+				scroll={ filterIsOpen.puskovii_strum.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='elt'
@@ -54,6 +78,8 @@ const SectionBattery: FC<Props> = ({ onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.tip_elektrolitu ? filter.tip_elektrolitu.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.tip_elektrolitu.open }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='tk'
@@ -63,6 +89,8 @@ const SectionBattery: FC<Props> = ({ onChange }) => {
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.tip_korpusu ? filter.tip_korpusu.split(',') : [] }
+				isOpened={ filterIsOpen.tip_korpusu.open }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='b'
@@ -73,6 +101,10 @@ const SectionBattery: FC<Props> = ({ onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.brand ? filter.brand.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.brand.open }
+				scroll={ filterIsOpen.brand.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			{ filter.brand && !filter.brand.includes(',') && manufModels && manufModels.length > 0 && <Select
 				id='m'
@@ -83,6 +115,10 @@ const SectionBattery: FC<Props> = ({ onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.model_id ? filter.model_id.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.model_id.open }
+				scroll={ filterIsOpen.model_id.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/> }
 			<SelectFromTo name='sirina' idMin='wfrom' idMax='wto' from={ 0 } to={ 600 } title={ `${ t('width') } (см)` }
 										btnTitle={ t('to apply') }/>
@@ -98,6 +134,8 @@ const SectionBattery: FC<Props> = ({ onChange }) => {
 				variant='gray'
 				onChangeAction={ onChange }
 				filterValue={ filter?.napruga ? filter.napruga.split(',') : [] }
+				isOpened={ filterIsOpen.napruga.open }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='pl'
@@ -107,6 +145,8 @@ const SectionBattery: FC<Props> = ({ onChange }) => {
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.poliarnist ? filter.poliarnist.split(',') : [] }
+				isOpened={ filterIsOpen.poliarnist.open }
+				handleClickAction={ handleClickOpen }
 			/>
 		</>
 	)

@@ -15,8 +15,7 @@ const MyPagination: FC<Props> = ({ initialPage, total, offset }) => {
 	const { locale, section, slug } = useParams<{ locale: Language, section: string, slug: string[] }>();
 	const params = slug ? slug.filter(item => !item.startsWith('p-')).join('/') : '';
 	const router = useRouter();
-
-	const of = initialPage + offset;
+	const offsetValue = initialPage + offset;
 
 	const onchange = (page: number) => {
 		router.push(`/${ locale }/catalog/${ section }/p-${ page }/${ params }`);
@@ -42,7 +41,7 @@ const MyPagination: FC<Props> = ({ initialPage, total, offset }) => {
 				className={ twMerge(
 					className,
 					'border-gray-400 text-black cursor-pointer dark:border-[#707070] dark:text-gray-50',
-					((value > initialPage && value < of) || isActive) && 'text-white bg-primary border-primary hover:!bg-primary dark:border-primary',
+					((value > initialPage && value < offsetValue) || isActive) && 'text-white bg-primary border-primary hover:!bg-primary dark:border-primary',
 				) }
 				onPress={ () => onchange(value) }
 			>

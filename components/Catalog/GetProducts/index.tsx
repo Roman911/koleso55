@@ -1,5 +1,6 @@
 'use client';
-import { FC, useMemo, useState } from 'react';
+
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { baseDataAPI } from '@/services/baseDataService';
 import CatalogContent from '@/components/Catalog/CatalogContent';
@@ -18,18 +19,38 @@ interface Props {
 	pageItem: number;
 }
 
-const GetProducts: FC<Props> = ({ searchParams, pageFrom, section, slug, locale, pageItem }) => {
+const GetProducts: FC<Props> = ({
+																	searchParams,
+																	pageFrom,
+																	section,
+																	slug,
+																	locale,
+																	pageItem
+																}) => {
 	const t = useTranslations('Main');
 	const [ offset, setOffset ] = useState(1);
+	const [ cachedData, setCachedData ] = useState<any>(null);
+
 	const currentPage = pageFrom ?? 1;
 	const start = (currentPage - 1) * pageItem;
-	const { data } = baseDataAPI.useFetchProductsQuery({
+
+	const {
+		data,
+		isFetching,
+		isLoading
+	} = baseDataAPI.useFetchProductsQuery({
 		id: searchParams,
 		start,
 		length: pageItem * offset,
 	});
 
-	const totalCount = data?.result ? data?.data.total_count : 0;
+	useEffect(() => {
+		if(data?.result) {
+			setCachedData(data);
+		}
+	}, [ data ]);
+
+	const totalCount = cachedData?.data?.total_count ?? 0;
 	const totalPages = useMemo(() => Math.ceil(totalCount / pageItem), [ totalCount, pageItem ]);
 	const canShowMore = (offset + currentPage) <= totalPages;
 
@@ -38,13 +59,15 @@ const GetProducts: FC<Props> = ({ searchParams, pageFrom, section, slug, locale,
 			<CatalogContent
 				section={ section }
 				locale={ locale }
-				data={ data?.data }
+				data={ cachedData?.data }
 				slug={ slug }
-				result={ data?.result }
+				result={ cachedData?.result }
 				isCatalog={ true }
+				isFetching={ isFetching }
+				isLoading={ isLoading }
 			/>
 
-			{ canShowMore && (
+			{ cachedData && canShowMore && (
 				<Button
 					variant='bordered'
 					size='lg'
@@ -56,7 +79,7 @@ const GetProducts: FC<Props> = ({ searchParams, pageFrom, section, slug, locale,
 				</Button>
 			) }
 
-			{ data?.result && totalCount > pageItem && (
+			{ cachedData?.result && totalCount > pageItem && (
 				<div className='mt-10'>
 					<Pagination
 						initialPage={ currentPage }
