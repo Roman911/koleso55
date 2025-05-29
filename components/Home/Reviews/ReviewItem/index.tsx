@@ -16,7 +16,7 @@ const ReviewItem: FC<Props> = ({ review }) => {
 	const { data } = baseDataAPI.useFetchProductQuery(`${review.product_id}`);
 
 	return (
-		<Card className='md:max-w-[340px] dark:border-[#707070] dark:bg-gray-800' radius='sm'>
+		<Card className='max-w-11/12 md:max-w-[340px] mx-auto border-1 dark:border-[#707070] dark:bg-gray-800 shadow-lg' radius='sm'>
 			<CardHeader className='justify-between text-black dark:text-gray-50'>
 				<Rating commentsAvgRate={ score }/>
 				<Data createdAt={ created_at }/>

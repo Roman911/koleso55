@@ -67,7 +67,7 @@ const TopBrands = () => {
 				<div className="md:hidden grid grid-cols-2 gap-4">
 					{brandsMobile.map(({ img, link }) => (
 						<div key={img} className="flex items-center justify-center w-full">
-							<BrandLink img={img} link={link} darkOnly />
+							<BrandLink img={img} link={link} />
 						</div>
 					))}
 				</div>

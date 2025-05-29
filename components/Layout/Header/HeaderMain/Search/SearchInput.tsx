@@ -35,11 +35,11 @@ export const SearchInput = ({ value, onChange, onSubmit }: SearchInputProps) => 
 			} else {
 				setTimeout(() => {
 					placeholderRenderNext();
-				}, 1000);
+				}, 2000);
 				return;
 			}
 
-			const timer = setTimeout(typePlaceholder, 50);
+			const timer = setTimeout(typePlaceholder, 75);
 			return () => clearTimeout(timer);
 		};
 

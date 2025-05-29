@@ -15,6 +15,7 @@ import FilterBtn from '@/components/Catalog/FilterByCar/FilterBtn';
 import { SectionTires } from '@/components/Catalog/FilterAlt/SectionTires';
 import SectionDisks from '@/components/Catalog/FilterAlt/SectionDisks';
 import SectionBattery from '@/components/Catalog/FilterAlt/SectionBattery';
+import { twMerge } from 'tailwind-merge';
 
 interface Props {
 	filterData: BaseDataProps | undefined;
@@ -75,7 +76,7 @@ const FilterAlt: FC<Props> = ({ filterData, section, car }) => {
 		<>
 			{ section !== Section.Battery && <SwitchTabs section={ section } car={ car }/> }
 			<div
-				className='relative pb-32 lg:pb-4 px-4 pt-4 bg-white border border-gray-200 z-10 overflow-y-auto lg:overflow-y-visible dark:border-[#333333] dark:bg-[#333333]'>
+				className={ twMerge('relative pb-32 lg:pb-4 px-4 pt-4 bg-white border border-gray-200 z-10 overflow-y-auto lg:overflow-y-visible dark:border-[#333333] dark:bg-[#333333]', section === Section.Battery && 'pt-10 md:pt-4') }>
 				{ section !== Section.Battery && <SwitchTabsByParams subsection={ subsection }/> }
 				{ subsection === 'byCars' && <ByCar data={ data } car={ car } section={ section }/> }
 				{ section === Section.Tires && <SectionTires onChange={ onChange } filterData={ filterData }/> }
@@ -98,7 +99,7 @@ const FilterAlt: FC<Props> = ({ filterData, section, car }) => {
 		<div className='w-72'>
 			<FilterBtn openFilter={ onOpen } title={ t('filters') }/>
 			<div className='hidden lg:block'>{ renderFilterContent() }</div>
-			<Drawer isOpen={ isOpen } radius='none' placement='left' onOpenChange={ onOpenChange }>
+			<Drawer isOpen={ isOpen } radius='none' placement='left' onOpenChange={ onOpenChange } classNames={{ closeButton: 'z-100' }}>
 				<DrawerContent>{ renderFilterContent() }</DrawerContent>
 			</Drawer>
 		</div>

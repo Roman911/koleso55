@@ -57,7 +57,7 @@ const ProductCard: FC<Props> = ({ item, isList }) => {
 	};
 
 	return (
-		<Card radius='none' className='relative group mb-[1px] p-0 shadow-sm dark:shadow-sm/20 dark:shadow-primary !transition duration-150 ease-in-out hover:shadow-xl/20 dark:hover:shadow-xl/50 hover:z-10 hover:scale-105'>
+		<Card radius='none' className='relative group mb-[1px] p-0 shadow-sm dark:shadow-sm/20 dark:shadow-primary dark:bg-[#333333] border-l-1 dark:border-[#575757] !transition duration-150 ease-in-out hover:shadow-xl/20 dark:hover:shadow-xl/50 hover:z-10 hover:scale-105'>
 			<CardBody className={ twMerge('p-0', isList && 'flex-row align-center justify-between') }>
 				<div className={ twMerge('relative min-h-32 sm:min-h-52 dark:bg-white pb-0 lg:pb-5 p-5 text-center', isList && 'min-h-24 sm:min-h-36 min-w-36 md:min-w-60') }>
 					<IconsBlock season={ season } vehicle_type={ vehicle_type }/>

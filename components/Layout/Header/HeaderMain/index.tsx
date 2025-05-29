@@ -43,7 +43,7 @@ const HeaderMain: FC<Props> = ({ settings }) => {
 			isMenuOpen={ isMenuOpen }
 			onMenuOpenChange={ setIsMenuOpen }
 			className={ twMerge('bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-800 relative', styles['header-center']) }
-			classNames={ { toggleIcon: 'before:h-0.5 after:h-0.5', wrapper: twMerge('grid h-40 md:h-16 items-center justify-normal py-3 px-4 grid-cols-2 lg:grid-cols-[220px_420px_auto_150px]', styles['container']) } }
+			classNames={ { toggle: 'mb-2 h-8', wrapper: twMerge('grid h-40 md:h-16 items-center justify-normal py-3 px-4 grid-cols-2 lg:grid-cols-[220px_420px_auto_150px]', styles['container']) } }
 		>
 			<NavbarContent className={ styles.logo }>
 				<NavbarBrand>
@@ -58,7 +58,13 @@ const HeaderMain: FC<Props> = ({ settings }) => {
 			</NavbarContent>
 			<NavbarContent justify='end'>
 				<ButtonBlock />
-				<NavbarMenuToggle className="sm:hidden" aria-label={ isMenuOpen ? "Close menu" : "Open menu" }/>
+				<NavbarMenuToggle icon={ (isOpen) => isOpen ? <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+					<path d="M 9.15625 6.3125 L 6.3125 9.15625 L 22.15625 25 L 6.21875 40.96875 L 9.03125 43.78125 L 25 27.84375 L 40.9375 43.78125 L 43.78125 40.9375 L 27.84375 25 L 43.6875 9.15625 L 40.84375 6.3125 L 25 22.15625 Z" fill="currentColor"/>
+				</svg> : <svg xmlns="http://www.w3.org/2000/svg" width="30" height="23" viewBox="0 0 30 18" fill="none">
+					<rect width="30" height="3" fill="currentColor"/>
+					<rect y="10" width="30" height="3" fill="currentColor"/>
+					<rect y="20" width="30" height="3" fill="currentColor"/>
+				</svg> } className="sm:hidden" aria-label={ isMenuOpen ? "Close menu" : "Open menu" }/>
 			</NavbarContent>
 			<NavbarMenu className={ twMerge('mt-36 bg-white dark:bg-gray-800 pt-6', styles.menu) }>
 				<NavbarMenuItem>
