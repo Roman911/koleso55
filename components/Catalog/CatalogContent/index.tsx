@@ -16,8 +16,8 @@ interface Props {
 	result: boolean | undefined
 	data: Data | undefined
 	isCatalog?: boolean
-	isLoading: boolean
-	isFetching: boolean
+	isLoading?: boolean
+	isFetching?: boolean
 }
 
 const CatalogContent: FC<Props> = ({ section, slug, locale, data, result, isCatalog, isFetching, isLoading }) => {
