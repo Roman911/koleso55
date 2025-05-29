@@ -8,6 +8,7 @@ import { Section } from '@/models/filter';
 import { Language } from '@/models/language';
 import Pagination from '@/components/Catalog/Pagination';
 import { Button } from '@heroui/react';
+import { ProductsProps } from '@/models/products';
 
 interface Props {
 	searchParams: string;
@@ -29,7 +30,7 @@ const GetProducts: FC<Props> = ({
 																}) => {
 	const t = useTranslations('Main');
 	const [ offset, setOffset ] = useState(1);
-	const [ cachedData, setCachedData ] = useState<any>(null);
+	const [ cachedData, setCachedData ] = useState<ProductsProps | null>(null);
 
 	const currentPage = pageFrom ?? 1;
 	const start = (currentPage - 1) * pageItem;
