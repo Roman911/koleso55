@@ -3,7 +3,7 @@ import { useLocale } from 'next-intl';
 import { IOpenFilter, Subsection } from '@/models/filter';
 import { Select } from '@/components/Catalog/FilterAlt/Select';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { close, open } from '@/store/slices/filterIsOpenSlice';
+import { close, open, setScrollValue } from '@/store/slices/filterIsOpenSlice';
 import { baseDataAPI } from '@/services/baseDataService';
 import type { BaseDataProps } from '@/models/baseData';
 import { appointmentCargo, appointmentIndustrial, customTireSeason, others } from '../customParamForSelector';
@@ -29,11 +29,15 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 
 	const handleClickOpen = (name: keyof IOpenFilter, value: boolean) => {
 		if (value) {
-			dispatch(open(name));
+			dispatch(open({ key: name, value: true }));
 		} else {
 			dispatch(close(name));
 		}
 	};
+
+	const handleScroll = (name: keyof IOpenFilter, value: number) => {
+		dispatch(setScrollValue({ key: name, value }));
+	}
 
 	return (
 		<>
@@ -48,8 +52,10 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					onChangeAction={ onChange }
 					filterValue={ filter.width ? filter.width.split(',') : [] }
 					search={ true }
-					isOpened={ filterIsOpen.width }
-					handleClick={ handleClickOpen }
+					isOpened={ filterIsOpen.width.open }
+					scroll={ filterIsOpen.width.scrollValue }
+					handleScrollAction={ handleScroll }
+					handleClickAction={ handleClickOpen }
 				/>
 				<Select
 					id='h'
@@ -61,6 +67,10 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					onChangeAction={ onChange }
 					filterValue={ filter.height ? filter.height.split(',') : [] }
 					search={ true }
+					isOpened={ filterIsOpen.height.open }
+					scroll={ filterIsOpen.height.scrollValue }
+					handleScrollAction={ handleScroll }
+					handleClickAction={ handleClickOpen }
 				/>
 				<Select
 					id='d'
@@ -76,6 +86,10 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 					onChangeAction={ onChange }
 					filterValue={ filter.radius ? filter.radius.split(',') : [] }
 					search={ true }
+					isOpened={ filterIsOpen.radius.open }
+					scroll={ filterIsOpen.radius.scrollValue }
+					handleScrollAction={ handleScroll }
+					handleClickAction={ handleClickOpen }
 				/>
 			</> }
 			{ !appointmentCargoShow && !appointmentIndustrialShow && <Select
@@ -90,6 +104,8 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter.sezon ? filter.sezon.split(',') : [] }
 				valueStudded={ filter?.only_studded }
+				isOpened={ filterIsOpen.sezon.open }
+				handleClickAction={ handleClickOpen }
 			/> }
 			{ appointmentCargoShow && <Select
 				id='vt'
@@ -102,6 +118,8 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.vehicle_type ? filter.vehicle_type.split(',') : [] }
+				isOpened={ filterIsOpen.vehicle_type.open }
+				handleClickAction={ handleClickOpen }
 			/> }
 			{ appointmentIndustrialShow && <Select
 				id='vt'
@@ -114,6 +132,8 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				variant='white'
 				onChangeAction={ onChange }
 				filterValue={ filter?.vehicle_type ? filter.vehicle_type.split(',') : [] }
+				isOpened={ filterIsOpen.vehicle_type.open }
+				handleClickAction={ handleClickOpen }
 			/> }
 			<Select
 				id='b'
@@ -124,8 +144,10 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.brand ? filter.brand.split(',') : [] }
 				search={ true }
-				isOpened={ filterIsOpen.brand }
-				handleClick={ handleClickOpen }
+				isOpened={ filterIsOpen.brand.open }
+				scroll={ filterIsOpen.brand.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			{ filter.brand && !filter.brand.includes(',') && manufModels && manufModels.length > 0 && <Select
 				id='m'
@@ -136,8 +158,10 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.model_id ? filter.model_id.split(',') : [] }
 				search={ true }
-				isOpened={ filterIsOpen.model_id }
-				handleClick={ handleClickOpen }
+				isOpened={ filterIsOpen.model_id.open }
+				scroll={ filterIsOpen.model_id.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/> }
 			<Select
 				id='li'
@@ -148,6 +172,10 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.li ? filter.li.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.li.open }
+				scroll={ filterIsOpen.li.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='si'
@@ -158,6 +186,10 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.si ? filter.si.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.si.open }
+				scroll={ filterIsOpen.si.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='hm'
@@ -168,6 +200,10 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				onChangeAction={ onChange }
 				filterValue={ filter?.omolog ? filter.omolog.split(',') : [] }
 				search={ true }
+				isOpened={ filterIsOpen.omolog.open }
+				scroll={ filterIsOpen.omolog.scrollValue }
+				handleScrollAction={ handleScroll }
+				handleClickAction={ handleClickOpen }
 			/>
 			<Select
 				id='other'
@@ -179,6 +215,15 @@ export const SectionTires: FC<Props> = ({ filterData, onChange }) => {
 				})) || [] }
 				variant='white'
 				onChangeAction={ onChange }
+				isOpened={ filterIsOpen.other.open }
+				handleClickAction={ handleClickOpen }
+				filterOther={{
+					only_c: filter?.only_c ?? null,
+					only_xl: filter?.only_xl ?? null,
+					only_owl: filter?.only_owl ?? null,
+					only_run_flat: filter?.only_run_flat ?? null,
+					only_off_road: filter?.only_off_road ?? null,
+				}}
 			/>
 		</>
 	)

@@ -15,13 +15,22 @@ interface SelectProps {
 	name: string
 	variant: 'white' | 'gray'
 	isOpened?: boolean
+	scroll?: number | null
 	search?: boolean
 	options: Array<Options>
 	focusValue?: string | false
 	onChangeAction: (id: string, name: string, value: string[]) => void
 	filterValue?: string[]
 	valueStudded?: null | string
-	handleClick: (name: keyof IOpenFilter, value: boolean) => void
+	handleScrollAction?: (name: keyof IOpenFilter, value: number) => void
+	handleClickAction: (name: keyof IOpenFilter, value: boolean) => void
+	filterOther?: {
+		only_c: string | null | undefined
+		only_xl: string | null | undefined
+		only_owl: string | null | undefined
+		only_run_flat: string | null | undefined
+		only_off_road: string | null | undefined
+	}
 }
 
 const otherOptions: Record<string, string> = {
@@ -41,13 +50,15 @@ export const Select: FC<SelectProps> = (
 		search,
 		options,
 		isOpened,
+		scroll,
 		onChangeAction,
 		focusValue,
 		filterValue,
 		valueStudded,
-		handleClick,
+		handleScrollAction,
+		handleClickAction,
+		filterOther
 	}) => {
-	// const [ open, setOpen ] = useState(false);
 	const [ active, setActive ] = useState<string[]>([]);
 	const [ eventSearch, setEventSearch ] = useState('');
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -61,8 +72,16 @@ export const Select: FC<SelectProps> = (
 		}
 	}, [ filterValue ]);
 
+	useEffect(() => {
+		if(ref.current && scroll) {
+			setTimeout(() => {
+				ref.current?.scroll(0, scroll);
+			}, 15);
+		}
+	}, [scroll])
+
 	const handleClickOpen = useCallback(() => {
-		handleClick(name as keyof IOpenFilter, !isOpened);
+		handleClickAction(name as keyof IOpenFilter, !isOpened);
 
 		if(focusValue && ref.current) {
 			const cont = ref.current.querySelectorAll('label');
@@ -73,7 +92,7 @@ export const Select: FC<SelectProps> = (
 				}, 15);
 			}
 		}
-	}, [focusValue, handleClick, isOpened, name]);
+	}, [focusValue, handleClickAction, isOpened, name]);
 
 	const handleChange = (value: string) => {
 		setEventSearch(value.toLowerCase());
@@ -109,7 +128,7 @@ export const Select: FC<SelectProps> = (
 						key={ item.value }
 						size='lg'
 						radius='sm'
-						isSelected={ valueStudded === '1' }
+						isSelected={ !!filterOther?.[item.value as keyof typeof filterOther] }
 						onValueChange={ (value) => onChangeAction(otherOptions[item.value], 'only_studded', value ? [ '1' ] : []) }
 						value={ String(item.value) }
 						classNames={ {
@@ -126,10 +145,13 @@ export const Select: FC<SelectProps> = (
 				radius='sm'
 				ref={ ref }
 				onChange={ (value) => {
-					setActive(value); // обов'язково оновлюємо локальний state
+					setActive(value);
 					onChangeAction(id, name, value);
+					if(handleScrollAction && ref.current) {
+						handleScrollAction(name as keyof IOpenFilter, ref.current ? ref.current.scrollTop : 0);
+					}
 				} }
-				value={ active } // контрольований компонент
+				value={ active }
 				className={ twMerge('relative max-h-[480px] w-full overflow-auto', !isOpened && 'hidden') }
 				classNames={ { wrapper: 'px-2.5 pb-2.5' } }
 			>

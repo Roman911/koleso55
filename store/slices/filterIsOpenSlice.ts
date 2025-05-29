@@ -8,46 +8,98 @@ export interface FilterState {
 }
 
 const initialFilterState: IOpenFilter = {
-	width: false,
-	height: false,
-	radius: false,
-	sezon: false,
-	brand: false,
-	model_id: false,
-	citys: false,
-	country: false,
-	year: false,
-	omolog: false,
-	krepeg: false,
-	typedisk: false,
-	colir: false,
-	jemnist: false,
-	puskovii_strum: false,
-	tip_elektrolitu: false,
-	tip_korpusu: false,
-	napruga: false,
-	poliarnist: false,
-	vehicle_type: false,
-	li: false,
-	si: false,
-	only_studded: false,
-	only_c: false,
-	only_xl: false,
-	only_owl: false,
-	only_run_flat: false,
-	only_off_road: false,
-	minPrice: false,
-	maxPrice: false,
-	etMin: false,
-	etMax: false,
-	diaMin: false,
-	diaMax: false,
-	minShirina: false,
-	maxShirina: false,
-	minVisota: false,
-	maxVisota: false,
-	minDovzina: false,
-	maxDovzina: false,
+	width: {
+		open: false,
+		scrollValue: null
+	},
+	height: {
+		open: false,
+		scrollValue: null
+	},
+	radius: {
+		open: false,
+		scrollValue: null
+	},
+	sezon: {
+		open: false,
+		scrollValue: null
+	},
+	brand: {
+		open: false,
+		scrollValue: null
+	},
+	model_id: {
+		open: false,
+		scrollValue: null
+	},
+	citys: {
+		open: false,
+		scrollValue: null
+	},
+	country: {
+		open: false,
+		scrollValue: null
+	},
+	year: {
+		open: false,
+		scrollValue: null
+	},
+	omolog: {
+		open: false,
+		scrollValue: null
+	},
+	krepeg: {
+		open: false,
+		scrollValue: null
+	},
+	typedisk: {
+		open: false,
+		scrollValue: null
+	},
+	colir: {
+		open: false,
+		scrollValue: null
+	},
+	jemnist: {
+		open: false,
+		scrollValue: null
+	},
+	puskovii_strum: {
+		open: false,
+		scrollValue: null
+	},
+	tip_elektrolitu: {
+		open: false,
+		scrollValue: null
+	},
+	tip_korpusu: {
+		open: false,
+		scrollValue: null
+	},
+	napruga: {
+		open: false,
+		scrollValue: null
+	},
+	poliarnist: {
+		open: false,
+		scrollValue: null
+	},
+	vehicle_type: {
+		open: false,
+		scrollValue: null
+	},
+	li: {
+		open: false,
+		scrollValue: null
+	},
+	si: {
+		open: false,
+		scrollValue: null
+	},
+	other: {
+		open: false,
+		scrollValue: null
+	}
 }
 
 const initialState: FilterState = {
@@ -58,16 +110,19 @@ export const filterIsOpenSlice = createSlice({
 	name: 'filterIsOpen',
 	initialState,
 	reducers: {
-		open: (state, actions: PayloadAction<keyof IOpenFilter>) => {
-			state.filterIsOpen[actions.payload] = true;
+		open: (state, actions: PayloadAction<{ key: keyof IOpenFilter, value: boolean }>) => {
+			state.filterIsOpen[actions.payload.key] = { open: actions.payload.value, scrollValue: null };
 		},
 		close: (state, actions: PayloadAction<keyof IOpenFilter>) => {
-			state.filterIsOpen[actions.payload] = false;
+			state.filterIsOpen[actions.payload] = { open: false, scrollValue: null };
+		},
+		setScrollValue: (state, actions: PayloadAction<{ key: keyof IOpenFilter, value: number | null }>) => {
+			state.filterIsOpen[actions.payload.key] = { open: true, scrollValue: actions.payload.value };
 		},
 		reset: () => initialState,
 	},
 });
 
-export const { close, open, reset } = filterIsOpenSlice.actions;
+export const { close, open, setScrollValue, reset } = filterIsOpenSlice.actions;
 
 export default filterIsOpenSlice.reducer;
