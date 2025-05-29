@@ -1,21 +1,25 @@
 'use client'
-import { forwardRef, useState } from 'react';
+import { Dispatch, forwardRef, SetStateAction, useState } from 'react';
 import { PatternFormat } from 'react-number-format';
 import { useTranslations } from 'next-intl';
 import { Input } from '@heroui/react';
 
 interface Props {
-	phoneErrorMessage: null | string;
+	phoneErrorMessage: null | string
+	setPhoneErrorMessage?: Dispatch<SetStateAction<string | null>>
 }
 
 const codes = [ '50', '63', '66', '67', '68', '73', '77', '89', '91', '92', '93', '94', '95', '96', '97', '98', '99' ];
 
-const PhoneMaskInput = forwardRef<HTMLInputElement, Props>(({ phoneErrorMessage }, ref) => {
+const PhoneMaskInput = forwardRef<HTMLInputElement, Props>(({ phoneErrorMessage, setPhoneErrorMessage }, ref) => {
 	const t = useTranslations('PhoneMask');
 	const [ phone, setPhone ] = useState<string | null>(null);
 
 	const handleChangeAmount = (values: { value: string }) => {
 		let newValue = values.value;
+		if(phoneErrorMessage && values && setPhoneErrorMessage) {
+			setPhoneErrorMessage(null)
+		}
 
 		if(newValue.length >= 2) {
 			const code2 = newValue.slice(0, 2);

@@ -35,7 +35,7 @@ export default function Cart() {
 		dispatch(setQuantity({ ...item, quantity }));
 	}
 
-	return <LayoutWrapper className='max-w-7xl'>
+	return <LayoutWrapper className='max-w-5xl'>
 		<Breadcrumbs path={ path } />
 		<Title title='cart' translations={ true } />
 		<Spinner height='h-40' show={ isLoading }>

@@ -127,7 +127,7 @@ const QuickOrder: FC<Props> = (
 									className='mt-2 mb-8 flex flex-col gap-4'
 									onSubmit={ onSubmit }
 								>
-									<PhoneMaskInput phoneErrorMessage={ phoneErrorMessage } ref={ phoneInputRef } />
+									<PhoneMaskInput phoneErrorMessage={ phoneErrorMessage } ref={ phoneInputRef } setPhoneErrorMessage={ setPhoneErrorMessage } />
 									<Button type='submit' className='uppercase ml-auto mt-2 font-bold'
 													isLoading={ isLoading }>
 										{ t('send') }

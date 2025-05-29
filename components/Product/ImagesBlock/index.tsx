@@ -3,9 +3,9 @@ import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 import { Labels, Photo } from '@/models/product';
 import { Language } from '@/models/language';
-import { ReactImageGallery } from './ReactImageGallery';
 import { SeasonTransform, VehicleTypeTransform } from '@/lib/characteristicsTransform';
 import * as Icons from '../../UI/Icons';
+import { ReactSlick } from '@/components/Product/ImagesBlock/ReactSlick';
 
 const IconsObj = {
 	light: Icons.CarIcon,
@@ -35,13 +35,13 @@ const ImagesBlock: FC<Props> = ({ locale, labels, images, photo, full_name, vehi
 	const seasonTransform = season && SeasonTransform(season)?.icon;
 
 	return (
-		<div className={ twMerge('gallery relative mb-2 md:mb-7 pt-10 pb-2 md:pb-5 dark:bg-white rounded-lg w-full') }>
+		<div className={ twMerge('gallery relative mb-2 md:mb-7 pt-10 pb-2 md:pb-5 dark:bg-white rounded-lg md:max-w-72') }>
 			<div className='-mt-8 px-4 mb-2 w-full flex justify-between items-start'>
 				<div>
 					{ labels?.length !== 0 && labels?.map(item => {
 						return <div
 							key={ item.label_id }
-							className='text-center text-xs font-semibold text-white uppercase py-1.5 px-2.5 max-w-max rounded-sm my-1'
+							className='text-center text-xs font-semibold text-white uppercase py-1.5 px-2.5 max-w-max rounded-full my-1'
 							style={ { backgroundColor: item.label.color } }
 						>
 							{ locale === Language.UK ? item.label.name : item.label.name_ru }
@@ -60,7 +60,7 @@ const ImagesBlock: FC<Props> = ({ locale, labels, images, photo, full_name, vehi
 					width={ 288 }
 					height={ 288 }
 					alt={ full_name }
-				/> : <ReactImageGallery images={ images } photo={ photo } /> }
+				/> : <ReactSlick images={ images } photo={ photo } /> }
 		</div>
 	)
 }

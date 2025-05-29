@@ -20,7 +20,7 @@ const MyBreadcrumbs: FC<Props> = ({ path }) => {
 		<Breadcrumbs separator='/' underline='always' className=' hover:text-primary'
 								 itemClasses={ { item: 'text-[#575C66]', separator: 'text-[#575C66]' } }>
 			<BreadcrumbItem href={ `/${ locale }` }>
-				<Icons.HomeIcon className='w-4 h-4'/>
+				<Icons.HomeIcon className='w-5 h-5 font-bold'/>
 			</BreadcrumbItem>
 			{ path.filter(item => item.href !== '').map((item, index) => {
 				return (

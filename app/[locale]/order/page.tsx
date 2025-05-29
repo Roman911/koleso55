@@ -148,6 +148,7 @@ export default function Order() {
 					dataOrdersParam={ dataOrdersParam }
 					showNpWarehouses={ city.value?.length > 0 }
 					phoneErrorMessage={ phoneErrorMessage }
+					setPhoneErrorMessage={ setPhoneErrorMessage }
 				/>
 			</Form>
 		</div>
