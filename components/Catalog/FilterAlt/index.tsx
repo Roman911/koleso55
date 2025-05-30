@@ -16,7 +16,6 @@ import { SectionTires } from '@/components/Catalog/FilterAlt/SectionTires';
 import SectionDisks from '@/components/Catalog/FilterAlt/SectionDisks';
 import SectionBattery from '@/components/Catalog/FilterAlt/SectionBattery';
 import { twMerge } from 'tailwind-merge';
-import { Button } from '@heroui/react';
 import * as Icons from '@/components/UI/Icons';
 
 interface Props {
@@ -33,7 +32,6 @@ const FilterAlt: FC<Props> = ({ filterData, section, car }) => {
 	const { subsection } = useAppSelector(state => state.filterReducer);
 	const { menuIsOpen } = useAppSelector(state => state.filterIsOpenReducer);
 	const { data } = baseDataAPI.useFetchBaseDataQuery('');
-	// const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
 	const updateParamInUrl = (url: string, param: string, newValue: string): string => {
 		const regex = new RegExp(`${param}-\\d+(,\\d+)*`, 'g');
@@ -107,11 +105,14 @@ const FilterAlt: FC<Props> = ({ filterData, section, car }) => {
 		<div className='w-72 duration-0'>
 			<FilterBtn openFilter={ onOpenChange } title={ t('filters') }/>
 			<div className='hidden lg:block'>{ renderFilterContent() }</div>
-			<div className={twMerge('z-50 backdrop-opacity-disabled w-screen h-screen fixed -inset-x-full bg-white dark:bg-[#18181b]', menuIsOpen && 'inset-0')}>
-				<Button variant='light' radius='full' size='sm' isIconOnly={ true } className='absolute top-5 right-4' onPress={ () => onOpenChange(false) } >
-					<Icons.CloseIcon className='h-4 w-4'/>
-				</Button>
-				{ renderFilterContent() }
+			<div>
+				<div className={ twMerge('z-50 bg-overlay/50 backdrop-opacity-disabled w-screen h-screen fixed hidden inset-0', menuIsOpen && 'block') }></div>
+				<div className={twMerge('z-50 backdrop-opacity-disabled w-screen h-screen fixed overflow-x-auto hidden bg-white dark:bg-[#18181b] inset-0', menuIsOpen && 'block')}>
+					<button className='absolute top-2 right-2 z-100 p-2' onClick={ () => onOpenChange(false) } >
+						<Icons.CloseIcon className='h-4 w-4'/>
+					</button>
+					{ renderFilterContent() }
+				</div>
 			</div>
 		</div>
 	);
