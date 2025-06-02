@@ -11,7 +11,6 @@ import { Section } from '@/models/filter';
 import { Language } from '@/models/language';
 import Pagination from '@/components/Catalog/Pagination';
 import { Button, Spinner } from '@heroui/react';
-import { ProductsProps } from '@/models/products';
 
 interface Props {
 	searchParams: string;

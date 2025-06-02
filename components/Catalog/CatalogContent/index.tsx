@@ -7,7 +7,6 @@ import NoResult from '@/components/UI/NoResult';
 import { Section } from '@/models/filter';
 import { Language } from '@/models/language';
 import type { Data } from '@/models/products';
-import { Spinner } from '@heroui/react';
 
 interface Props {
 	section: Section
