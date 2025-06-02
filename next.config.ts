@@ -27,6 +27,14 @@ const nextConfig: NextConfig = {
 			},
 		],
 	},
+	swcMinify: true,
+	experimental: {
+		optimizePackageImports: ['@heroui/react'],
+
+	},
+	sassLoaderOptions: {
+		outputStyle: 'compressed',
+	}
 };
 
 export default withNextIntl(nextConfig);

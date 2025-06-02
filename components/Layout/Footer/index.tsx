@@ -75,7 +75,7 @@ const Footer: FC<Props> = ({ alias, settings }) => {
 		</Link>
 	}
 
-	return <footer className='bg-gray-800 dark:bg-gray-900'>
+	return <footer className='bg-gray-800 dark:bg-gray-900 relative z-30'>
 		<div className='container mx-auto py-12 px-4 flex flex-col md:flex-row text-white'>
 			<div className='md:w-1/4'>
 				<Logo isFooter={ true } />

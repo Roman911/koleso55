@@ -73,7 +73,7 @@ const CartItem: FC<CartItemProps> = (
 			<Alert radius='sm' description={ t('minimum quantity of goods') } title={ t('warning') } className='shadow-md py-1.5 px-2.5' />
 		</div> }
 		<Link href={`/${pageUrl}`}>
-			<Image src={ default_photo } height={ 122 } width={ 122 } alt={ full_name } />
+			<Image src={ default_photo || (locale === Language.UK ? '/images/no-photo.jpg' : '/images/no-photo-ru.jpg') } height={ 122 } width={ 122 } alt={ full_name } />
 		</Link>
 		<div className='flex flex-col lg:flex-row justify-between items-center w-full ml-4 pr-4 mt-4 lg:mt-0 lg:pr-0'>
 			<div className='flex-1'>

@@ -29,11 +29,6 @@ const CatalogContent: FC<Props> = ({ section, slug, locale, data, result, isCata
 				{ isCatalog && <FilterActive section={ section } locale={ locale } className='hidden lg:flex' slug={ slug } /> }
 				<Tabs selected={ selected } setSelected={ setSelected } />
 			</div>
-			{ (isLoading || (!data && isFetching)) && (
-				<div className='my-10 h-96 flex items-center justify-center'>
-					<Spinner size='lg' />
-				</div>
-			)}
 			{ !result && !isLoading && !isFetching && !data && <NoResult noResultText='no result' /> }
 			{ (result && data) && <ProductList
 				classnames={ selected === 'table' ? `grid-cols-2 lg:grid-cols-${ isCatalog ? 3 : 4 }` : 'grid-cols-1' }
