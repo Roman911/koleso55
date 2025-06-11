@@ -1,3 +1,4 @@
+import { ReactNode } from 'react';
 import localFont from 'next/font/local'
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages } from 'next-intl/server';
@@ -5,6 +6,7 @@ import { twMerge } from 'tailwind-merge';
 import StoreProvider from '@/app/StoreProvider';
 import Header from '@/components/Layout/Header';
 import Footer from '@/components/Layout/Footer';
+import { getAliasAll, getSettings } from '@/app/api/api';
 import '../colors.css';
 import '../globals.css';
 import { Language } from '@/models/language';
@@ -19,33 +21,15 @@ const gilroy = localFont({
 	}, ],
 })
 
-async function getSettings() {
-	const res = await fetch(`${ process.env.SERVER_URL }/baseData/settings`, {
-		method: 'GET', headers: {
-			'Access-Control-Allow-Credentials': 'true',
-		}
-	});
-	return await res.json();
-}
-
-async function getAlias() {
-	const res = await fetch(`${ process.env.SERVER_URL }/baseData/StatiAlias`, {
-		method: 'GET', headers: {
-			'Access-Control-Allow-Credentials': 'true',
-		}
-	});
-	return await res.json();
-}
-
 export default async function RootLayout({
 																					 children, params,
 																				 }: Readonly<{
-	children: React.ReactNode; params: Promise<{ locale: Language }>;
+	children: ReactNode; params: Promise<{ locale: Language }>;
 }>) {
 	const { locale } = await params;
 	const messages = await getMessages();
 	const response = await getSettings();
-	const alias = await getAlias();
+	const alias = await getAliasAll();
 
 	return (<html lang={ locale } suppressHydrationWarning>
 		<head>
@@ -60,7 +44,6 @@ export default async function RootLayout({
 				</main>
 				<Footer settings={ response } alias={ alias }/>
 			</NextIntlClientProvider>
-			{/*<ToastProvider placement='top-right'/>*/ }
 		</StoreProvider>
 		</body>
 		</html>);

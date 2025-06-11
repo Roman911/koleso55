@@ -8,7 +8,7 @@ import {
 import { ProductProps } from '@/models/product';
 import { BaseDataProps } from '@/models/baseData';
 import { BrandsObject, BrandsObjectItems } from '@/models/brends';
-import type { Pages } from '@/models/alias';
+import { AliasAll, Pages } from '@/models/alias';
 
 export const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -83,6 +83,17 @@ export async function getFilterData(id: string): Promise<BaseDataProps> {
 
 export async function getBrands(id: string): Promise<BrandsObject | BrandsObjectItems> {
 	const res = await fetch(`${ API_URL }${ baseEndpoints.brands(id) }`, {
+		method: API_CONSTANTS.METHODS.GET,
+		headers: DEFAULT_HEADERS
+	});
+
+	if (!res.ok) throw new Error('Failed to fetch products');
+
+	return await res.json();
+}
+
+export async function getAliasAll(): Promise<AliasAll> {
+	const res = await fetch(`${ API_URL }${ baseEndpoints.statiAlias.all }`, {
 		method: API_CONSTANTS.METHODS.GET,
 		headers: DEFAULT_HEADERS
 	});

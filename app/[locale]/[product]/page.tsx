@@ -1,9 +1,9 @@
+import type { Metadata } from 'next';
 import { Section } from '@/models/filter';
 import Breadcrumbs from '@/components/UI/Breadcrumbs';
 import ProductComponent from '@/components/Product';
 import { Language } from '@/models/language';
 import LayoutWrapper from '@/components/Layout/LayoutWrapper';
-import type { Metadata } from 'next';
 import SimilarProducts from '@/components/SimilarProducts';
 import { getProduct, getSettings } from '@/app/api/api';
 

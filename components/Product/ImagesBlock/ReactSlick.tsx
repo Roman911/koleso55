@@ -161,11 +161,11 @@ export const ReactSlick: FC<Props> = ({ images, photo }) => {
 						<>
 							<ModalBody>
 								<div className='max-w-xl mx-auto'>
-									<Slider { ...settingsModal } ref={ modalSliderRef }>
+									{ items.length > 1 ? <Slider { ...settingsModal } ref={ modalSliderRef }>
 										{ items.map((item, i) => (
 											<Image key={ i } src={ item.original || '' } alt='' width={ 560 } height={ 560 } loading='lazy'/>
 										)) }
-									</Slider>
+									</Slider> : <Image src={ items[0].original || '' } alt='' width={ 560 } height={ 560 } loading='lazy'/> }
 								</div>
 							</ModalBody>
 						</>
