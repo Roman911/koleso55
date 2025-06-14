@@ -135,7 +135,7 @@ export const ReactSlick: FC<Props> = ({ images, photo }) => {
 	};
 
 	return (
-		<div className='slider-container max-w-dvw md:max-w-72 -mx-5 md:mx-auto dark:mx-0'>
+		<div className='slider-container md:max-w-72 -mx-5 md:mx-auto dark:mx-0'>
 			{ items.length > 1 ? (
 				<Slider { ...settings }>
 					{ items.map((item, i) => (

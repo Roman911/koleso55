@@ -35,7 +35,7 @@ const ImagesBlock: FC<Props> = ({ locale, labels, images, photo, full_name, vehi
 	const seasonTransform = season && SeasonTransform(season)?.icon;
 
 	return (
-		<div className={ twMerge('gallery relative mb-2 md:mb-7 pt-10 pb-2 md:pb-5 dark:bg-white rounded-lg md:max-w-72') }>
+		<div className={ twMerge('gallery relative mb-2 md:mb-7 pt-10 pb-2 md:pb-5 dark:bg-white rounded-lg max-w-full md:max-w-72') }>
 			<div className='-mt-8 px-4 mb-2 w-full flex justify-between items-start'>
 				<div>
 					{ labels?.length !== 0 && labels?.map(item => {
