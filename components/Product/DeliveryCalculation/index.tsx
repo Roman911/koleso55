@@ -54,7 +54,7 @@ const DeliveryCalculation: FC<Props> = ({ offer_id, quantity, price, setQuantity
 				<Image width={ 48 } height={ 32 } className='mr-2.5' src='/icons/truck.svg' alt=""/>
 				{ t('delivery calculation') }
 			</Button>
-			<Modal isOpen={ isOpen } onOpenChange={ onOpenChange }>
+			<Modal isOpen={ isOpen } onOpenChange={ onOpenChange } placement='top-center'>
 				<ModalContent>
 					{ (onClose) => (
 						<>

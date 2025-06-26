@@ -155,7 +155,7 @@ export const ReactSlick: FC<Props> = ({ images, photo }) => {
 				<Image src={ items[0].thumbnail || '' } alt='' width={ 560 } height={ 560 } onClick={ onOpen }/>
 			) }
 
-			<Modal isOpen={ isOpen } size='3xl' onClose={ onClose }>
+			<Modal isOpen={ isOpen } size='3xl' onClose={ onClose } placement='top-center'>
 				<ModalContent>
 					{ () => (
 						<>
